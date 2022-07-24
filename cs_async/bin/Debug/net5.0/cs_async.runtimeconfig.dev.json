@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/home/blitzkrieg/.dotnet/store/|arch|/|tfm|",
-      "/home/blitzkrieg/.nuget/packages"
-    ]
-  }
-}
