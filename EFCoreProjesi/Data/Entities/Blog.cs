@@ -12,6 +12,7 @@ namespace EFCoreProjesi.Data.Entities {
 
         public string Url { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        //! LazyLoading: virtual
+        public  List<Comment> Comments { get; set; }
     }
 }

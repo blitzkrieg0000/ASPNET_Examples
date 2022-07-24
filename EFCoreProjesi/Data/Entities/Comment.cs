@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 namespace EFCoreProjesi.Data.Entities {
     public class Comment {
         public int Id { get; set; }
+
         public string Content { get; set; }
+
         public int BlogId { get; set; }
+
+        //! LazyLoading: virtual
         public Blog Blog { get; set; }
     }
 }

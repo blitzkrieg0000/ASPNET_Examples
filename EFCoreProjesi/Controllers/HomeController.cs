@@ -115,21 +115,43 @@ namespace EFCoreProjesi.Controllers {
 
 
             //! TRACKING vs NoTracking
-            //* Tracking
+            // //* Tracking
             // var updateBlog = blogContext.Blogs.SingleOrDefault(x => x.Id == 1);
             // updateBlog.Title="Güncellendi";
             // var updatadBlogState = blogContext.Entry(updateBlog).State;
             // context.SaveChanges();
 
-            //* NoTracking
+            // //* NoTracking
             // var updateBlog = blogContext.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2);
             // updateBlog.Title="Güncellendi";
             // var updatadBlogState = blogContext.Entry(updateBlog).State;
             // context.SaveChanges();
 
             //! LOAD DATA (Lazy, Eager, Explicit)
-            
+            // //* LazyLoading
+            //var blogs = blogContext.Blogs.ToList();
 
+            // //*EagerLoading:
+            // var blogs = blogContext.Blogs
+            // .Include(x => x.Comments
+            //     .Where(x => x.Content.Contains("Yorum1"))
+            // ).ToList();
+
+
+            // foreach (var blog in blogs) {
+            //     Console.WriteLine($"{blog.Title} bloğu yorumları:");
+            //     foreach (var comment in blog.Comments) {
+            //         Console.WriteLine($"\t{comment.Content}");
+            //     }
+            // }
+
+            //* ExplicitLoading
+            var blog = blogContext.Blogs.SingleOrDefault(x => x.Id == 1);
+            blogContext.Entry(blog).Collection(x => x.Comments).Load();
+
+            foreach (var item in blog.Comments) {
+                Console.WriteLine(item.Content);
+            }
 
 
             return View();
