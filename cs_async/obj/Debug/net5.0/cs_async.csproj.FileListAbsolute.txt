@@ -1,0 +1,16 @@
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async.deps.json
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async.runtimeconfig.json
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async.runtimeconfig.dev.json
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async.dll
+/home/blitzkrieg/Desktop/net proje/cs_async/bin/Debug/net5.0/cs_async.pdb
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.csproj.AssemblyReference.cache
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.GeneratedMSBuildEditorConfig.editorconfig
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.AssemblyInfoInputs.cache
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.AssemblyInfo.cs
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.csproj.CoreCompileInputs.cache
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.dll
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/ref/cs_async.dll
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.pdb
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/cs_async.genruntimeconfig.cache
+/home/blitzkrieg/Desktop/net proje/cs_async/obj/Debug/net5.0/refint/cs_async.dll

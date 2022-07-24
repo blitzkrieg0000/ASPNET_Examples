@@ -1,0 +1,17 @@
+{
+  "name": "webprojesi",
+  "version": "1.0.0",
+  "description": "Web Projesi Alıştırmaları",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BlitzKrieg",
+  "license": "ISC",
+
+  "devDependencies": {
+    "bootstrap":"5.1.3",
+    "jquery-validation": "1.19.5",
+    "jquery-validation-unobtrusive": "3.2.12"
+  }
+}

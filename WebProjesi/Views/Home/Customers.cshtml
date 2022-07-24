@@ -1,0 +1,31 @@
+@model List<Customer>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Costumer List</h4>
+<a asp-controller="Home" asp-action="Create">Create</a>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>First</th>
+            <th>LastName</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Age</td>
+                <td>
+                    <a asp-controller="Home" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                    <a asp-controller="Home" asp-action="Remove" asp-route-id="@item.Id">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
