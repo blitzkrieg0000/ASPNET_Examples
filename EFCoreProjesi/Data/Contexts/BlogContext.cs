@@ -11,7 +11,7 @@ namespace EFCoreProjesi.Data.Contexts {
 
         //Entities
         public DbSet<Blog> Blogs { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
         //Connection
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TennisEfCore; password=DGH2022.");
@@ -20,6 +20,7 @@ namespace EFCoreProjesi.Data.Contexts {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new BlogConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
