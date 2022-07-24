@@ -71,6 +71,21 @@ namespace EFCoreProjesi.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("People");
+                });
+
             modelBuilder.Entity("EFCoreProjesi.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")

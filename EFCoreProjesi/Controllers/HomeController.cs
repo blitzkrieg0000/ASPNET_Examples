@@ -11,7 +11,9 @@ namespace EFCoreProjesi.Controllers {
 
         public IActionResult Index() {
 
+            //Contexts
             TennisContext context = new();
+            BlogContext blogContext = new();
 
             //! ADD
             // var entitiyEntry = context.Products.Add(new Data.Entities.Product{
@@ -58,13 +60,59 @@ namespace EFCoreProjesi.Controllers {
             //     FirstName="full",
             //     LastName="full"
             // });
-            
+
 
             // var parts = context.PartTimeEmployees.ToList();
             // var parts2 = context.Employees.Where(x=>x is PartTimeEmployee).ToList();
 
 
-            context.SaveChanges();
+            // blogContext.Add(new Blog{
+            //     Title = "Blog-1",
+            //     Url = "blitzkrieg-1"
+            // });
+
+            // blogContext.Add(new Blog{
+            //     Title = "Blog-2",
+            //     Url = "blitzkrieg-2"
+            // });
+
+            // blogContext.Add(new Blog{
+            //     Title = "Blog-3",
+            //     Url = "blitzkrieg-3"
+            // });
+
+            // blogContext.Add(new Blog{
+            //     Title = "Blog-4",
+            //     Url = "blitzkrieg-4"
+            // });
+
+            // context.SaveChanges();
+            // blogContext.SaveChanges();
+
+
+
+            //! Queryable vs Enumerable
+            var enum_results = blogContext.Blogs.AsEnumerable();
+            var query_results = blogContext.Blogs.AsQueryable();
+
+            //* Queryable Sorgu .AsQueryable();
+            // Database e gerekli şartlar ile gider gerekli veriyi alır.
+            var results = query_results
+            .Where(x => x.Title.Contains("Blog-1") || x.Title.Contains("Blog-2"))
+            .AsEnumerable();
+            //.ToList();
+
+            //* Enumerable sorgu .AsEnumerable()
+            // Database den tüm verileri çekip server tarafında işlemeye yarar.
+            // Çok fazla veri varsa yararlı değildir.
+            var local_result = results.Where(x => x.Title=="Blog-1");
+
+
+            foreach (var item in local_result) {
+                System.Console.WriteLine(item.Title);
+            }
+
+
             return View();
         }
 

@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreProjesi.Data.Contexts {
     public class TennisContext : DbContext {
-
+        
+        //Entities
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -19,9 +20,13 @@ namespace EFCoreProjesi.Data.Contexts {
         public DbSet<PartTimeEmployee> PartTimeEmployees { get; set; }
         public DbSet<FullTimeEmployee> FullTimeEmployees { get; set; }
 
+        public DbSet<Person> People {get; set;}
+
+
         //Connection
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TennisEfCore; password=DGH2022.");
+            //optionsBuilder.LogTo(Console.WriteLine);
         }
 
         //FluentApi

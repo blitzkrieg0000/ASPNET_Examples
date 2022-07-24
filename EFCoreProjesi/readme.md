@@ -22,3 +22,13 @@
 ```
     $ dotnet ef database update
 ```
+***
+**List Available Migration**
+```
+    $ dotnet ef database list
+```
+***
+**Remove Pending Migration**
+```
+    $ dotnet ef database remove
+```

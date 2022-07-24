@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreProjesi.Migrations
 {
     [DbContext(typeof(TennisContext))]
-    [Migration("20220724130500_oneToOne")]
-    partial class oneToOne
+    [Migration("20220724153546_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,39 @@ namespace EFCoreProjesi.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("People");
+                });
+
             modelBuilder.Entity("EFCoreProjesi.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -85,6 +118,21 @@ namespace EFCoreProjesi.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("EFCoreProjesi.Data.Entities.ProductDetail", b =>
@@ -128,6 +176,45 @@ namespace EFCoreProjesi.Migrations
                     b.ToTable("SaleHistories");
                 });
 
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.FullTimeEmployee", b =>
+                {
+                    b.HasBaseType("EFCoreProjesi.Data.Entities.Employee");
+
+                    b.Property<decimal>("HourlyWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.ToTable("FullTimeEmployee");
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.PartTimeEmployee", b =>
+                {
+                    b.HasBaseType("EFCoreProjesi.Data.Entities.Employee");
+
+                    b.Property<decimal>("DailyWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.ToTable("PartTimeEmployee");
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("EFCoreProjesi.Data.Entities.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCoreProjesi.Data.Entities.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EFCoreProjesi.Data.Entities.ProductDetail", b =>
                 {
                     b.HasOne("EFCoreProjesi.Data.Entities.Product", "Product")
@@ -148,8 +235,33 @@ namespace EFCoreProjesi.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.FullTimeEmployee", b =>
+                {
+                    b.HasOne("EFCoreProjesi.Data.Entities.Employee", null)
+                        .WithOne()
+                        .HasForeignKey("EFCoreProjesi.Data.Entities.FullTimeEmployee", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.PartTimeEmployee", b =>
+                {
+                    b.HasOne("EFCoreProjesi.Data.Entities.Employee", null)
+                        .WithOne()
+                        .HasForeignKey("EFCoreProjesi.Data.Entities.PartTimeEmployee", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreProjesi.Data.Entities.Category", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
             modelBuilder.Entity("EFCoreProjesi.Data.Entities.Product", b =>
                 {
+                    b.Navigation("ProductCategories");
+
                     b.Navigation("ProductDetail");
 
                     b.Navigation("SaleHistories");
