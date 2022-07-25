@@ -153,7 +153,6 @@ namespace EFCoreProjesi.Controllers {
                 Console.WriteLine(item.Content);
             }
 
-
             return View();
         }
 
