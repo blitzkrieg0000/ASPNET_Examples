@@ -141,21 +141,21 @@ namespace EFCoreProjesi.Controllers {
         public IActionResult Tracking() {
             BlogContext context = new();
 
-            //! TRACKING vs NoTracking
-            //* Tracking
+            //! TrackingOn
             // var updateBlog = context.Blogs.SingleOrDefault(x => x.Id == 1);
             // updateBlog.Title="Güncellendi";
-            // var updatadBlogState = context.Entry(updateBlog).State;
+            // var updatadBlogState = context.Entry(updateBlog).State; //İlgili context in state i
             // context.SaveChanges();
 
-            //* NoTracking
-            var updateBlog = context.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2);
+            //! NoTracking
+            var updateBlog = context.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2); //.AsNoTracking(), Detached yapılmasını sağlar.
             updateBlog.Title = "Güncellendi";
             var updatadBlogState = context.Entry(updateBlog).State;
             context.SaveChanges();
 
             return View("Index");
         }
+
 
         public IActionResult LazyLoading() {
             BlogContext context = new();
