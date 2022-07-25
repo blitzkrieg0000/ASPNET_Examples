@@ -11,7 +11,6 @@ namespace EFCoreProjesi.Controllers {
     public class HomeController : Controller {
 
         public IActionResult Add() {
-            //Contexts
             TennisContext context = new();
 
             //! ADD
@@ -23,11 +22,10 @@ namespace EFCoreProjesi.Controllers {
             Product product = new() { Price = 4000 };
             context.Products.Add(product);
 
-            return View();
+            return View("Index");
         }
 
         public IActionResult Update() {
-            //Contexts
             TennisContext context = new();
 
             //! UPDATE
@@ -41,23 +39,20 @@ namespace EFCoreProjesi.Controllers {
                 Name = "Bilgisayar"
             });
 
-            return View();
+            return View("Index");
         }
 
         public IActionResult Remove() {
-            //Contexts
             TennisContext context = new();
-            BlogContext blogContext = new();
 
             //! DELETE
             var deletedProduct = context.Products.FirstOrDefault(x => x.Id == 1);
             context.Products.Remove(deletedProduct);
 
-            return View();
+            return View("Index");
         }
 
         public IActionResult TPH() {
-            //Contexts
             TennisContext context = new();
 
             //! Table Per Hierarchy
@@ -87,39 +82,39 @@ namespace EFCoreProjesi.Controllers {
             return View();
         }
 
-        public IActionResult Blog() {
-            BlogContext blogContext = new();
+        public IActionResult AddBlog() {
+            BlogContext context = new();
 
-            blogContext.Add(new Blog {
+            context.Add(new Blog {
                 Title = "Blog-1",
                 Url = "blitzkrieg-1"
             });
 
-            blogContext.Add(new Blog {
+            context.Add(new Blog {
                 Title = "Blog-2",
                 Url = "blitzkrieg-2"
             });
 
-            blogContext.Add(new Blog {
+            context.Add(new Blog {
                 Title = "Blog-3",
                 Url = "blitzkrieg-3"
             });
 
-            blogContext.Add(new Blog {
+            context.Add(new Blog {
                 Title = "Blog-4",
                 Url = "blitzkrieg-4"
             });
 
-            blogContext.SaveChanges();
-            return View();
+            context.SaveChanges();
+            return View("Index");
         }
 
         public IActionResult QueryableEnumerable() {
-            BlogContext blogContext = new();
+            BlogContext context = new();
 
             //! Queryable vs Enumerable
-            var enum_results = blogContext.Blogs.AsEnumerable();
-            var query_results = blogContext.Blogs.AsQueryable();
+            var enum_results = context.Blogs.AsEnumerable();
+            var query_results = context.Blogs.AsQueryable();
 
             //* Queryable Sorgu .AsQueryable();
             // Database e gerekli şartlar ile gider gerekli veriyi alır.
@@ -137,36 +132,35 @@ namespace EFCoreProjesi.Controllers {
                 System.Console.WriteLine(item.Title);
             }
 
-            return View();
+            return View("Index");
         }
 
         public IActionResult Tracking() {
-            //Contexts
-            BlogContext blogContext = new();
+            BlogContext context = new();
 
             //! TRACKING vs NoTracking
             //* Tracking
-            // var updateBlog = blogContext.Blogs.SingleOrDefault(x => x.Id == 1);
+            // var updateBlog = context.Blogs.SingleOrDefault(x => x.Id == 1);
             // updateBlog.Title="Güncellendi";
-            // var updatadBlogState = blogContext.Entry(updateBlog).State;
-            // blogContext.SaveChanges();
+            // var updatadBlogState = context.Entry(updateBlog).State;
+            // context.SaveChanges();
 
             //* NoTracking
-            var updateBlog = blogContext.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2);
+            var updateBlog = context.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2);
             updateBlog.Title = "Güncellendi";
-            var updatadBlogState = blogContext.Entry(updateBlog).State;
-            blogContext.SaveChanges();
+            var updatadBlogState = context.Entry(updateBlog).State;
+            context.SaveChanges();
 
-            return View();
+            return View("Index");
         }
 
         public IActionResult LazyLoading() {
-            BlogContext blogContext = new();
+            BlogContext context = new();
 
             //! LazyLoading
             // Ekstra Paket Gereklidir ve database e bağlanırken optionsBuilder dan ".UseLazyLoadingProxies()" çağrılmalıdır.
             // Aynı zamanda Relationshipler "virtual" key i ile işaretlenmelidir.
-            var blogs = blogContext.Blogs.ToList();
+            var blogs = context.Blogs.ToList();
 
             foreach (var blog in blogs) {
                 Console.WriteLine($"{blog.Title} bloğu yorumları:");
@@ -174,15 +168,14 @@ namespace EFCoreProjesi.Controllers {
                     Console.WriteLine($"\t{comment.Content}");
                 }
             }
-            return View();
+            return View("Index");
         }
 
-
         public IActionResult EagerLoading() {
-            BlogContext blogContext = new();
+            BlogContext context = new();
 
             //! EagerLoading:
-            var blogs = blogContext.Blogs
+            var blogs = context.Blogs
             .Include(x => x.Comments
                 .Where(x => x.Content.Contains("Yorum1"))
             ).ToList();
@@ -194,29 +187,27 @@ namespace EFCoreProjesi.Controllers {
                     Console.WriteLine($"\t{comment.Content}");
                 }
             }
-            return View();
+            return View("Index");
         }
 
 
         public IActionResult ExplicitLoading() {
-            BlogContext blogContext = new();
+            BlogContext context = new();
 
             //! ExplicitLoading
-            var blog = blogContext.Blogs.SingleOrDefault(x => x.Id == 1);
-            blogContext.Entry(blog).Collection(x => x.Comments).Load();
+            // .Load() Fonksiyonu çağrıldığında gidip ilgili sorguya göre veriyi çeker.
+            var blog = context.Blogs.SingleOrDefault(x => x.Id == 1);
+            context.Entry(blog).Collection(x => x.Comments).Load();
 
             foreach (var item in blog.Comments) {
                 Console.WriteLine(item.Content);
             }
-            return View();
+            return View("Index");
         }
 
 
         public IActionResult Index() {
-            TennisContext context = new();
-            BlogContext blogContext = new();
-
-            return View();
+            return View("Index");
         }
 
     }
