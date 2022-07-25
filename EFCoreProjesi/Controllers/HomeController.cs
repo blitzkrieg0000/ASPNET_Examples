@@ -109,31 +109,34 @@ namespace EFCoreProjesi.Controllers {
             return View("Index");
         }
 
+
         public IActionResult QueryableEnumerable() {
             BlogContext context = new();
 
-            //! Queryable vs Enumerable
-            var enum_results = context.Blogs.AsEnumerable();
-            var query_results = context.Blogs.AsQueryable();
+            var list_results = context.Blogs.ToList();             //Tüm tabloyu çeker
+            var enumerable_results = context.Blogs.AsEnumerable();
+            var queryable_results = context.Blogs.AsQueryable();
 
-            //* Queryable Sorgu .AsQueryable();
+
+            //! Queryable Sorgu .AsQueryable();
             // Database e gerekli şartlar ile gider gerekli veriyi alır.
-            var results = query_results
-            .Where(x => x.Title.Contains("Blog-1") || x.Title.Contains("Blog-2"))
-            .AsEnumerable();
-            //.ToList();
+            // Where sorgusunda normalde IQuerable bir obje döner.
+            var results = queryable_results
+                .Where(x => x.Title.Contains("Blog-1") || x.Title.Contains("Blog-2")) //Giden sorguda Where parametresi yok, As Enumerable olarak işaretlenmemişse Querable olarak çalışır.
+                .AsEnumerable(); //Enumerable yapmak; Database ile olan işini bitirmek için kullanılır ya da .ToList() kullanılabilir. Ayrıca .ToList() Generic List e de çevirmiş olur.
 
-            //* Enumerable sorgu .AsEnumerable()
+
+            //! Enumerable sorgu .AsEnumerable()
             // Database den tüm verileri çekip server tarafında işlemeye yarar.
             // Çok fazla veri varsa yararlı değildir.
             var local_result = results.Where(x => x.Title == "Blog-1");
-
             foreach (var item in local_result) {
                 System.Console.WriteLine(item.Title);
             }
 
             return View("Index");
         }
+
 
         public IActionResult Tracking() {
             BlogContext context = new();
