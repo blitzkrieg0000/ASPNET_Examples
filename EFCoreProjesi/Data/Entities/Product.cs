@@ -13,7 +13,6 @@ namespace EFCoreProjesi.Data.Entities {
         public List<ProductCategory> ProductCategories { get; set; } //Navigation Property
         public ProductDetail ProductDetail { get; set; } //Navigation Property
         
-        
         public DateTime CreatedTime { get; set; }
 
     }

@@ -13,8 +13,7 @@ namespace EFCoreProjesi.Data.Configurations {
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(250);
             builder.Property(x => x.Url).HasMaxLength(300);
+
         }
-
     }
-
 }

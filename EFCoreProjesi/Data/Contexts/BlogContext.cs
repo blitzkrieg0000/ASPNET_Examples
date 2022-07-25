@@ -17,7 +17,7 @@ namespace EFCoreProjesi.Data.Contexts {
 
             //! LazyLoading: .UseLazyLoadingProxies().
             optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TennisEfCore; password=DGH2022.");
-            
+
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
 
@@ -26,6 +26,5 @@ namespace EFCoreProjesi.Data.Contexts {
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
