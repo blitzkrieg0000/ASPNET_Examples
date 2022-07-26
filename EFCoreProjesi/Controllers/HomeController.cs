@@ -4,11 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using EFCoreProjesi.Data.Contexts;
 using EFCoreProjesi.Data.Entities;
+using EFCoreProjesi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreProjesi.Controllers {
     public class HomeController : Controller {
+
+        private readonly ITransientService _transientService;
+        private readonly IScopedService _scopedService;
+        private readonly ISingletonService _singletonService;
+
+        public HomeController(ITransientService transientService, IScopedService scopedService, ISingletonService singletonService) {
+            _transientService = transientService;
+            _scopedService = scopedService;
+            _singletonService = singletonService;
+        }
+
+        public IActionResult DependencyInjection() {
+            ViewBag.Scoped = _scopedService.GuidId;
+            ViewBag.Transient = _transientService.GuidId;
+            ViewBag.Singleton = _singletonService.GuidId;
+
+            return View("Index");
+        }
 
         public IActionResult Add() {
             TennisContext context = new();
@@ -162,8 +181,8 @@ namespace EFCoreProjesi.Controllers {
 
             //! LazyLoading
             // Ekstra Paket Gereklidir ve database e bağlanırken optionsBuilder dan ".UseLazyLoadingProxies()" çağrılmalıdır.
-            // Aynı zamanda Relationshipler "virtual" key i ile işaretlenmelidir.
-            var blogs = context.Blogs.ToList();
+            // Aynı zamanda Relationshipler "virtual" keyi ile işaretlenmelidir.
+            var blogs = context.Blogs.ToList(); //Her sorguda database e gider.
 
             foreach (var blog in blogs) {
                 Console.WriteLine($"{blog.Title} bloğu yorumları:");
@@ -174,15 +193,12 @@ namespace EFCoreProjesi.Controllers {
             return View("Index");
         }
 
+
         public IActionResult EagerLoading() {
             BlogContext context = new();
 
             //! EagerLoading:
-            var blogs = context.Blogs
-            .Include(x => x.Comments
-                .Where(x => x.Content.Contains("Yorum1"))
-            ).ToList();
-
+            var blogs = context.Blogs.Include(x => x.Comments.Where(x => x.Content.Contains("Yorum1"))).ToList(); //Şartları belirtiriz ve tek seferde kayıtlar gelir.
 
             foreach (var blog in blogs) {
                 Console.WriteLine($"{blog.Title} bloğu yorumları:");
@@ -200,13 +216,16 @@ namespace EFCoreProjesi.Controllers {
             //! ExplicitLoading
             // .Load() Fonksiyonu çağrıldığında gidip ilgili sorguya göre veriyi çeker.
             var blog = context.Blogs.SingleOrDefault(x => x.Id == 1);
-            context.Entry(blog).Collection(x => x.Comments).Load();
+
+            context.Entry(blog).Collection(x => x.Comments).Load();  //Gerekli kayıtları Load() çalıştırıldığında çeker.
 
             foreach (var item in blog.Comments) {
                 Console.WriteLine(item.Content);
             }
             return View("Index");
         }
+
+
 
 
         public IActionResult Index() {

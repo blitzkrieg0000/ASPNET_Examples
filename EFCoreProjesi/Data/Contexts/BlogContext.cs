@@ -12,12 +12,12 @@ namespace EFCoreProjesi.Data.Contexts {
         //Entities
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        
         //Connection
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 
             //! LazyLoading: .UseLazyLoadingProxies().
             optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TennisEfCore; password=DGH2022.");
-
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
 

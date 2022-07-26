@@ -2,6 +2,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    Index Works
-</p>
+@inject EFCoreProjesi.Services.ISingletonService _singletonService;
+@inject EFCoreProjesi.Services.IScopedService _scopedService;
+@inject EFCoreProjesi.Services.ITransientService _transientService;
+
+<div>
+    <p>
+    <h4>"Singleton" tek bir Objedir ve "Singleton" adı üzerinde aynı kalır.</h4>
+    Singleton  = @ViewBag.Singleton
+    <br />
+    Singleton2 = @_singletonService.GuidId
+    </p>
+
+    <p>
+    <h4>"Scoped" her bir requestin her yerinde aynı özelliği gösterir.</h4>
+    Scoped  = @ViewBag.Scoped
+    <br />
+    Scoped2 = @_scopedService.GuidId
+    </p>
+
+    <p>
+    <h4>"Transient" requestteki her bir transient için ayrı ayrı değer oluşturur.</h4>
+    Transient  = @ViewBag.Transient
+    <br />
+    Transient2 = @_transientService.GuidId
+    </p>
+
+</div>
