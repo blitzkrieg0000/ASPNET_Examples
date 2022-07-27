@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BankApp.Data.Contexts;
 using BankApp.Data.Entities;
+using BankApp.Data.Interfaces;
+using BankApp.Mappings;
 using BankApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,32 +9,26 @@ namespace BankApp.Controllers {
     public class AccountController : Controller {
 
         private readonly BankContext _context;
-
-        public AccountController(BankContext context) {
+        private readonly IApplicationUserRepository _applicationUserRepository;
+        private readonly IUserMapper _userMapper;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IAccountMapper _accountMapper;
+        public AccountController(BankContext context, IApplicationUserRepository applicationUserRepository, IUserMapper userMapper, IAccountRepository accountRepository, IAccountMapper accountMapper) {
             _context = context;
+            _applicationUserRepository = applicationUserRepository;
+            _userMapper = userMapper;
+            _accountRepository = accountRepository;
+            _accountMapper = accountMapper;
         }
 
         public IActionResult Create(int id) {
-
-            var userInfo = _context.ApplicationUsers.Select(x => new UserListModel {
-                Id = x.Id,
-                Name = x.Name,
-                Surname = x.Surname
-            }).SingleOrDefault(x => x.Id == id);
-
+            var userInfo = _userMapper.MapToUserList(_applicationUserRepository.GetUserById(id));
             return View(userInfo);
         }
 
         [HttpPost]
         public IActionResult Create(AccountCreateModel model) {
-
-            _context.Accounts.Add(new Account {
-                AccountNumber = model.AccountNumber,
-                ApplicationUserId = model.ApplicationUserId,
-                Balance = model.Balance
-            });
-
-            _context.SaveChanges();
+            _accountRepository.Create(_accountMapper.Map(model));
             return RedirectToAction("Index", "Home");
         }
 

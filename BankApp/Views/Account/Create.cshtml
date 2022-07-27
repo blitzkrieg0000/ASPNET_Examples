@@ -20,6 +20,7 @@
 
     <div class="col-6">
         <h4>Ekleme İşlemi</h4>
+        
         <form method="post" asp-action="Create" asp-controller="Account">
             <input type="hidden" name="ApplicationUserId" value="@Model.Id">
             <div class="mb-3">
@@ -33,8 +34,8 @@
             <div class="mb-3">
                 <button class="btn btn-primary">Kaydet</button>
             </div>
-
         </form>
+
     </div>
 
 </div>

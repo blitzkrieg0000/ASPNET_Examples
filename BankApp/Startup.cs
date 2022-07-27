@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using BankApp.Data.Contexts;
+using BankApp.Data.Interfaces;
+using BankApp.Data.Repositories;
+using BankApp.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +29,11 @@ namespace BankApp {
                 opt.UseSqlServer("server=localhost; user=sa; database=BankDb; password=DGH2022.");
             });
 
+            //DI(Dependency Injections)
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IUserMapper, UserMapper>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountMapper, AccountMapper>();
             services.AddControllersWithViews();
         }
 

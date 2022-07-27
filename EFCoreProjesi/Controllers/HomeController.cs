@@ -128,7 +128,6 @@ namespace EFCoreProjesi.Controllers {
             return View("Index");
         }
 
-
         public IActionResult QueryableEnumerable() {
             BlogContext context = new();
 
@@ -136,14 +135,12 @@ namespace EFCoreProjesi.Controllers {
             var enumerable_results = context.Blogs.AsEnumerable();
             var queryable_results = context.Blogs.AsQueryable();
 
-
             //! Queryable Sorgu .AsQueryable();
             // Database e gerekli şartlar ile gider gerekli veriyi alır.
             // Where sorgusunda normalde IQuerable bir obje döner.
             var results = queryable_results
                 .Where(x => x.Title.Contains("Blog-1") || x.Title.Contains("Blog-2")) //Giden sorguda Where parametresi yok, As Enumerable olarak işaretlenmemişse Querable olarak çalışır.
                 .AsEnumerable(); //Enumerable yapmak; Database ile olan işini bitirmek için kullanılır ya da .ToList() kullanılabilir. Ayrıca .ToList() Generic List e de çevirmiş olur.
-
 
             //! Enumerable sorgu .AsEnumerable()
             // Database den tüm verileri çekip server tarafında işlemeye yarar.
@@ -155,7 +152,6 @@ namespace EFCoreProjesi.Controllers {
 
             return View("Index");
         }
-
 
         public IActionResult Tracking() {
             BlogContext context = new();
@@ -169,12 +165,11 @@ namespace EFCoreProjesi.Controllers {
             //! NoTracking
             var updateBlog = context.Blogs.AsNoTracking().SingleOrDefault(x => x.Id == 2); //.AsNoTracking(), Detached yapılmasını sağlar.
             updateBlog.Title = "Güncellendi";
-            var updatadBlogState = context.Entry(updateBlog).State;
+            var updatadBlogState = context.Entry(updateBlog).State; //Tracking ile ilişkisini kestiğimiz için "context.Entry" den ulaşırız.
             context.SaveChanges();
 
             return View("Index");
         }
-
 
         public IActionResult LazyLoading() {
             BlogContext context = new();
@@ -193,7 +188,6 @@ namespace EFCoreProjesi.Controllers {
             return View("Index");
         }
 
-
         public IActionResult EagerLoading() {
             BlogContext context = new();
 
@@ -209,14 +203,13 @@ namespace EFCoreProjesi.Controllers {
             return View("Index");
         }
 
-
         public IActionResult ExplicitLoading() {
             BlogContext context = new();
 
             //! ExplicitLoading
             // .Load() Fonksiyonu çağrıldığında gidip ilgili sorguya göre veriyi çeker.
             var blog = context.Blogs.SingleOrDefault(x => x.Id == 1);
-
+            
             context.Entry(blog).Collection(x => x.Comments).Load();  //Gerekli kayıtları Load() çalıştırıldığında çeker.
 
             foreach (var item in blog.Comments) {
@@ -224,8 +217,6 @@ namespace EFCoreProjesi.Controllers {
             }
             return View("Index");
         }
-
-
 
 
         public IActionResult Index() {
