@@ -57,7 +57,7 @@ namespace BankApp {
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
                 endpoints.MapDefaultControllerRoute();
             });
         }

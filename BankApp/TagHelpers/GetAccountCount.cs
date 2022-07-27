@@ -10,10 +10,9 @@ namespace BankApp.TagHelpers {
     [HtmlTargetElement("getAccountCount")]
     public class GetAccountCount : TagHelper {
 
-        private readonly BankContext _context;
-
         public int ApplicationUserId { get; set; }
-
+        
+        private readonly BankContext _context;
         public GetAccountCount(BankContext context) {
             _context = context;
         }
