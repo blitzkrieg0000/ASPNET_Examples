@@ -1,7 +1,6 @@
 using System.IO;
 using BankApp.Data.Contexts;
-using BankApp.Data.Interfaces;
-using BankApp.Data.Repositories;
+using BankApp.Data.UnitOfWork;
 using BankApp.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,10 +29,11 @@ namespace BankApp {
             });
 
             //DI(Dependency Injections)
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //Generic
-            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            //* services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //Generic //Artık UnitOfWork ile kullanıyoruz.
+            //* services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            //* services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserMapper, UserMapper>();
-            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAccountMapper, AccountMapper>();
             services.AddControllersWithViews();
         }

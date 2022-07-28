@@ -21,8 +21,6 @@ namespace BankApp.Data.Repositories {
             return _context.ApplicationUsers.SingleOrDefault(x => x.Id == id);
         }
 
-
-
         public void Create(ApplicationUser user){
             _context.Set<ApplicationUser>().Add(user);
             _context.SaveChanges();

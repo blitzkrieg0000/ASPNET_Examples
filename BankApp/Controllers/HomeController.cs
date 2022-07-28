@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BankApp.Data.Contexts;
-using BankApp.Data.Interfaces;
-using BankApp.Data.Repositories;
+using BankApp.Data.Entities;
+using BankApp.Data.UnitOfWork;
 using BankApp.Mappings;
-using BankApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankApp.Controllers {
@@ -15,17 +10,23 @@ namespace BankApp.Controllers {
         // DependencyInjection yardımı ile constructordan ModelContext imizi geçirebiliyoruz. 
         // Bu sayede "new" ile sürekli oluşturmamış oluyoruz.
         // Startup tarafında "ConfigureServices" kısmında "AddDbContext" ile bunu belirtmemiz gerekiyor.
-        private readonly BankContext _context; //! Contexti hiç kullanmamaya başladık. Artık silebilirizde.
-        private readonly IApplicationUserRepository _applicationUserRepository;
+
         private readonly IUserMapper _userMapper;
-        public HomeController(BankContext context, IApplicationUserRepository applicationUserRepository, IUserMapper userMapper) {
-            _context = context;
-            _applicationUserRepository = applicationUserRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public HomeController(IUserMapper userMapper, IUnitOfWork unitOfWork) {
             _userMapper = userMapper;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index() {
-            return View(_userMapper.MapToListOfUserList(_applicationUserRepository.GetAllUser()));
+
+            return View(
+                _userMapper.MapToListOfUserList(
+
+                    _unitOfWork.GetRepository<ApplicationUser>().GetAll()
+
+                )
+            );
         }
 
     }

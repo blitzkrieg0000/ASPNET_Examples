@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using BankApp.Data.Entities;
 using BankApp.Data.Interfaces;
+using BankApp.Data.UnitOfWork;
 using BankApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankApp.Controllers {
     public class AccountController : Controller {
+        //! Constructor 1
         // private readonly IApplicationUserRepository _applicationUserRepository;
         // private readonly IUserMapper _userMapper;
         // private readonly IAccountRepository _accountRepository;
@@ -18,16 +21,23 @@ namespace BankApp.Controllers {
         //     _accountMapper = accountMapper;
         // }
 
-        private readonly IRepository<Account> _accountRepository;
-        private readonly IRepository<ApplicationUser> _userRepository;
-        public AccountController(IRepository<Account> accountRepository, IRepository<ApplicationUser> userRepository) {
-            _accountRepository = accountRepository;
-            _userRepository = userRepository;
+        //! Constructor 2
+        // private readonly IRepository<Account> _accountRepository;
+        // private readonly IRepository<ApplicationUser> _userRepository;
+        // public AccountController(IRepository<Account> accountRepository, IRepository<ApplicationUser> userRepository) {
+        //     _accountRepository = accountRepository;
+        //     _userRepository = userRepository;
+        // }
+
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AccountController(IUnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Create(int id) {
             //var userInfo = _userMapper.MapToUserList(_applicationUserRepository.GetUserById(id));
-            var userInfo = _userRepository.GetById(id);
+            var userInfo = _unitOfWork.GetRepository<ApplicationUser>().GetById(id);
             return View(new UserListModel {
                 Id = userInfo.Id,
                 Name = userInfo.Name,
@@ -38,21 +48,21 @@ namespace BankApp.Controllers {
         [HttpPost]
         public IActionResult Create(AccountCreateModel model) {
             //_accountRepository.Create(_accountMapper.Map(model));
-            _accountRepository.Create(new Account {
+            _unitOfWork.GetRepository<Account>().Create(new Account {
                 AccountNumber = model.AccountNumber,
                 Balance = model.Balance,
                 ApplicationUserId = model.ApplicationUserId
             });
-
+            _unitOfWork.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public IActionResult GetByUserId(int userId) {
-            var query = _accountRepository.GetQueryable();
+            var query = _unitOfWork.GetRepository<Account>().GetQueryable();
             var accounts = query.Where(x => x.ApplicationUserId == userId).ToList();
 
-            var user = _userRepository.GetById(userId);
+            var user = _unitOfWork.GetRepository<ApplicationUser>().GetById(userId);
             ViewBag.FullName = user.Name + " " + user.Surname;
             var list = new List<AccountListModel>();
 
@@ -67,10 +77,11 @@ namespace BankApp.Controllers {
             return View(list);
         }
 
+
         [HttpGet]
         public IActionResult SendMoney(int accountId) {
 
-            var query = _accountRepository.GetQueryable();
+            var query = _unitOfWork.GetRepository<Account>().GetQueryable();
             var accounts = query.Where(x => x.Id != accountId).ToList();
 
             var list = new List<AccountListModel>();
@@ -86,7 +97,28 @@ namespace BankApp.Controllers {
                 });
             }
 
-            return View();
+            return View(new SelectList(list, "Id", "AccountNumber"));
         }
+
+
+        [HttpPost]
+        public IActionResult SendMoney(SendMoneyModel model) {
+
+            //var senderAccount = _accountRepository.GetById(model.SenderId);
+            var senderAccount = _unitOfWork.GetRepository<Account>().GetById(model.SenderId);
+
+            senderAccount.Balance -= model.Amount;
+            _unitOfWork.GetRepository<Account>().Update(senderAccount);
+
+            var account = _unitOfWork.GetRepository<Account>().GetById(model.AccountId);
+            account.Balance += model.Amount;
+            _unitOfWork.GetRepository<Account>().Update(account);
+
+            _unitOfWork.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

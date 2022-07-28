@@ -17,9 +17,9 @@ namespace BankApp.Data.Configurations {
             builder.Property(x => x.Surname).IsRequired(true);
 
             builder
-            .HasMany(x => x.Accounts)
-            .WithOne(x => x.ApplicationUser)
-            .HasForeignKey(x => x.ApplicationUserId);
+                .HasMany(x => x.Accounts)
+                .WithOne(x => x.ApplicationUser)
+                .HasForeignKey(x => x.ApplicationUserId);
 
         }
 
