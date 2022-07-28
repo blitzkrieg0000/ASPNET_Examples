@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BankApp.Controllers {
     public class HomeController : Controller {
-
         // DependencyInjection yardımı ile constructordan ModelContext imizi geçirebiliyoruz. 
         // Bu sayede "new" ile sürekli oluşturmamış oluyoruz.
         // Startup tarafında "ConfigureServices" kısmında "AddDbContext" ile bunu belirtmemiz gerekiyor.

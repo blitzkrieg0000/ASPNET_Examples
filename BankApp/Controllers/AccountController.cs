@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BankApp.Data.Entities;
-using BankApp.Data.Interfaces;
 using BankApp.Data.UnitOfWork;
 using BankApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +34,7 @@ namespace BankApp.Controllers {
             _unitOfWork = unitOfWork;
         }
 
+
         public IActionResult Create(int id) {
             //var userInfo = _userMapper.MapToUserList(_applicationUserRepository.GetUserById(id));
             var userInfo = _unitOfWork.GetRepository<ApplicationUser>().GetById(id);
@@ -44,6 +44,7 @@ namespace BankApp.Controllers {
                 Surname = userInfo.Surname
             });
         }
+
 
         [HttpPost]
         public IActionResult Create(AccountCreateModel model) {
@@ -56,6 +57,7 @@ namespace BankApp.Controllers {
             _unitOfWork.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
 
         [HttpGet]
         public IActionResult GetByUserId(int userId) {
@@ -118,7 +120,6 @@ namespace BankApp.Controllers {
 
             return RedirectToAction("Index", "Home");
         }
-
 
     }
 }
