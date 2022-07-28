@@ -9,6 +9,9 @@ namespace BankApp.Data.Interfaces {
     public interface IApplicationUserRepository {
         List<ApplicationUser> GetAllUser();
         ApplicationUser GetUserById(int id);
+        void Create(ApplicationUser user);
+        void Remove(ApplicationUser user);
+        List<ApplicationUser> GetAll();
     }
 
 }

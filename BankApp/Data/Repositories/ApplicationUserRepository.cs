@@ -21,5 +21,21 @@ namespace BankApp.Data.Repositories {
             return _context.ApplicationUsers.SingleOrDefault(x => x.Id == id);
         }
 
+
+
+        public void Create(ApplicationUser user){
+            _context.Set<ApplicationUser>().Add(user);
+            _context.SaveChanges();
+        }
+
+        public void Remove(ApplicationUser user){
+            _context.Set<ApplicationUser>().Remove(user);
+            _context.SaveChanges();
+        }
+
+        public List<ApplicationUser> GetAll(){
+            return _context.Set<ApplicationUser>().ToList();
+        }
+        
     }
 }

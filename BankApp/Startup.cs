@@ -30,6 +30,7 @@ namespace BankApp {
             });
 
             //DI(Dependency Injections)
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //Generic
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IUserMapper, UserMapper>();
             services.AddScoped<IAccountRepository, AccountRepository>();

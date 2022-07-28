@@ -23,6 +23,7 @@
                 </td>
                 <td>
                     <a asp-action="Create" asp-controller="Account" asp-route-id="@item.Id">Create</a>
+                    <a asp-action="GetByUserId" asp-controller="Account" asp-route-userId="@item.Id">Get Accounts</a>
                 </td>
             </tr>
         }

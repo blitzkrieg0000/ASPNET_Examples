@@ -15,7 +15,7 @@ namespace BankApp.Controllers {
         // DependencyInjection yardımı ile constructordan ModelContext imizi geçirebiliyoruz. 
         // Bu sayede "new" ile sürekli oluşturmamış oluyoruz.
         // Startup tarafında "ConfigureServices" kısmında "AddDbContext" ile bunu belirtmemiz gerekiyor.
-        private readonly BankContext _context;
+        private readonly BankContext _context; //! Contexti hiç kullanmamaya başladık. Artık silebilirizde.
         private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly IUserMapper _userMapper;
         public HomeController(BankContext context, IApplicationUserRepository applicationUserRepository, IUserMapper userMapper) {
