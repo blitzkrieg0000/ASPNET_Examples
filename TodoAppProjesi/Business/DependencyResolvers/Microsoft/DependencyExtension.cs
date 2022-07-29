@@ -9,7 +9,7 @@ namespace Business.DependencyResolvers.Microsoft {
 
             //Context in OnConfiguring kısmını dependency injection aracılığıyla yapıyoruz.
             services.AddDbContext<TodoContext>(opt => {
-                opt.UseSqlServer("server=localhost; user=sa; database=BankDb; password=DGH2022.");
+                opt.UseSqlServer("server=localhost; user=sa; database=TodoDb; password=DGH2022.");
             });
 
         }

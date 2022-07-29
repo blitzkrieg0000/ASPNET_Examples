@@ -161,8 +161,9 @@
 **Add New Migration**
 ```
     $ dotnet ef migrations add <MigrationName>   
-    
+    $ dotnet ef migrations add InitialCreate --output Migrations/ -s <StartupProject>
     Not: MigrationName olarak 'InitialCreate' genelde ilk migration için kullanılır.
+    Not: DataAccess de yapılır. DataAccessLayer, UI da "Design" Paketine ihtiyaç duyar.
 ```
 ***
 **Sync Update Migration**
