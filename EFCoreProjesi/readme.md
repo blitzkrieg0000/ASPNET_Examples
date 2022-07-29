@@ -1,4 +1,21 @@
-# ASP.NET ENTITY CORE CHEAT SHEAT
+# ASP.NET ENTITY CORE CHEAT SHEET
+
+## SOLUTION
+**Create Solution**
+```
+    $ dotnet new sln
+```
+
+**Create Class Library**
+```
+    $ dotnet new classlib -o <LibraryName> -f <netVersion>
+```
+
+**Create New Project**
+```
+    $ dotnet new web --name UI -f net5.0
+```
+
 ## INSTALL PACKAGES
 *Major versiyonların 5. olması ASP.NET CORE 5 kullanırken önemlidir. (örnek: "5.0.17")*
 
