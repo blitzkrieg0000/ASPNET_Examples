@@ -34,11 +34,10 @@
     $ dotnet add Business/Business.csproj reference Dtos/Dtos.csproj
     $ dotnet add UI/UI.csproj reference Business/Business.csproj
 ```
-**Add Project To SLN**
+**Add Projects To SLN**
 ```
     $ dotnet sln TodoAppProjesi.sln add <ProjectName>
 ```
-
 *Example:*
 ```
     $ dotnet sln TodoAppProjesi.sln add UI/UI.csproj
@@ -47,6 +46,98 @@
     $ dotnet sln TodoAppProjesi.sln add Dtos/Dtos.csproj
     $ dotnet sln TodoAppProjesi.sln add Entities/Entities.csproj
 ```
+**BUILD**
+
+*1-) tasks.json ve launch.json dosyası .vscode klsörüne eklenir:*
+*2-) SLN dosyasının olduğu yerde "dotnet build" ile ilk derlemeyi yaparız.*
+
+*launch.json:*
+```
+
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/UI/bin/Debug/net5.0/UI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/UI",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}
+
+```
+*tasks.json:*
+```
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/UI/UI.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/UI/UI.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/UI/UI.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
+```
+
+
 
 ## INSTALL PACKAGES
 *Major versiyonların 5. olması ASP.NET CORE 5 kullanırken önemlidir. (örnek: "5.0.17")*
