@@ -16,6 +16,25 @@
     $ dotnet new web --name UI -f net5.0
 ```
 
+**Add Reference**
+```
+    $ dotnet add /A.csproj reference /B.csproj
+```
+*Example:*
+```
+    DEPENDENCIES:
+                          Dtos -->
+                                  |
+      ---------------> DataAccess --> Business --> UI
+                  |
+      Entities -->
+ 
+    $ dotnet add DataAccess/DataAccess.csproj reference Entities/Entities.csproj
+    $ dotnet add Business/Business.csproj reference DataAccess/DataAccess.csproj
+    $ dotnet add Business/Business.csproj reference Dtos/Dtos.csproj
+    $ dotnet add UI/UI.csproj reference Business/Business.csproj
+```
+
 ## INSTALL PACKAGES
 *Major versiyonların 5. olması ASP.NET CORE 5 kullanırken önemlidir. (örnek: "5.0.17")*
 

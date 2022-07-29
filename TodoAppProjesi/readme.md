@@ -8,12 +8,44 @@
 
 **Create Class Library**
 ```
-    $ dotnet new classlib -o <LibraryName> -f <netVersion>
+    $ dotnet new classlib -o <LibraryName> -f <NetVersion>
 ```
 
 **Create New Project**
 ```
     $ dotnet new web --name UI -f net5.0
+```
+
+**Add Reference**
+```
+    $ dotnet add /A.csproj reference /B.csproj
+```
+*Example:*
+```
+    DEPENDENCIES:
+                          Dtos -->
+                                  |
+      ---------------> DataAccess --> Business --> UI
+                  |
+      Entities -->
+ 
+    $ dotnet add DataAccess/DataAccess.csproj reference Entities/Entities.csproj
+    $ dotnet add Business/Business.csproj reference DataAccess/DataAccess.csproj
+    $ dotnet add Business/Business.csproj reference Dtos/Dtos.csproj
+    $ dotnet add UI/UI.csproj reference Business/Business.csproj
+```
+**Add Project To SLN**
+```
+    $ dotnet sln TodoAppProjesi.sln add <ProjectName>
+```
+
+*Example:*
+```
+    $ dotnet sln TodoAppProjesi.sln add UI/UI.csproj
+    $ dotnet sln TodoAppProjesi.sln add Business/Business.csproj 
+    $ dotnet sln TodoAppProjesi.sln add DataAccess/DataAccess.csproj
+    $ dotnet sln TodoAppProjesi.sln add Dtos/Dtos.csproj
+    $ dotnet sln TodoAppProjesi.sln add Entities/Entities.csproj
 ```
 
 ## INSTALL PACKAGES
