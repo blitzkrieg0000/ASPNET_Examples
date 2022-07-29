@@ -13,7 +13,6 @@ namespace BankApp.Data.Repositories {
         }
 
 
-
         public void Create(Account account) {
             _context.Set<Account>().Add(account);
             _context.SaveChanges();

@@ -25,7 +25,7 @@ namespace EFCoreProjesi.Controllers {
             ViewBag.Scoped = _scopedService.GuidId;
             ViewBag.Transient = _transientService.GuidId;
             ViewBag.Singleton = _singletonService.GuidId;
-
+            
             return View("Index");
         }
 

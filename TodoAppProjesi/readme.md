@@ -3,48 +3,48 @@
 ## SOLUTION
 **Create Solution**
 ```
-    $ dotnet new sln
+	$ dotnet new sln
 ```
 
 **Create Class Library**
 ```
-    $ dotnet new classlib -o <LibraryName> -f <NetVersion>
+	$ dotnet new classlib -o <LibraryName> -f <NetVersion>
 ```
 
 **Create New Project**
 ```
-    $ dotnet new web --name UI -f net5.0
+	$ dotnet new web --name <ProjectName> -f <NetVersion>
 ```
 
 **Add Reference**
 ```
-    $ dotnet add /A.csproj reference /B.csproj
+	$ dotnet add <A_ProjectName> reference <B_ProjectName>
 ```
 *Example:*
 ```
-    DEPENDENCIES:
-                          Dtos -->
-                                  |
-      ---------------> DataAccess --> Business --> UI
-                  |
-      Entities -->
+	DEPENDENCIES:
+						  Dtos -->
+								  |
+	  ---------------> DataAccess --> Business --> UI
+				  |
+	  Entities -->
  
-    $ dotnet add DataAccess/DataAccess.csproj reference Entities/Entities.csproj
-    $ dotnet add Business/Business.csproj reference DataAccess/DataAccess.csproj
-    $ dotnet add Business/Business.csproj reference Dtos/Dtos.csproj
-    $ dotnet add UI/UI.csproj reference Business/Business.csproj
+	$ dotnet add DataAccess/DataAccess.csproj reference Entities/Entities.csproj
+	$ dotnet add Business/Business.csproj reference DataAccess/DataAccess.csproj
+	$ dotnet add Business/Business.csproj reference Dtos/Dtos.csproj
+	$ dotnet add UI/UI.csproj reference Business/Business.csproj
 ```
 **Add Projects To SLN**
 ```
-    $ dotnet sln TodoAppProjesi.sln add <ProjectName>
+	$ dotnet sln <SLN_NAME> add <ProjectName>
 ```
 *Example:*
 ```
-    $ dotnet sln TodoAppProjesi.sln add UI/UI.csproj
-    $ dotnet sln TodoAppProjesi.sln add Business/Business.csproj 
-    $ dotnet sln TodoAppProjesi.sln add DataAccess/DataAccess.csproj
-    $ dotnet sln TodoAppProjesi.sln add Dtos/Dtos.csproj
-    $ dotnet sln TodoAppProjesi.sln add Entities/Entities.csproj
+	$ dotnet sln TodoAppProjesi.sln add UI/UI.csproj
+	$ dotnet sln TodoAppProjesi.sln add Business/Business.csproj 
+	$ dotnet sln TodoAppProjesi.sln add DataAccess/DataAccess.csproj
+	$ dotnet sln TodoAppProjesi.sln add Dtos/Dtos.csproj
+	$ dotnet sln TodoAppProjesi.sln add Entities/Entities.csproj
 ```
 **BUILD**
 
@@ -53,130 +53,124 @@
 
 *launch.json:*
 ```
-
-
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/UI/bin/Debug/net5.0/UI.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/UI",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			// Use IntelliSense to find out which attributes exist for C# debugging
+			// Use hover for the description of the existing attributes
+			// For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+			"name": ".NET Core Launch (web)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			// If you have changed target frameworks, make sure to update the program path.
+			"program": "${workspaceFolder}/UI/bin/Debug/net5.0/UI.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/UI",
+			"stopAtEntry": false,
+			// Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+			"serverReadyAction": {
+				"action": "openExternally",
+				"pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+			},
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"sourceFileMap": {
+				"/Views": "${workspaceFolder}/Views"
+			}
+		},
+		{
+			"name": ".NET Core Attach",
+			"type": "coreclr",
+			"request": "attach"
+		}
+	]
 }
 
 ```
 *tasks.json:*
 ```
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/UI/UI.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/UI/UI.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/UI/UI.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/UI/UI.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "publish",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"publish",
+				"${workspaceFolder}/UI/UI.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "watch",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"watch",
+				"run",
+				"--project",
+				"${workspaceFolder}/UI/UI.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		}
+	]
 }
 ```
-
-
 
 ## INSTALL PACKAGES
 *Major versiyonların 5. olması ASP.NET CORE 5 kullanırken önemlidir. (örnek: "5.0.17")*
 
 **Add Package**
 ```
-    $ dotnet add package <PackageName> --version=<versionNumber>
+	$ dotnet add package <PackageName> --version=<VersionNumber>
 ```
 *.csproj:*
 ```
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" /> //LazyLoading
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" /> //LazyLoading
+	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17" />
 ```
-
 
 ## MIGRATIONS
 **Add New Migration**
 ```
-    $ dotnet ef migrations add <MigrationName>   
-    $ dotnet ef migrations add InitialCreate --output Migrations/ -s <StartupProject>
-    Not: MigrationName olarak 'InitialCreate' genelde ilk migration için kullanılır.
-    Not: DataAccess de yapılır. DataAccessLayer, UI da "Design" Paketine ihtiyaç duyar.
+	$ dotnet ef migrations add <MigrationName> --output <MigrationsFolderPath> -s <StartupProjectName>
+	Not: MigrationName olarak 'InitialCreate' genelde ilk migration için kullanılır.
+	Not: DataAccess de yapılır. DataAccessLayer, UI da "Design" Paketine ihtiyaç duyar.
 ```
 ***
 **Sync Update Migration**
 ```
-    $ dotnet ef database update
+	$ dotnet ef database update -s <StartupProjectName>
 ```
 ***
 **List Available Migration**
 ```
-    $ dotnet ef database list
+	$ dotnet ef database list
 ```
 ***
 **Remove Pending Migration**
 ```
-    $ dotnet ef database remove
+	$ dotnet ef database remove
 ```
