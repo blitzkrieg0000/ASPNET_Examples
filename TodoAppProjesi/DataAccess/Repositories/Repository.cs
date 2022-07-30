@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DataAccess.Contexts;
 using DataAccess.Interfaces;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories {
@@ -16,14 +17,6 @@ namespace DataAccess.Repositories {
             _context = context;
         }
 
-        public async Task Create(T entity) {
-            await _context.Set<T>().AddAsync(entity);
-        }
-
-        public async Task<List<T>> GetAll() {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
-        }
-
         public async Task<T> GetByFilter(Expression<Func<T, bool>> filter, bool asNoTracking = false) {
             return asNoTracking ?
                 await _context.Set<T>().SingleOrDefaultAsync(filter) :
@@ -32,6 +25,18 @@ namespace DataAccess.Repositories {
 
         public async Task<T> GetById(object id) {
             return await _context.Set<T>().FindAsync(id);
+        }
+
+        public IQueryable<T> GetQuery() {
+            return _context.Set<T>().AsQueryable();
+        }
+
+        public async Task<List<T>> GetAll() {
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
+        }
+
+        public async Task Create(T entity) {
+            await _context.Set<T>().AddAsync(entity);
         }
 
         public void Remove(T entity) {

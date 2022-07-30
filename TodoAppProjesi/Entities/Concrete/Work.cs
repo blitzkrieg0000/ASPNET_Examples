@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Entities.Concrete {
+
     public class Work {
 
         public int Id { get; set; }
@@ -11,4 +7,5 @@ namespace Entities.Concrete {
         public bool IsCompleted { get; set; }
 
     }
+    
 }

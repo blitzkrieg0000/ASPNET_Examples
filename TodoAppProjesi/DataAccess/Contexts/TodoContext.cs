@@ -11,9 +11,15 @@ namespace DataAccess.Contexts {
         public TodoContext(DbContextOptions<TodoContext> options) : base(options) {
         }
 
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        //     optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TodoDb; password=DGH2022.");
+        //     base.OnConfiguring(optionsBuilder);
+        // }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new WorkConfiguration());
         }
 
     }
+
 }
