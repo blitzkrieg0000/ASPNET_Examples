@@ -12,7 +12,6 @@ namespace DataAccess.Repositories {
     public class Repository<T> : IRepository<T> where T : class, new() {
 
         private readonly TodoContext _context;
-
         public Repository(TodoContext context) {
             _context = context;
         }
@@ -27,16 +26,16 @@ namespace DataAccess.Repositories {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public IQueryable<T> GetQuery() {
-            return _context.Set<T>().AsQueryable();
-        }
-
         public async Task<List<T>> GetAll() {
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
         public async Task Create(T entity) {
             await _context.Set<T>().AddAsync(entity);
+        }
+
+        public IQueryable<T> GetQuery() {
+            return _context.Set<T>().AsQueryable();
         }
 
         public void Remove(T entity) {
