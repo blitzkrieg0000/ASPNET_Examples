@@ -43,7 +43,7 @@ namespace UI.Controllers {
         public async Task<IActionResult> Update(int id) {
 
             return View(
-                _mapper.Map<WorkUpdateDto>(await _workService.GetById(id);)
+                _mapper.Map<WorkUpdateDto>(await _workService.GetById(id))
             );
         }
 
