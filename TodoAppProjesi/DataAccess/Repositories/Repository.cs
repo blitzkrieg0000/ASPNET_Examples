@@ -9,7 +9,7 @@ using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories {
-    public class Repository<T> : IRepository<T> where T : class, new() {
+    public class Repository<T> : IRepository<T> where T : BaseEntity {
 
         private readonly TodoContext _context;
         public Repository(TodoContext context) {
@@ -38,12 +38,15 @@ namespace DataAccess.Repositories {
             return _context.Set<T>().AsQueryable();
         }
 
-        public void Remove(T entity) {
-            _context.Set<T>().Remove(entity);
+        public void Remove(object id) {
+            var deletedEntity = _context.Set<T>().Find(id);
+            _context.Set<T>().Remove(deletedEntity);
         }
 
         public void Update(T entity) {
-            _context.Set<T>().Update(entity);
+            var updatedEntity = _context.Set<T>().Find(entity.Id);
+            _context.Entry(updatedEntity).CurrentValues.SetValues(entity);
+            //_context.Set<T>().Update(entity);
         }
 
     }

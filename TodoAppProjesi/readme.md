@@ -144,12 +144,13 @@
 ```
 *.csproj:*
 ```
-	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" /> //LazyLoading
-	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" /> // DataAccess
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />  // DataAccess
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />      // DataAccess
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17" />     // DataAccess, UI
+	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />    // DataAccess
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />    // DataAccess, (LazyLoading)
+	<PackageReference Include="AutoMapper" Version="11.0.1" /> 								 // Business, UI
 ```
 
 ## MIGRATIONS

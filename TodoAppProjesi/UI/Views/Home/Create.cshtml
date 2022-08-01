@@ -1,0 +1,42 @@
+@model WorkCreateDto
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Todo App</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container my-2">
+        <form asp-action="Create" asp-controller="Home" method="post">
+
+            <div class="mb-3">
+                <label>İş Tanımı:</label>
+                <input asp-for="@Model.Definition" class="form-control">
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="@Model.IsCompleted">
+                <label class="form-check-label" for="defaultCheck1">
+                    İş tamamlandı mı?
+                </label>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+        </form>
+
+
+    </div>
+</body>
+
+</html>

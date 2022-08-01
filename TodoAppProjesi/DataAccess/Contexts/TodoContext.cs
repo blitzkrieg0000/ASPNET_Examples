@@ -12,7 +12,10 @@ namespace DataAccess.Contexts {
         }
 
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+
         //     optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TodoDb; password=DGH2022.");
+        //     optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+
         //     base.OnConfiguring(optionsBuilder);
         // }
 
