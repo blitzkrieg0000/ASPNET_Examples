@@ -21,6 +21,7 @@ namespace UI {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStatusCodePagesWithReExecute("/Home/NotFound","?code={0}");
 
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions() {

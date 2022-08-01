@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
 using Business.Interfaces;
+using Common.ResponseObjects;
 using Dtos.WorkDtos;
 using Microsoft.AspNetCore.Mvc;
+using UI.Extensions;
 
 namespace UI.Controllers {
     public class HomeController : Controller {
@@ -24,28 +26,30 @@ namespace UI.Controllers {
         public async Task<IActionResult> Create(WorkCreateDto dto) {
 
             var response = await _workService.Create(dto);
-            return RedirectToAction("Index");
+            return this.ResponseRedirectToAction(response, "Index");
+
         }
 
         public async Task<IActionResult> Update(int id) {
             var response = await _workService.GetById<WorkUpdateDto>(id);
-            return View(
-                response.Data
-            );
+            return this.ResponseView(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDto dto) {
             //if (ModelState.IsValid) { //Zaten business tarafında validasyon yapıyoruz.
             var response = await _workService.Update(dto);
-            return RedirectToAction("Index");
-            //}
-            //return View(dto);
+
+            return this.ResponseRedirectToAction(response, "Index");
         }
 
         public async Task<IActionResult> Remove(int id) {
             var response = await _workService.Remove(id);
-            return RedirectToAction("Index");
+            return this.ResponseRedirectToAction(response, "Index");
+        }
+
+        public IActionResult NotFound(int code) {
+            return View();
         }
 
     }

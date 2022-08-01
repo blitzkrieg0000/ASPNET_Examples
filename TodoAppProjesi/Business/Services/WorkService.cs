@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Business.Extensions;
 using Business.Interfaces;
 using Business.ValidationRules;
 using Common.ResponseObjects;
@@ -25,24 +26,16 @@ namespace Business.Services {
 
         public async Task<IResponse<WorkCreateDto>> Create(WorkCreateDto dto) {
 
-            var validatorResult = _createDtoValidator.Validate(dto);
+            var validationResult = _createDtoValidator.Validate(dto);
 
 
-            if (validatorResult.IsValid) {
+            if (validationResult.IsValid) {
                 await _unitOfWork.GetRepository<Work>().Create(_mapper.Map<Work>(dto));
                 await _unitOfWork.SaveChanges();
                 return new Response<WorkCreateDto>(ResponseType.Success, dto);
 
             } else {
-                List<CustomValidationError> errors = new();
-                foreach (var error in validatorResult.Errors) {
-                    errors.Add(new() {
-                        ErrorMessage = error.ErrorMessage,
-                        PropertyName = error.PropertyName
-                    });
-                }
-
-                return new Response<WorkCreateDto>(ResponseType.ValidationError, dto, errors);
+                return new Response<WorkCreateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
             }
 
         }
@@ -81,8 +74,8 @@ namespace Business.Services {
         }
 
         public async Task<IResponse<WorkUpdateDto>> Update(WorkUpdateDto dto) {
-            var validatorResult = _updateDtoValidator.Validate(dto);
-            if (validatorResult.IsValid) {
+            var validationResult = _updateDtoValidator.Validate(dto);
+            if (validationResult.IsValid) {
                 var updatedEntity = await _unitOfWork.GetRepository<Work>().Find(dto.Id);
                 if (updatedEntity != null) {
                     _unitOfWork.GetRepository<Work>().Update(_mapper.Map<Work>(dto), updatedEntity);
@@ -92,17 +85,7 @@ namespace Business.Services {
                 return new Response<WorkUpdateDto>(ResponseType.NotFound, $"{dto.Id} ye ait veri bulunamadı!");
 
             } else {
-
-                List<CustomValidationError> errors = new();
-                foreach (var error in validatorResult.Errors) {
-                    errors.Add(new() {
-                        ErrorMessage = error.ErrorMessage,
-                        PropertyName = error.PropertyName
-                    });
-                }
-
-                return new Response<WorkUpdateDto>(ResponseType.ValidationError, dto, errors);
-
+                return new Response<WorkUpdateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
             }
         }
 
