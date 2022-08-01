@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Dtos.WorkDtos;
 
@@ -11,7 +9,7 @@ namespace Business.Interfaces {
 
         Task Create(WorkCreateDto dto);
 
-        Task<WorkListDto> GetById(int id);
+        Task<IDto> GetById<IDto>(int id);
 
         Task Remove(int id);
 

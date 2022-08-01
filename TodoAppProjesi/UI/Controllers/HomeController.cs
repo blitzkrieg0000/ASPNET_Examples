@@ -10,25 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace UI.Controllers {
     public class HomeController : Controller {
 
-
         private readonly IWorkService _workService;
-        private readonly IMapper _mapper;
-        public HomeController(IWorkService workService, IMapper mapper) {
+        public HomeController(IWorkService workService) {
             _workService = workService;
-            _mapper = mapper;
         }
-
 
         public async Task<IActionResult> Index() {
             var workList = await _workService.GetAll();
             return View(workList);
         }
 
-
         public IActionResult Create() {
             return View(new WorkCreateDto());
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(WorkCreateDto dto) {
@@ -39,14 +33,12 @@ namespace UI.Controllers {
             return View(dto);
         }
 
-
         public async Task<IActionResult> Update(int id) {
 
             return View(
-                _mapper.Map<WorkUpdateDto>(await _workService.GetById(id))
+                await _workService.GetById<WorkUpdateDto>(id)
             );
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDto dto) {
@@ -56,7 +48,6 @@ namespace UI.Controllers {
             }
             return View(dto);
         }
-
 
         public async Task<IActionResult> Remove(int id) {
             await _workService.Remove(id);

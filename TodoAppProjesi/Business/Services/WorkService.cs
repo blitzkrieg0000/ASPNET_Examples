@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
 using DataAccess.UnitOfWork;
+using Dtos.Interfaces;
 using Dtos.WorkDtos;
 using Entities.Concrete;
 
@@ -33,8 +32,8 @@ namespace Business.Services {
         }
 
 
-        public async Task<WorkListDto> GetById(int id) {
-            return _mapper.Map<WorkListDto>(
+        public async Task<IDto> GetById<IDto>(int id) {
+            return _mapper.Map<IDto>(
                 await _unitOfWork.GetRepository<Work>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );
         }
