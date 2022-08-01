@@ -12,8 +12,8 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> Index() {
-            var workList = await _workService.GetAll();
-            return View(workList);
+            var response = await _workService.GetAll();
+            return View(response.Data);
         }
 
         public IActionResult Create() {
@@ -23,28 +23,28 @@ namespace UI.Controllers {
         [HttpPost]
         public async Task<IActionResult> Create(WorkCreateDto dto) {
 
-            await _workService.Create(dto);
+            var response = await _workService.Create(dto);
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Update(int id) {
-
+            var response = await _workService.GetById<WorkUpdateDto>(id);
             return View(
-                await _workService.GetById<WorkUpdateDto>(id)
+                response.Data
             );
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDto dto) {
             //if (ModelState.IsValid) { //Zaten business tarafında validasyon yapıyoruz.
-                await _workService.Update(dto);
-                return RedirectToAction("Index");
+            var response = await _workService.Update(dto);
+            return RedirectToAction("Index");
             //}
             //return View(dto);
         }
 
         public async Task<IActionResult> Remove(int id) {
-            await _workService.Remove(id);
+            var response = await _workService.Remove(id);
             return RedirectToAction("Index");
         }
 

@@ -22,7 +22,7 @@ namespace DataAccess.Repositories {
                 await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(filter);
         }
 
-        public async Task<T> GetById(object id) {
+        public async Task<T> Find(object id) {
             return await _context.Set<T>().FindAsync(id);
         }
 
@@ -38,15 +38,12 @@ namespace DataAccess.Repositories {
             return _context.Set<T>().AsQueryable();
         }
 
-        public void Remove(object id) {
-            var deletedEntity = _context.Set<T>().Find(id);
-            _context.Set<T>().Remove(deletedEntity);
+        public void Remove(T entity) {
+            _context.Set<T>().Remove(entity);
         }
 
-        public void Update(T entity) {
-            var updatedEntity = _context.Set<T>().Find(entity.Id);
-            _context.Entry(updatedEntity).CurrentValues.SetValues(entity);
-            //_context.Set<T>().Update(entity);
+        public void Update(T entity, T unchanged) {
+            _context.Entry(unchanged).CurrentValues.SetValues(entity);
         }
 
     }
