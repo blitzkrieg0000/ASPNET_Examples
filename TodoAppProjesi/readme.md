@@ -151,6 +151,8 @@
 	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />    // DataAccess
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />    // DataAccess, (LazyLoading)
 	<PackageReference Include="AutoMapper" Version="11.0.1" /> 								 // Business, UI
+	<PackageReference Include="FluentValidation" Version="11.1.0" />                         // Business
+	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.1.0" /> // Business
 ```
 
 ## MIGRATIONS

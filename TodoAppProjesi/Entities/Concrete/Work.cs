@@ -7,4 +7,4 @@ namespace Entities.Concrete {
 
     }
 
-}
+} 

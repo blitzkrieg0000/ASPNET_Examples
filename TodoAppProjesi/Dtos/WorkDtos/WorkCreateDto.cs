@@ -8,7 +8,7 @@ using Dtos.Interfaces;
 namespace Dtos.WorkDtos {
     public class WorkCreateDto : IDto {
     
-        [Required(ErrorMessage ="Açıklama Gereklidir!")]
+        //[Required(ErrorMessage ="Açıklama Gereklidir!")]
         public string Definition { get; set; }
         public bool IsCompleted { get; set; }
 

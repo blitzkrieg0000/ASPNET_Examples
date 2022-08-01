@@ -3,10 +3,13 @@ using AutoMapper;
 using Business.Interfaces;
 using Business.Mappings.AutoMapper;
 using Business.Services;
+using Business.ValidationRules;
 using DataAccess.Contexts;
 using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using DataAccess.UnitOfWork;
+using Dtos.WorkDtos;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,6 +28,8 @@ namespace Business.DependencyResolvers.Microsoft {
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IWorkService, WorkService>();
+            services.AddTransient<IValidator<WorkCreateDto>, WorkCreateDtoValidator>();
+            services.AddTransient<IValidator<WorkUpdateDto>, WorkUpdateDtoValidator>();
             //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 

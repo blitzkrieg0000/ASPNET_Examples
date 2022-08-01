@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Business.Interfaces;
 using Dtos.WorkDtos;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +22,9 @@ namespace UI.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> Create(WorkCreateDto dto) {
-            if (ModelState.IsValid) {
-                await _workService.Create(dto);
-                return RedirectToAction("Index");
-            }
-            return View(dto);
+
+            await _workService.Create(dto);
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Update(int id) {
@@ -42,11 +36,11 @@ namespace UI.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDto dto) {
-            if (ModelState.IsValid) {
+            //if (ModelState.IsValid) { //Zaten business tarafında validasyon yapıyoruz.
                 await _workService.Update(dto);
                 return RedirectToAction("Index");
-            }
-            return View(dto);
+            //}
+            //return View(dto);
         }
 
         public async Task<IActionResult> Remove(int id) {
