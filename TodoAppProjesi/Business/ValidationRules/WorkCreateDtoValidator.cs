@@ -11,7 +11,6 @@ namespace Business.ValidationRules {
 
         public WorkCreateDtoValidator() {
             RuleFor(x => x.Definition).NotEmpty();
-                
                 // .WithMessage("Açıklama Gereklidir.").When(x=>x.IsCompleted)
                 // .Must(NotThat).WithMessage("Bu mesaj 'Burakhan' olamaz! ");
         }

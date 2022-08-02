@@ -6,7 +6,8 @@ using Entities.Concrete;
 
 namespace DataAccess.UnitOfWork {
     public class UnitOfWork : IUnitOfWork {
-        
+        //Tek bir context üzerinden Repositorylerin kullanılması sağlanıyor.
+
         private readonly TodoContext _context;
         public UnitOfWork(TodoContext context) {
             _context = context;
@@ -19,5 +20,6 @@ namespace DataAccess.UnitOfWork {
         public async Task SaveChanges() {
             await _context.SaveChangesAsync();
         }
+
     }
 }

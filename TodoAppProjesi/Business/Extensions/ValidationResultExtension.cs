@@ -15,7 +15,6 @@ namespace Business.Extensions {
                     ErrorMessage = error.ErrorMessage,
                     PropertyName = error.PropertyName
                 });
-
             }
             
             return errors;

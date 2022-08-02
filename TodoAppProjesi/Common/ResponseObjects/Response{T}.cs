@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Common.ResponseObjects {
     public class Response<T> : Response, IResponse<T> {
@@ -14,13 +11,14 @@ namespace Common.ResponseObjects {
         }
 
         public Response(ResponseType responseType, string message) : base(responseType, message) {
+        
         }
 
         public Response(ResponseType responseType, T data, List<CustomValidationError> errors) : base(responseType) {
             ValidationErrors = errors;
             Data = data;
         }
-        
+
     }
 
 }

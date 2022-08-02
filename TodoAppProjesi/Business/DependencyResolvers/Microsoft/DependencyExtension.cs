@@ -5,8 +5,6 @@ using Business.Mappings.AutoMapper;
 using Business.Services;
 using Business.ValidationRules;
 using DataAccess.Contexts;
-using DataAccess.Interfaces;
-using DataAccess.Repositories;
 using DataAccess.UnitOfWork;
 using Dtos.WorkDtos;
 using FluentValidation;
