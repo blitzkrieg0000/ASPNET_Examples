@@ -15,7 +15,6 @@ namespace DataAccess.Contexts {
 
         //     optionsBuilder.UseSqlServer("server=localhost; user=sa; database=TodoDb; password=DGH2022.");
         //     optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
-
         //     base.OnConfiguring(optionsBuilder);
         // }
 
