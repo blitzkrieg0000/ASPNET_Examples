@@ -144,7 +144,7 @@
 ```
 *.csproj:*
 ```
-	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" /> // DataAccess
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />            // DataAccess
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />  // DataAccess
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />      // DataAccess
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17" />     // DataAccess, UI
@@ -153,6 +153,12 @@
 	<PackageReference Include="AutoMapper" Version="11.0.1" /> 								 // Business, UI
 	<PackageReference Include="FluentValidation" Version="11.1.0" />                         // Business
 	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.1.0" /> // Business
+
+	//Identity
+	<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" /> //İçerisinde EFCore Var
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
 ```
 
 ## MIGRATIONS
