@@ -3,12 +3,9 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace UI.Entities.Concrete
-{
-    public partial class Aostype
-    {
-        public Aostype()
-        {
+namespace UI.Entities.Concrete {
+    public partial class Aostype {
+        public Aostype() {
             PlayingData = new HashSet<PlayingDatum>();
         }
 
