@@ -1,5 +1,7 @@
 using System;
+using AutoMapper;
 using Business.Interfaces;
+using Business.Mappings.AutoMapper;
 using Business.Services;
 using DataAccess.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,18 @@ namespace Business.DependencyResolvers.Microsoft {
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITennisService, TennisService>();
+
+
+
+            //! AUTOMAPPER CONFIGURATIONS
+            var configuration = new MapperConfiguration(opt => {
+                opt.AddProfile(new TennisProfile());
+            });
+            var mapper = configuration.CreateMapper();
+            services.AddSingleton(mapper);
+
+
+
         }
 
     }

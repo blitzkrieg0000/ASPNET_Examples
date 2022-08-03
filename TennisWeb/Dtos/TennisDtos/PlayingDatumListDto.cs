@@ -14,6 +14,6 @@ namespace Dtos.TennisDtos {
         public byte[] BallFallArray { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool IsDeleted { get; set; }
-        
+
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace UI.Controllers {
     public class HomeController : Controller {
         private readonly ITennisService _tennisService;
-        public HomeController(TennisService workService) {
+        public HomeController(ITennisService workService) {
             _tennisService = workService;
         }
 
