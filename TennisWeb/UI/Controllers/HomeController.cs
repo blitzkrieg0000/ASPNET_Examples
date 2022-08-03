@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers {
     public class HomeController : Controller {
-        private readonly ITennisService _workService;
+        private readonly ITennisService _tennisService;
         public HomeController(TennisService workService) {
-            _workService = workService;
+            _tennisService = workService;
         }
 
         public IActionResult Index() {
@@ -15,7 +15,7 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> ListCourts() {
-            var response = await _workService.GetAll();
+            var response = await _tennisService.GetAll();
             return View(response.Data);
         }
 

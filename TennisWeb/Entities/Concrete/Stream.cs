@@ -19,6 +19,6 @@ namespace UI.Entities.Concrete {
         public bool? IsActivated { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public virtual ICollection<PlayingDatum> PlayingData { get; set; }
+        public ICollection<PlayingDatum> PlayingData { get; set; }
     }
 }

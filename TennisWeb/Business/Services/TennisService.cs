@@ -17,14 +17,12 @@ namespace Business.Services {
         public TennisService(IUnitOfWork unitOfWork, IMapper mapper) {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
         }
 
         public async Task<Response<List<PlayingDatumListDto>>> GetAll() {
 
             var data = _mapper.Map<List<PlayingDatumListDto>>(
                 await _unitOfWork.GetRepository<PlayingDatum>().GetAll()
-
             );
 
             return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);

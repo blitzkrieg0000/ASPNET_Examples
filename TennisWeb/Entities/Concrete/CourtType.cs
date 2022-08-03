@@ -15,6 +15,6 @@ namespace UI.Entities.Concrete {
         public DateTime SaveDate { get; set; }
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<Court> Courts { get; set; }
+        public ICollection<Court> Courts { get; set; }
     }
 }
