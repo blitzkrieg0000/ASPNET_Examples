@@ -1,7 +1,7 @@
 using System;
-using AutoMapper;
-
-using FluentValidation;
+using Business.Interfaces;
+using Business.Services;
+using DataAccess.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,7 +18,9 @@ namespace Business.DependencyResolvers.Microsoft {
                 opt.UseNpgsql("Host=localhost;Database=tenis;Username=tenis;Password=2sfcNavA89A294V4");
                 opt.LogTo(Console.WriteLine, LogLevel.Information);
             });
-
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITennisService, TennisService>();
         }
 
     }

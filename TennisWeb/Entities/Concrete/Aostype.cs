@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities.Concrete;
 
 #nullable disable
 
 namespace UI.Entities.Concrete {
-    public partial class Aostype {
+    public class Aostype : BaseEntity {
         public Aostype() {
             PlayingData = new HashSet<PlayingDatum>();
         }

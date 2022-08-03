@@ -20,11 +20,6 @@ namespace UI.Entities.Concrete {
         public virtual DbSet<PlayingDatum> PlayingData { get; set; }
         public virtual DbSet<Stream> Streams { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            if (!optionsBuilder.IsConfigured) {
-                optionsBuilder.UseNpgsql("Host=localhost;Database=tenis;Username=tenis;Password=2sfcNavA89A294V4");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");

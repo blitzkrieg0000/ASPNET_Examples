@@ -1,10 +1,8 @@
-﻿using System;
-using Entities.Concrete;
+using System;
+using Dtos.Interface;
 
-#nullable disable
-
-namespace UI.Entities.Concrete {
-    public class PlayingDatum : BaseEntity {
+namespace Dtos.TennisDtos {
+    public class PlayingDatumListDto : IDto {
         public long Id { get; set; }
         public long PlayerId { get; set; }
         public long CourtId { get; set; }
@@ -16,10 +14,5 @@ namespace UI.Entities.Concrete {
         public byte[] BallFallArray { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool IsDeleted { get; set; }
-
-        public virtual Aostype AosType { get; set; }
-        public virtual Court Court { get; set; }
-        public virtual Player Player { get; set; }
-        public virtual Stream Stream { get; set; }
     }
 }
