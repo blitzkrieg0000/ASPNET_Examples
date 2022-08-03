@@ -33,7 +33,6 @@ namespace UI {
             });
 
             app.UseRouting();
-
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -7,9 +7,12 @@ namespace UI.Controllers {
             return View();
         }
 
-        public IActionResult NotFound(int code) {
+        public IActionResult ListCourts() {
             return View();
         }
 
+        public IActionResult NotFound(int code) {
+            return View();
+        }
     }
 }
