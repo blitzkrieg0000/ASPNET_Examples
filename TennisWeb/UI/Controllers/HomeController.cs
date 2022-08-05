@@ -47,14 +47,32 @@ namespace UI.Controllers {
         }
 
         [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        [RequestSizeLimit(209715200)]
         public async Task<IActionResult> Upload(IFormFile formFile) {
 
-
+            if (formFile == null) {
+                TempData["Upload_Message"] = "Başarısız! Dosya Okunamadı";
+                return RedirectToAction("Upload");
+            }
             if (formFile.ContentType == "video/mp4") {
                 var newName = Guid.NewGuid() + "." + Path.GetExtension(formFile.FileName);
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/data/video", newName);
                 var stream = new FileStream(path, FileMode.Create);
                 await formFile.CopyToAsync(stream);
+
+
+                var hash = "";
+                using (var md5 = System.Security.Cryptography.MD5.Create()) {
+
+                    using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
+                        hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
+                    }
+
+                }
+
+                System.Console.WriteLine(hash);
+
 
                 TempData["Upload_Message"] = "Başarılı!";
             } else {
