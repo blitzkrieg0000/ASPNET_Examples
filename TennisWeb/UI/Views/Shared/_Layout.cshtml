@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+        type="text/css">
     <link href="~/limitless/global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="~/limitless/assets/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
-    
+
 </head>
 
 <body>
@@ -429,14 +430,20 @@
 
                             <a href="#" class="nav-link">
                                 <i class="icon-copy"></i>
-                                <span>ABC</span></a>
+                                <span>TEST</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+
+
                                 <li class="nav-item">
                                     <a href="index.html" class="nav-link active">Default layout</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Layout 2</a>
+                                    <a asp-action="Upload" asp-controller="Home" class="nav-link">File Upload</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="DetectCourtLines" asp-controller="Home"
+                                        class="nav-link">DetectCourtLines</a>
                                 </li>
                             </ul>
 
@@ -460,27 +467,27 @@
             <div class="content-inner">
 
                 @* <!-- Page header -->
-                <div class="page-header">
+                    <div class="page-header">
                     <div class="page-header-content header-elements-lg-inline">
-                        <div class="page-title d-flex">
-                            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span>
-                                Dashboard</h4>
-                            <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
-                        </div>
-
-                        <div class="header-elements d-none mb-3 mb-lg-0">
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-link btn-float text-body"><i
-                                        class="icon-bars-alt"></i><span>Statistics</span></a>
-                                <a href="#" class="btn btn-link btn-float text-body"><i class="icon-calculator"></i>
-                                    <span>Invoices</span></a>
-                                <a href="#" class="btn btn-link btn-float text-body"><i class="icon-calendar5"></i>
-                                    <span>Schedule</span></a>
-                            </div>
-                        </div>
+                    <div class="page-title d-flex">
+                    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span>
+                    Dashboard</h4>
+                    <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
                     </div>
-                </div>
-                <!-- /page header --> *@
+
+                    <div class="header-elements d-none mb-3 mb-lg-0">
+                    <div class="d-flex justify-content-center">
+                    <a href="#" class="btn btn-link btn-float text-body"><i
+                    class="icon-bars-alt"></i><span>Statistics</span></a>
+                    <a href="#" class="btn btn-link btn-float text-body"><i class="icon-calculator"></i>
+                    <span>Invoices</span></a>
+                    <a href="#" class="btn btn-link btn-float text-body"><i class="icon-calendar5"></i>
+                    <span>Schedule</span></a>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- /page header --> *@
 
 
                 <!-- Content area -->
@@ -495,34 +502,34 @@
 
 
                 @* <!-- Footer -->
-                <div class="navbar navbar-expand-lg navbar-light">
+                    <div class="navbar navbar-expand-lg navbar-light">
                     <div class="text-center d-lg-none w-100">
-                        <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse"
-                            data-target="#navbar-footer">
-                            <i class="icon-unfold mr-2"></i>
-                            Footer
-                        </button>
+                    <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse"
+                    data-target="#navbar-footer">
+                    <i class="icon-unfold mr-2"></i>
+                    Footer
+                    </button>
                     </div>
 
                     <div class="navbar-collapse collapse" id="navbar-footer">
 
-                        <span class="navbar-text">
-                            &copy; 2022 <a href="#">AOS TEST</a>
-                        </span>
+                    <span class="navbar-text">
+                    &copy; 2022 <a href="#">AOS TEST</a>
+                    </span>
 
-                        <ul class="navbar-nav ml-lg-auto">
-                            <li class="nav-item">
-                                <a href="#" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i>
-                                    Support</a>
-                            </li>
-                            <li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i
-                                        class="icon-file-text2 mr-2"></i> Docs</a></li>
-                            <li class="nav-item"><a href="#" class="navbar-nav-link font-weight-semibold"><span
-                                        class="text-pink"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
-                        </ul>
+                    <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                    <a href="#" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i>
+                    Support</a>
+                    </li>
+                    <li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i
+                    class="icon-file-text2 mr-2"></i> Docs</a></li>
+                    <li class="nav-item"><a href="#" class="navbar-nav-link font-weight-semibold"><span
+                    class="text-pink"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
+                    </ul>
                     </div>
-                </div>
-                <!-- /footer --> *@
+                    </div>
+                    <!-- /footer --> *@
 
             </div>
             <!-- /inner content -->

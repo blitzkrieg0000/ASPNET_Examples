@@ -1,24 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Dtos.TennisDtos;
+using Business.GRPCData;
+using Business.Interfaces;
 using Grpc.Net.Client;
 
 namespace Business.Services {
     public class GRPCService : IGRPCService {
 
-
-        public async Task DetectCourtLines(GRPCClientData data) {
-
-            using var channel = GrpcChannel.ForAddress("http://localhost:5000");
+        public async Task DetectCourtLines(CourtLineDetectRequestModel model) {
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new mainRouterServer.mainRouterServerClient(channel);
-            var reply = await client.detectCourtLinesControllerAsync(new requestData { Data = data });
-
-            Console.WriteLine("Greeting: " + reply.Message);
-
+            var reply = await client.detectCourtLinesControllerAsync(new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force });
+            Console.WriteLine("Greeting: " + reply.Data);
         }
-
 
     }
 }

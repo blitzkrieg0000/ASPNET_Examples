@@ -23,7 +23,7 @@ namespace Business.DependencyResolvers.Microsoft {
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITennisService, TennisService>();
-
+            services.AddScoped<IGRPCService, GRPCService>();
 
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {
