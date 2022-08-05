@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using web_project.Middlewares;
-using WebProjesi.Middlewares;
 
 namespace WebProjesi {
 
@@ -56,7 +49,7 @@ namespace WebProjesi {
 
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern:"{Area}/{Controller=Home}/{Action=Index}/{id?}"
+                    pattern: "{Area}/{Controller=Home}/{Action=Index}/{id?}"
                 );
 
                 endpoints.MapControllerRoute(

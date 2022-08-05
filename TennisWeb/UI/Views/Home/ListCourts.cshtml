@@ -3,25 +3,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <body>
     <div class="container my-2">
-        <div class="text-end my-2">
-            <a asp-action="Create" asp-controller="Home" class="btn btn-primary btn-sm">Yeni İş Ekle</a>
-        </div>
+
+        @* <div class="text-end my-2">
+        </div> *@
 
         <table class="table table-hover table-bordered table-sm">
             <thead>
                 <tr>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Player_Id
-                    </th>
-                    <th>
-                        Court_Id
-                    </th>
+                    <th>Id</th>
+                    <th>Score</th>
+                    <th>Player Name</th>
+                    <th>AOS Type</th>
+                    <th>Court</th>
+                    <th>SaveDate</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +25,11 @@
                 {
                     <tr>
                         <td>@item.Id</td>
-                        <td>@item.PlayerId</td>
-                        <td>@item.CourtId</td>
+                        <td>@item.Score</td>
+                        <td>@item.PlayerName</td>
+                        <td>@item.AosTypeName</td>
+                        <td>@item.CourtName</td>
+                        <td>@item.SaveDate</td>
                         <td>
                             <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
                             class="btn btn-warning btn-sm">Güncelle</a>

@@ -5,6 +5,8 @@ using Dtos.TennisDtos;
 
 namespace Business.Interfaces {
     public interface ITennisService {
-        Task<Response<List<PlayingDatumListDto>>> GetAll();
+        Task<Response<List<PlayingDatumRelatedListDto>>> GetAll();
+        Task<Response<List<PlayingDatumListDto>>> GetPlayingData();
+        Task<IResponse> Remove(int id);
     }
 }

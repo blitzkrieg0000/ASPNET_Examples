@@ -25,7 +25,6 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<ITennisService, TennisService>();
 
 
-
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {
                 opt.AddProfile(new TennisProfile());
@@ -33,8 +32,8 @@ namespace Business.DependencyResolvers.Microsoft {
             var mapper = configuration.CreateMapper();
             services.AddSingleton(mapper);
 
-
-
+            //! GRPC
+            services.AddGrpc();
         }
 
     }

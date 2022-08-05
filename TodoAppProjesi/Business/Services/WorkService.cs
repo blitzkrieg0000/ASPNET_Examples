@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Extensions;
 using Business.Interfaces;
-using Business.ValidationRules;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.WorkDtos;
@@ -11,7 +10,7 @@ using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.Services {
-	public class WorkService : IWorkService {
+    public class WorkService : IWorkService {
 		// Mapping İşlemleri ve Validation İşlemelerinin çağrılması
 
 		private readonly IMapper _mapper;

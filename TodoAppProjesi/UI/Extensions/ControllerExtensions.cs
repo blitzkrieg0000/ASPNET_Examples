@@ -33,9 +33,7 @@ namespace UI.Extensions {
             if (response.ResponseType == ResponseType.NotFound) {
                 return controller.NotFound();
             }
-
             return controller.RedirectToAction(actionName);
-
         }
     }
 }

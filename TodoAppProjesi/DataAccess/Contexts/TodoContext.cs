@@ -17,7 +17,7 @@ namespace DataAccess.Contexts {
         //     optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         //     base.OnConfiguring(optionsBuilder);
         // }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new WorkConfiguration());
         }

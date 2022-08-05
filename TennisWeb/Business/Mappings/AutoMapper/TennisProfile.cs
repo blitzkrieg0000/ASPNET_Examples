@@ -6,7 +6,8 @@ using UI.Entities.Concrete;
 namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {
         public TennisProfile() {
-            CreateMap<PlayingDatum, PlayingDatumListDto>().ReverseMap();
+            CreateMap<PlayingDatum, PlayingDatumRelatedListDto>().ReverseMap();
+            //CreateMap<PlayingDatum, PlayingDatumListDto>();
         }
     }
 }
