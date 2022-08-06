@@ -8,5 +8,6 @@ namespace Business.Interfaces {
         Task<Response<List<PlayingDatumRelatedListDto>>> GetAll();
         Task<Response<List<PlayingDatumListDto>>> GetPlayingData();
         Task<IResponse> Remove(int id);
+        Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto);
     }
 }

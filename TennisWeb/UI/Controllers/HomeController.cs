@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Business.GRPCData;
 using Business.Interfaces;
 using Business.Services;
+using Dtos.TennisDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UI.Extensions;
@@ -37,9 +38,10 @@ namespace UI.Controllers {
                 Id = 9,
                 Force = false
             };
-            await _grpcService.DetectCourtLines(model);
+            
+            var lineImage = await _grpcService.DetectCourtLines(model);
 
-            return View();
+            return View(lineImage.Data);
         }
 
         public IActionResult Upload() {
@@ -56,29 +58,33 @@ namespace UI.Controllers {
                 return RedirectToAction("Upload");
             }
             if (formFile.ContentType == "video/mp4") {
-                var newName = Guid.NewGuid() + "." + Path.GetExtension(formFile.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/data/video", newName);
+                var newName = Guid.NewGuid() + Path.GetExtension(formFile.FileName);
+                var path = Path.Combine("/srv/nfs/mydata/docker-tennis/assets", newName);
                 var stream = new FileStream(path, FileMode.Create);
+                
                 await formFile.CopyToAsync(stream);
 
+    
+                //TODO HASH KONTROLÜ YAPILACAK
+                // var hash = "";
+                // using (var md5 = System.Security.Cryptography.MD5.Create()) {
 
-                var hash = "";
-                using (var md5 = System.Security.Cryptography.MD5.Create()) {
+                //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
+                //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
+                //     }
+                // }
+                // System.Console.WriteLine(hash);
 
-                    using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
-                        hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
-                    }
-
-                }
-
-                System.Console.WriteLine(hash);
-
+                var response = await _tennisService.Create(new StreamCreateDto() {
+                    Name = newName,
+                    Source = "/srv/nfs/mydata/docker-tennis/assets/" + newName
+                });
 
                 TempData["Upload_Message"] = "Başarılı!";
+                return this.ResponseRedirectToAction(response, "Upload");
             } else {
                 TempData["Upload_Message"] = "Başarısız! (Type: mp4 olmalıdır!)";
             }
-
             return RedirectToAction("Upload");
         }
 

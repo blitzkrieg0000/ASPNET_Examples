@@ -78,5 +78,11 @@ namespace Business.Services {
         }
 
 
+        public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {
+            await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
+            await _unitOfWork.SaveChanges();
+            return new Response<StreamCreateDto>(ResponseType.Success, dto);
+
+        }
     }
 }

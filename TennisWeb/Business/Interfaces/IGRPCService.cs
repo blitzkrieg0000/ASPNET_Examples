@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.GRPCData;
+using Common.ResponseObjects;
+using Dtos.TennisDtos;
 
 namespace Business.Interfaces {
     public interface IGRPCService {
-        Task DetectCourtLines(CourtLineDetectRequestModel model);
+        Task<Response<DetectCourtLinesDto>> DetectCourtLines(CourtLineDetectRequestModel model);
     }
 }
