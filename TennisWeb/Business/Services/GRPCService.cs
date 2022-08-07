@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.GRPCData;
@@ -7,8 +6,6 @@ using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.TennisDtos;
 using Grpc.Net.Client;
-using OpenCvSharp;
-using UI.Entities.Concrete;
 
 namespace Business.Services {
     public class GRPCService : IGRPCService {
@@ -27,7 +24,6 @@ namespace Business.Services {
             var client = new mainRouterServer.mainRouterServerClient(channel);
             var reply = await client.detectCourtLinesControllerAsync(new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force });
 
-
             //! PARSE
             var raw = reply.Lines;
             float[,] linesList = new float[10, 4];
@@ -41,31 +37,9 @@ namespace Business.Services {
                 }
             }
 
-            //!READ SOURCE
-            var stream = await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == model.Id);
-            var image = new Mat();
-            var capture = new VideoCapture(stream.Source);
-            capture.Read(image);
-            capture.Release();
-
-            if (!image.Empty()) {
-
-
-                for (int i = 0; i < 10; i++) {
-
-                    Cv2.Line(image,
-                        (int)linesList[i, 0], (int)linesList[i, 1],
-                        (int)linesList[i, 2], (int)linesList[i, 3],
-                 new Scalar(255, 255, 255), 10
-                    );
-                }
-
-            }
-
-            string encodedByte = Convert.ToBase64String(image.ToBytes());
-
             DetectCourtLinesDto data = new() {
-                Lines = encodedByte
+                Lines = linesList,
+                Base64Img = reply.Frame
             };
 
             return new Response<DetectCourtLinesDto>(ResponseType.Success, data);

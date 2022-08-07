@@ -56,4 +56,5 @@ message linePackage {
 }
 message LinesResponseData{
   linePackage lines = 1;
-} 
+  string frame=2;
+}
