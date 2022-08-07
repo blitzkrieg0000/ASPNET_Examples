@@ -4,7 +4,7 @@ package stream;
  
 // Service
 service mainRouterServer {
-  rpc detectCourtLinesController(detectCourtLinesRequestData) returns (responseData) {}
+  rpc detectCourtLinesController(detectCourtLinesRequestData) returns (LinesResponseData) {}
   rpc gameObservationController(gameObservationRequestData) returns (gameObservationControllerResponse) {}
   rpc getProducerThreads(requestData) returns (responseData) {}
   rpc stopProduce(requestData) returns (responseData) {}
@@ -41,3 +41,19 @@ message gameObservationControllerResponse{
   bytes data=1;
   bytes frame=2;
 }
+
+
+// Array Structure
+message number {
+  float data = 1 ;
+}
+message line {
+  repeated number items = 1;
+}
+message linePackage {
+  repeated line items = 1;
+  
+}
+message LinesResponseData{
+  linePackage lines = 1;
+} 

@@ -7,7 +7,7 @@ using Dtos.Interface;
 namespace Dtos.TennisDtos {
     public class DetectCourtLinesDto : IDto {
 
-        public string Image { get; set; }
+        public string Lines { get; set; }
 
     }
 }

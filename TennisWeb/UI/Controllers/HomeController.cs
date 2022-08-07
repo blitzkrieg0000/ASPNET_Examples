@@ -27,6 +27,12 @@ namespace UI.Controllers {
             return View(data.Data);
         }
 
+        public async Task<IActionResult> PlayingDatum() {
+            var data = await _tennisService.GetPlayingData();
+            return View(data.Data);
+        }
+
+
         public async Task<IActionResult> Remove(int id) {
             var response = await _tennisService.Remove(id);
             return this.ResponseRedirectToAction(response, "ListCourts");
@@ -38,7 +44,7 @@ namespace UI.Controllers {
                 Id = 9,
                 Force = false
             };
-            
+
             var lineImage = await _grpcService.DetectCourtLines(model);
 
             return View(lineImage.Data);
@@ -61,10 +67,10 @@ namespace UI.Controllers {
                 var newName = Guid.NewGuid() + Path.GetExtension(formFile.FileName);
                 var path = Path.Combine("/srv/nfs/mydata/docker-tennis/assets", newName);
                 var stream = new FileStream(path, FileMode.Create);
-                
+
                 await formFile.CopyToAsync(stream);
 
-    
+
                 //TODO HASH KONTROLÜ YAPILACAK
                 // var hash = "";
                 // using (var md5 = System.Security.Cryptography.MD5.Create()) {
@@ -87,7 +93,6 @@ namespace UI.Controllers {
             }
             return RedirectToAction("Upload");
         }
-
 
         public IActionResult NotFound(int code) {
             return View();
