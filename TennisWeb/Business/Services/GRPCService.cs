@@ -9,8 +9,7 @@ using Grpc.Net.Client;
 
 namespace Business.Services {
     public class GRPCService : IGRPCService {
-
-
+        
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -27,6 +26,7 @@ namespace Business.Services {
             //! PARSE
             var raw = reply.Lines;
             float[,] linesList = new float[10, 4];
+            
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 4; j++) {
                     if (raw.Items.Count > 0) {

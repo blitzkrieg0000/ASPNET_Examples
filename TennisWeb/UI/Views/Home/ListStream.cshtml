@@ -1,0 +1,54 @@
+@model List<StreamListDto>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container my-2">
+
+        @* <div class="text-end my-2">
+            </div> *@
+
+        <table class="table table-hover table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Source</th>
+                    <th>CourtLineArray</th>
+                    <th>KafkaTopicName</th>
+                    <th>SaveDate</th>
+                    <th>IsActivated</th>
+                    <th><b>Actions</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Source</td>
+                        <td>@item.CourtLineArray</td>
+                        <td>@item.KafkaTopicName</td>
+                        <td>@item.SaveDate</td>
+                        <td>@(item.IsActivated ? 1 : 0)</td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
+                            class="btn btn-warning btn-sm">Güncelle</a>
+                        </td>
+                        <td>
+                            <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
+                            class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                        <td>
+                            @* <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for following text input"> *@
+                            <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Detect Court Lines</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>

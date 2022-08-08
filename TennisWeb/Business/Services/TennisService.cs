@@ -25,9 +25,7 @@ namespace Business.Services {
         public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAll() {
 
             var data = _mapper.Map<List<PlayingDatumRelatedListDto>>(
-
                 await _unitOfWork.GetRepository<PlayingDatum>().GetAll()
-
             );
 
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
@@ -64,6 +62,12 @@ namespace Business.Services {
             return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
         }
 
+        public async Task<Response<List<StreamListDto>>> GetStream() {
+            var data = _mapper.Map<List<StreamListDto>>(
+                await _unitOfWork.GetRepository<Stream>().GetAll()
+            );
+            return new Response<List<StreamListDto>>(ResponseType.Success, data);
+        }
 
         public async Task<IResponse> Remove(int id) {
             var removedEntity = await _unitOfWork.GetRepository<PlayingDatum>().GetByFilter(x => x.Id == id);
@@ -77,12 +81,12 @@ namespace Business.Services {
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
-
         public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {
             await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
             await _unitOfWork.SaveChanges();
             return new Response<StreamCreateDto>(ResponseType.Success, dto);
 
         }
+
     }
 }

@@ -22,9 +22,9 @@ namespace UI.Controllers {
             return View();
         }
 
-        public async Task<IActionResult> ListCourts() {
-            var data = await _tennisService.GetPlayingData();
-            return View(data.Data);
+        public async Task<IActionResult> ListStream() {
+            var data = await _tennisService.GetStream();
+            return this.ResponseView(data);
         }
 
         public async Task<IActionResult> PlayingDatum() {
@@ -32,17 +32,15 @@ namespace UI.Controllers {
             return View(data.Data);
         }
 
-
         public async Task<IActionResult> Remove(int id) {
             var response = await _tennisService.Remove(id);
             return this.ResponseRedirectToAction(response, "ListCourts");
         }
 
-        public async Task<IActionResult> DetectCourtLines() {
-
+        public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
             CourtLineDetectRequestModel model = new() {
-                Id = 9,
-                Force = false
+                Id = id,
+                Force = Force
             };
 
             var lineImage = await _grpcService.DetectCourtLines(model);
