@@ -3,13 +3,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<body>
-    <div class="container my-2">
+@section Links{
+<style>
+    .radial-gradient {
+        background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
+    }
 
-        @* <div class="text-end my-2">
-        </div> *@
+    .dataTables_scroll .dataTables_scrollBody {
+        max-height: 100% !important;
+        height: 100% !important;
+    }
+</style>
+}
 
-        <table class="table table-hover table-bordered table-sm">
+<body class="radial-gradient">
+
+    <!-- Scrollable datatable -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Playing Datum</h5>
+        </div>
+
+        <table class="table datatable-scroll-y " width="100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -18,11 +33,15 @@
                     <th>AOS Type</th>
                     <th>Court</th>
                     <th>SaveDate</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
+
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Score</td>
@@ -38,9 +57,22 @@
                             <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
                             class="btn btn-danger btn-sm">Sil</a>
                         </td>
+
+                        <td class="text-center">
+                            <a asp-action="PlayingDatumDetail" asp-controller="Home" asp-route-id="@item.Id"
+                            class="btn btn-warning btn-sm dropdown-item">Ayrıntıya Git</a>
+                        </td>
                     </tr>
                 }
+
             </tbody>
         </table>
     </div>
+    <!-- /scrollable datatable -->
+
 </body>
+
+@section Scripts{
+<script src="~/limitless/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/datatables_basic.js"></script>
+}

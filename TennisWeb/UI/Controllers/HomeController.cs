@@ -99,10 +99,13 @@ namespace UI.Controllers {
                 });
 
                 TempData["Upload_Message"] = "Başarılı!";
-                return this.ResponseRedirectToAction(response, "Upload");
+
+                return this.ResponseRedirectToAction(response, "ListStream");
+
             } else {
                 TempData["Upload_Message"] = "Başarısız! (Type: mp4 olmalıdır!)";
             }
+
             return RedirectToAction("Upload");
         }
 
