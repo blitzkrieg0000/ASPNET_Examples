@@ -3,13 +3,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<body>
-    <div class="container my-2">
+@section Links{
+<style>
+    .radial-gradient {
+        background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
+    }
+</style>
+}
 
-        @* <div class="text-end my-2">
-            </div> *@
 
-        <table class="table table-hover table-bordered table-sm">
+<body class="radial-gradient">
+
+    <!-- Scrollable datatable -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Stream List</h5>
+        </div>
+
+        <table class="table datatable-scroll-y " width="100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -19,7 +30,7 @@
                     <th>KafkaTopicName</th>
                     <th>SaveDate</th>
                     <th>IsActivated</th>
-                    <th><b>Actions</b></th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +43,9 @@
                         <td>@item.CourtLineArray</td>
                         <td>@item.KafkaTopicName</td>
                         <td>@item.SaveDate</td>
-                        <td>@(item.IsActivated ? 1 : 0)</td>
+                        <td><span class="badge badge-success">@(item.IsActivated ? 1 : 0)</span></td>
+
+
                         <td>
                             <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
                             class="btn btn-warning btn-sm">Güncelle</a>
@@ -42,13 +55,38 @@
                             class="btn btn-danger btn-sm">Sil</a>
                         </td>
                         <td>
-                            @* <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for following text input"> *@
-                            <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Detect Court Lines</a>
+                            @* <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for
+                                following text input"> *@
+                            <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id"
+                            class="btn btn-warning btn-sm">Detect Court Lines</a>
                         </td>
 
+
+                        <td class="text-center">
+                            <div class="list-icons">
+                                <div class="dropdown">
+
+                                    <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                        <i class="icon-menu9"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to.pdf</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
+
                 }
+
             </tbody>
         </table>
     </div>
+    <!-- /scrollable datatable -->
+
 </body>
+
+@section Scripts{
+<script src="~/limitless/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/datatables_basic.js"></script>
+}

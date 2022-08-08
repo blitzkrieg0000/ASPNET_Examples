@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="~/limitless/global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="~/limitless/assets/css/all.min.css" rel="stylesheet" type="text/css">
+
     <!-- /global stylesheets -->
     @RenderSection("Links", false)
 </head>
@@ -490,12 +490,13 @@
 
 
                 <!-- Content area -->
+                
                 <div class="content pt-0">
-
                     <div class="container-fluid p-3">
-                        @RenderBody()
-                    </div>
 
+                        @RenderBody()
+
+                    </div>
                 </div>
                 <!-- /content area -->
 
@@ -543,6 +544,7 @@
     <!-- Core JS files -->
     <script src="~/limitless/global_assets/js/main/jquery.min.js"></script>
     <script src="~/limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <script src="~/limitless/assets/js/app.js"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
@@ -551,7 +553,6 @@
     <script src="~/limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
     <script src="~/limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
 
-    <script src="~/limitless/assets/js/app.js"></script>
     <script src="~/limitless/global_assets/js/demo_pages/dashboard.js"></script>
     <script src="~/limitless/global_assets/js/demo_charts/pages/dashboard/dark/streamgraph.js"></script>
     <script src="~/limitless/global_assets/js/demo_charts/pages/dashboard/dark/sparklines.js"></script>
@@ -564,6 +565,7 @@
     <script src="~/limitless/global_assets/js/demo_charts/pages/dashboard/dark/pies.js"></script>
     <script src="~/limitless/global_assets/js/demo_charts/pages/dashboard/dark/bullets.js"></script>
     <!-- /theme JS files -->
+
     @RenderSection("Scripts", false)
 
 </body>
