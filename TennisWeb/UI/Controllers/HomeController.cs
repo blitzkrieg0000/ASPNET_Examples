@@ -21,16 +21,17 @@ namespace UI.Controllers {
         public IActionResult Index() {
             return View();
         }
+        
+        public async Task<IActionResult> PlayingDatum() {
+            var data = await _tennisService.GetPlayingData();
+            return View(data.Data);
+        }
 
         public async Task<IActionResult> ListStream() {
             var data = await _tennisService.GetStream();
             return this.ResponseView(data);
         }
 
-        public async Task<IActionResult> PlayingDatum() {
-            var data = await _tennisService.GetPlayingData();
-            return View(data.Data);
-        }
 
         public async Task<IActionResult> Remove(int id) {
             var response = await _tennisService.Remove(id);

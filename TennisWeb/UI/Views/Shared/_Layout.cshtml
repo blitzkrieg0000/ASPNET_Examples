@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+        type="text/css">
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="~/limitless/global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="~/limitless/assets/css/all.min.css" rel="stylesheet" type="text/css">
     @RenderSection("Links", false)
-    
+
 </head>
 
 <body>
@@ -419,28 +420,36 @@
                         <li class="nav-item">
                             <a asp-action="PlayingDatum" asp-controller="Home" class="nav-link">
                                 <i class="icon-list-unordered"></i>
-                                <span>Sahalar</span>
+                                <span>Test Geçmişi</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-action="ListStream" asp-controller="Home" class="nav-link">
+                                <i class="icon-list-unordered"></i>
+                                <span>List Streams</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-action="Upload" asp-controller="Home" class="nav-link">
+                                <i class="icon-list-unordered"></i>
+                                <span>File Upload</span>
                             </a>
                         </li>
 
                         <li class="nav-item nav-item-submenu">
-
                             <a href="#" class="nav-link">
                                 <i class="icon-copy"></i>
-                                <span>TEST</span></a>
+                                <span>TEST</span>
+                            </a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Layouts">
 
+                                <li class="nav-item">
+                                    <a href="index.html" class="nav-link active">Test 1</a>
+                                </li>
 
-                                <li class="nav-item">
-                                    <a href="index.html" class="nav-link active">Default layout</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-action="Upload" asp-controller="Home" class="nav-link">File Upload</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-action="ListStream" asp-controller="Home" class="nav-link">List Streams</a>
-                                </li>
                             </ul>
 
                         </li>

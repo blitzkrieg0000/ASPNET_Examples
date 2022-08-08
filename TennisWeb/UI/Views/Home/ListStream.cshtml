@@ -8,6 +8,11 @@
     .radial-gradient {
         background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
     }
+
+    .dataTables_scroll .dataTables_scrollBody {
+        max-height: 100% !important;
+        height: 100% !important;
+    }
 </style>
 }
 
@@ -30,7 +35,8 @@
                     <th>KafkaTopicName</th>
                     <th>SaveDate</th>
                     <th>IsActivated</th>
-                    <th class="text-center">Actions</th>
+                    <th>Actions</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -45,21 +51,6 @@
                         <td>@item.SaveDate</td>
                         <td><span class="badge badge-success">@(item.IsActivated ? 1 : 0)</span></td>
 
-                        <td>
-                            <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
-                            class="btn btn-warning btn-sm">Güncelle</a>
-                        </td>
-                        <td>
-                            <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
-                            class="btn btn-danger btn-sm">Sil</a>
-                        </td>
-                        <td>
-                            @* <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for
-                                following text input"> *@
-                            <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id"
-                            class="btn btn-warning btn-sm">Detect Court Lines</a>
-                        </td>
-
 
                         <td class="text-center">
                             <div class="list-icons">
@@ -69,13 +60,23 @@
                                         <i class="icon-menu9"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to.pdf</a>
+
+                                        <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
+                                        class="btn btn-warning btn-sm dropdown-item">Güncelle</a>
+
+                                        <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
+                                        class="btn btn-danger btn-sm dropdown-item">Sil</a>
+
+                                        <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id"
+                                        class="btn btn-success btn-sm dropdown-item">Detect Court Lines</a>
+
+
                                     </div>
                                 </div>
                             </div>
                         </td>
-                    </tr>
 
+                    </tr>
                 }
 
             </tbody>
