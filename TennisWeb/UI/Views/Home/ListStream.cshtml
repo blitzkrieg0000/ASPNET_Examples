@@ -16,7 +16,6 @@
 </style>
 }
 
-
 <body class="radial-gradient">
 
     <!-- Scrollable datatable -->
@@ -36,7 +35,6 @@
                     <th>SaveDate</th>
                     <th>IsActivated</th>
                     <th>Actions</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +49,6 @@
                         <td>@item.SaveDate</td>
                         <td><span class="badge badge-success">@(item.IsActivated ? 1 : 0)</span></td>
 
-
                         <td class="text-center">
                             <div class="list-icons">
                                 <div class="dropdown">
@@ -64,18 +61,22 @@
                                         <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id"
                                         class="btn btn-warning btn-sm dropdown-item">Güncelle</a>
 
-                                        <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
+                                        <a asp-action="StreamRemove" asp-controller="Home" asp-route-id="@item.Id"
                                         class="btn btn-danger btn-sm dropdown-item">Sil</a>
 
                                         <a asp-action="DetectCourtLines" asp-controller="Home" asp-route-id="@item.Id"
                                         class="btn btn-success btn-sm dropdown-item">Detect Court Lines</a>
 
-
+                                        @* <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" asp-for="">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                            Force
+                                            </label>
+                                            </div> *@
                                     </div>
                                 </div>
                             </div>
                         </td>
-
                     </tr>
                 }
 

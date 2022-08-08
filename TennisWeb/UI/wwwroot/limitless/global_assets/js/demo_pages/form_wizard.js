@@ -10,7 +10,7 @@
 // Setup module
 // ------------------------------
 
-var FormWizard = function() {
+var FormWizard = function () {
 
 
     //
@@ -18,7 +18,7 @@ var FormWizard = function() {
     //
 
     // Wizard
-    var _componentWizard = function() {
+    var _componentWizard = function () {
         if (!$().steps) {
             console.warn('Warning - steps.min.js is not loaded.');
             return;
@@ -31,12 +31,13 @@ var FormWizard = function() {
             transitionEffect: 'fade',
             titleTemplate: '<span class="number">#index#</span> #title#',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: '<button type="submit" class="btn btn-primary btn-sm">Upload</button>'
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                var form = $(this);
+                form.submit();
             }
         });
 
@@ -48,15 +49,16 @@ var FormWizard = function() {
             titleTemplate: '<span class="number">#index#</span> #title#',
             loadingTemplate: '<div class="card-body text-center"><i class="icon-spinner2 spinner mr-2"></i>  #text#</div>',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: '<button type="submit" class="btn btn-primary btn-sm">Upload</button>'
             },
             onContentLoaded: function (event, currentIndex) {
                 $(this).find('.card-body').addClass('hide');
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                var form = $(this);
+                form.submit();
             }
         });
 
@@ -66,15 +68,16 @@ var FormWizard = function() {
             bodyTag: 'fieldset',
             titleTemplate: '<span class="number">#index#</span> #title#',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: '<button type="submit" class="btn btn-primary btn-sm">Upload</button>'
             },
             transitionEffect: 'fade',
             saveState: true,
             autoFocus: true,
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                var form = $(this);
+                form.submit();
             }
         });
 
@@ -84,15 +87,16 @@ var FormWizard = function() {
             bodyTag: 'fieldset',
             titleTemplate: '<span class="number">#index#</span> #title#',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: '<button type="submit" class="btn btn-primary btn-sm">Upload</button>'
             },
             transitionEffect: 'fade',
-            startIndex: 2,
+            startIndex: 0,
             autoFocus: true,
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                var form = $(this);
+                form.submit();
             }
         });
 
@@ -104,12 +108,13 @@ var FormWizard = function() {
             enableAllSteps: true,
             titleTemplate: '<span class="number">#index#</span> #title#',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: '<button type="submit" class="btn btn-primary btn-sm">Upload</button>'
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                var form = $(this);
+                form.submit();
             }
         });
 
@@ -134,9 +139,9 @@ var FormWizard = function() {
             bodyTag: 'fieldset',
             titleTemplate: '<span class="number">#index#</span> #title#',
             labels: {
-                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Previous' : '<i class="icon-arrow-left8 mr-2"></i> Previous',
-                next: $('html').attr('dir') == 'rtl' ? 'Next <i class="icon-arrow-left8 ml-2"></i>' : 'Next <i class="icon-arrow-right8 ml-2"></i>',
-                finish: 'Submit form <i class="icon-paperplane ml-2"></i>'
+                previous: $('html').attr('dir') == 'rtl' ? '<i class="icon-arrow-right8 mr-2"></i> Önceki' : '<i class="icon-arrow-left8 mr-2"></i> Önceki',
+                next: $('html').attr('dir') == 'rtl' ? 'Sonraki <i class="icon-arrow-left8 ml-2"></i>' : 'Sonraki <i class="icon-arrow-right8 ml-2"></i>',
+                finish: 'Form Gönderildi. <i class="icon-paperplane ml-2"></i>'
             },
             transitionEffect: 'fade',
             autoFocus: true,
@@ -163,7 +168,7 @@ var FormWizard = function() {
                 return form.valid();
             },
             onFinished: function (event, currentIndex) {
-                alert('Submitted!');
+                alert('Form Gönderildi!');
             }
         });
 
@@ -172,29 +177,29 @@ var FormWizard = function() {
         $('.steps-validation').validate({
             ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
             errorClass: 'validation-invalid-label',
-            highlight: function(element, errorClass) {
+            highlight: function (element, errorClass) {
                 $(element).removeClass(errorClass);
             },
-            unhighlight: function(element, errorClass) {
+            unhighlight: function (element, errorClass) {
                 $(element).removeClass(errorClass);
             },
 
             // Different components require proper error label placement
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
 
                 // Unstyled checkboxes, radios
                 if (element.parents().hasClass('form-check')) {
-                    error.appendTo( element.closest('.form-check').parent() );
+                    error.appendTo(element.closest('.form-check').parent());
                 }
 
                 // Input with icons and Select2
                 else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                    error.appendTo( element.parent() );
+                    error.appendTo(element.parent());
                 }
 
                 // Input group and custom controls
                 else if (element.parent().is('.custom-file, .custom-control') || element.parents().hasClass('input-group')) {
-                    error.appendTo( element.parent().parent() );
+                    error.appendTo(element.parent().parent());
                 }
 
                 // Other elements
@@ -216,7 +221,7 @@ var FormWizard = function() {
     //
 
     return {
-        init: function() {
+        init: function () {
             _componentWizard();
         }
     }
@@ -226,6 +231,6 @@ var FormWizard = function() {
 // Initialize module
 // ------------------------------
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     FormWizard.init();
 });

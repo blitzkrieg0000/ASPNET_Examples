@@ -37,7 +37,7 @@ namespace UI {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{Controller}/{Action}/{id?}",
-                    defaults: new { Controller = "Home", Action = "Index" }
+                    defaults: new { Controller = "Home", Action = "Upload" }
                 );
 
             });

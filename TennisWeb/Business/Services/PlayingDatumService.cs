@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
@@ -10,27 +9,23 @@ using Microsoft.EntityFrameworkCore;
 using UI.Entities.Concrete;
 
 namespace Business.Services {
-    public class TennisService : ITennisService {
+    public class PlayingDatumService : IPlayingDatumService {
         // Mapping İşlemleri ve Validation İşlemelerinin çağrılması
 
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TennisService(IUnitOfWork unitOfWork, IMapper mapper) {
+        public PlayingDatumService(IUnitOfWork unitOfWork, IMapper mapper) {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-
         public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAll() {
-
             var data = _mapper.Map<List<PlayingDatumRelatedListDto>>(
                 await _unitOfWork.GetRepository<PlayingDatum>().GetAll()
             );
-
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
-
 
         public async Task<Response<List<PlayingDatumListDto>>> GetPlayingData() {
             var query = _unitOfWork.GetRepository<PlayingDatum>().GetQuery();
@@ -62,11 +57,11 @@ namespace Business.Services {
             return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<List<StreamListDto>>> GetStream() {
-            var data = _mapper.Map<List<StreamListDto>>(
-                await _unitOfWork.GetRepository<Stream>().GetAll()
-            );
-            return new Response<List<StreamListDto>>(ResponseType.Success, data);
+        public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {
+            await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
+            await _unitOfWork.SaveChanges();
+            return new Response<StreamCreateDto>(ResponseType.Success, dto);
+
         }
 
         public async Task<IResponse> Remove(int id) {
@@ -79,13 +74,6 @@ namespace Business.Services {
             }
 
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
-        }
-
-        public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {
-            await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
-            await _unitOfWork.SaveChanges();
-            return new Response<StreamCreateDto>(ResponseType.Success, dto);
-
         }
 
     }

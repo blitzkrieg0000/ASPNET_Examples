@@ -22,7 +22,8 @@ namespace Business.DependencyResolvers.Microsoft {
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITennisService, TennisService>();
+            services.AddScoped<IPlayingDatumService, PlayingDatumService>();
+            services.AddScoped<IStreamService, StreamService>();
             services.AddScoped<IGRPCService, GRPCService>();
 
             //! AUTOMAPPER CONFIGURATIONS

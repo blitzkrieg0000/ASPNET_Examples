@@ -7,7 +7,8 @@ namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {
         public TennisProfile() {
             CreateMap<PlayingDatum, PlayingDatumRelatedListDto>().ReverseMap();
-            CreateMap<Stream, StreamListDto>();
+            CreateMap<Stream, StreamListDto>().ReverseMap();
+            CreateMap<Stream, StreamCreateDto>().ReverseMap();
         }
     }
 }

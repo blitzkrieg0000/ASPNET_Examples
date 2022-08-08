@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Business.GRPCData;
@@ -11,31 +12,37 @@ using UI.Extensions;
 
 namespace UI.Controllers {
     public class HomeController : Controller {
-        private readonly ITennisService _tennisService;
+        private readonly IPlayingDatumService _playingDatumService;
         private readonly IGRPCService _grpcService;
-        public HomeController(ITennisService workService, IGRPCService grpcService) {
-            _tennisService = workService;
+        private readonly IStreamService _streamService;
+        public HomeController(IPlayingDatumService playingDatumService, IGRPCService grpcService, IStreamService streamService) {
+            _playingDatumService = playingDatumService;
             _grpcService = grpcService;
+            _streamService = streamService;
         }
 
         public IActionResult Index() {
             return View();
         }
-        
+
         public async Task<IActionResult> PlayingDatum() {
-            var data = await _tennisService.GetPlayingData();
-            return View(data.Data);
+            var data = await _playingDatumService.GetPlayingData();
+            return this.ResponseView<List<PlayingDatumListDto>>(data);
         }
 
         public async Task<IActionResult> ListStream() {
-            var data = await _tennisService.GetStream();
-            return this.ResponseView(data);
+            var data = await _streamService.GetAll();
+            return this.ResponseView<List<StreamListDto>>(data);
         }
 
-
         public async Task<IActionResult> Remove(int id) {
-            var response = await _tennisService.Remove(id);
-            return this.ResponseRedirectToAction(response, "ListCourts");
+            var response = await _playingDatumService.Remove(id);
+            return this.ResponseRedirectToAction(response, "ListStream");
+        }
+
+        public async Task<IActionResult> StreamRemove(int id) {
+            var response = await _streamService.Remove(id);
+            return this.ResponseRedirectToAction(response, "ListStream");
         }
 
         public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
@@ -45,7 +52,6 @@ namespace UI.Controllers {
             };
 
             var lineImage = await _grpcService.DetectCourtLines(model);
-
             return View(lineImage.Data);
         }
 
@@ -56,19 +62,26 @@ namespace UI.Controllers {
         [HttpPost]
         [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
         [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> Upload(IFormFile formFile) {
+        public async Task<IActionResult> Upload(IFormFile formFile, string name = null) {
 
             if (formFile == null) {
                 TempData["Upload_Message"] = "Başarısız! Dosya Okunamadı";
                 return RedirectToAction("Upload");
             }
             if (formFile.ContentType == "video/mp4") {
-                var newName = Guid.NewGuid() + Path.GetExtension(formFile.FileName);
+
+                string baseName = "";
+                if (name != null) {
+                    baseName = name;
+                } else {
+                    baseName = Guid.NewGuid().ToString();
+                }
+
+                var newName = baseName + Path.GetExtension(formFile.FileName);
                 var path = Path.Combine("/srv/nfs/mydata/docker-tennis/assets", newName);
                 var stream = new FileStream(path, FileMode.Create);
 
                 await formFile.CopyToAsync(stream);
-
 
                 //TODO HASH KONTROLÜ YAPILACAK
                 // var hash = "";
@@ -80,7 +93,7 @@ namespace UI.Controllers {
                 // }
                 // System.Console.WriteLine(hash);
 
-                var response = await _tennisService.Create(new StreamCreateDto() {
+                var response = await _playingDatumService.Create(new StreamCreateDto() {
                     Name = newName,
                     Source = "/srv/nfs/mydata/docker-tennis/assets/" + newName
                 });
