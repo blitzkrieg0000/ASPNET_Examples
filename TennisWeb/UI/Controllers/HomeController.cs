@@ -59,24 +59,28 @@ namespace UI.Controllers {
             return View(lineImage.Data);
         }
 
-        public IActionResult Upload() {
-            return View();
+        public IActionResult CreateStream() {
+            var data = new CreateStreamDto() {
+                Name = Guid.NewGuid().ToString()
+            };
+            return View(data);
         }
 
         [HttpPost]
         [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
         [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> Upload(IFormFile formFile, string name = null) {
+        public async Task<IActionResult> CreateStream(IFormFile formFile, CreateStreamDto dto) {
 
             if (formFile == null) {
                 TempData["Upload_Message"] = "Başarısız! Dosya Okunamadı";
-                return RedirectToAction("Upload");
+                return RedirectToAction("CreateStream");
             }
+
             if (formFile.ContentType == "video/mp4") {
 
                 string baseName = "";
-                if (name != null) {
-                    baseName = name;
+                if (dto.Name != null) {
+                    baseName = dto.Name;
                 } else {
                     baseName = Guid.NewGuid().ToString();
                 }
@@ -110,7 +114,7 @@ namespace UI.Controllers {
                 TempData["Upload_Message"] = "Başarısız! (Type: mp4 olmalıdır!)";
             }
 
-            return RedirectToAction("Upload");
+            return RedirectToAction("CreateStream");
         }
 
         public IActionResult NotFound(int code) {

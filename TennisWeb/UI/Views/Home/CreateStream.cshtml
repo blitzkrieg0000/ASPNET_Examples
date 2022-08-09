@@ -1,0 +1,51 @@
+@model CreateStreamDto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (TempData["Upload_Message"] != null)
+    {
+        <div class="bg-primary text-white text-center lead">
+            @TempData["Upload_Message"]
+        </div>
+    }
+}
+
+<!-- Basic layout-->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Video Yükle</h5>
+    </div>
+
+    <div class="card-body">
+        <form asp-action="CreateStream" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label>Video Adı:</label>
+                <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Video Adı">
+            </div>
+
+            <div class="form-group">
+                <label>Dosya:</label>
+                <label class="custom-file">
+                    <input name="formFile" type="file" class="custom-file-input">
+                    <span class="custom-file-label">Video Dosyası Seçiniz</span>
+                </label>
+                <span class="form-text text-muted">Video Formatı: ".mp4"</span>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Kaydet <i class="icon-paperplane ml-2"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /basic layout -->
+
+
+@section Scripts{
+<script src="~/limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/form_layouts.js"></script>
+}
