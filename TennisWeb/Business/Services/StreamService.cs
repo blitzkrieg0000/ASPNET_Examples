@@ -25,7 +25,15 @@ namespace Business.Services {
             );
             return new Response<List<StreamListDto>>(ResponseType.Success, data);
         }
-        
+
+        public async Task<Response<StreamListDto>> GetById(int id) {
+
+            var data = _mapper.Map<StreamListDto>(
+                await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == id, asNoTracking: false)
+            );
+            return new Response<StreamListDto>(ResponseType.Success, data);
+        }
+
         public async Task<IResponse> Remove(int id) {
             var removedEntity = await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == id);
 

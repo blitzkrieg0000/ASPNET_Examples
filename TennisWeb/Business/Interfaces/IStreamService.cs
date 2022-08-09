@@ -7,5 +7,6 @@ namespace Business.Interfaces {
     public interface IStreamService {
         Task<IResponse> Remove(int id);
         Task<Response<List<StreamListDto>>> GetAll();
+        Task<Response<StreamListDto>> GetById(int id);
     }
 }

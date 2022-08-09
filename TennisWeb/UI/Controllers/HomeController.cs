@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Business.GRPCData;
 using Business.Interfaces;
-using Business.Services;
 using Dtos.TennisDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +42,11 @@ namespace UI.Controllers {
         public async Task<IActionResult> StreamRemove(int id) {
             var response = await _streamService.Remove(id);
             return this.ResponseRedirectToAction(response, "ListStream");
+        }
+
+        public async Task<IActionResult> StreamDetail(int id) {
+            var data = await _streamService.GetById(id);
+            return this.ResponseView(data);
         }
 
         public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
