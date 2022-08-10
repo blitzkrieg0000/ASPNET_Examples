@@ -410,7 +410,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link active">
+                            <a asp-action="Index" asp-controller="Home" class="nav-link active">
                                 <i class="icon-home4"></i>
                                 <span>Ana Sayfa</span>
                                 <span class="badge badge-primary align-self-center ml-auto">5.0</span>
@@ -418,7 +418,14 @@
                         </li>
 
                         <li class="nav-item">
-                            <a asp-action="PlayingDatum" asp-controller="Home" class="nav-link">
+                            <a asp-action="ProcessVideo" asp-controller="Home" class="nav-link">
+                                <i class="icon-list-unordered"></i>
+                                <span>AOS Testi Yap</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-action="ListPlayingDatum" asp-controller="Home" class="nav-link">
                                 <i class="icon-list-unordered"></i>
                                 <span>Test Geçmişi</span>
                             </a>

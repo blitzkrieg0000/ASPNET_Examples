@@ -27,7 +27,6 @@ namespace Business.Services {
         }
 
         public async Task<Response<StreamListDto>> GetById(int id) {
-
             var data = _mapper.Map<StreamListDto>(
                 await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );
@@ -45,9 +44,7 @@ namespace Business.Services {
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
-
         public async Task<IResponse<StreamListDto>> Update(StreamListDto dto) {
-
             var updatedEntity = await _unitOfWork.GetRepository<Stream>().Find(dto.Id);
             _unitOfWork.GetRepository<Stream>().Update(_mapper.Map<Stream>(dto), updatedEntity);
             

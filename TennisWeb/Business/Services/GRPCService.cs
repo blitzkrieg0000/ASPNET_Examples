@@ -9,7 +9,7 @@ using Grpc.Net.Client;
 
 namespace Business.Services {
     public class GRPCService : IGRPCService {
-        
+
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -18,7 +18,7 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<DetectCourtLinesDto>> DetectCourtLines(CourtLineDetectRequestModel model) {
+        public async Task<Response<DetectCourtLinesDto>> DetectCourtLines(DetectCourtLinesRequestModel model) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new mainRouterServer.mainRouterServerClient(channel);
             var requestData = new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force };
@@ -27,7 +27,7 @@ namespace Business.Services {
             //! PARSE
             var raw = reply.Lines;
             float[,] linesList = new float[10, 4];
-            
+
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 4; j++) {
                     if (raw.Items.Count > 0) {
@@ -45,5 +45,24 @@ namespace Business.Services {
 
             return new Response<DetectCourtLinesDto>(ResponseType.Success, data);
         }
+
+
+
+
+        public async Task StartGameObservation() {
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+            var client = new mainRouterServer.mainRouterServerClient(channel);
+
+            var requestData = new detectCourtLinesRequestData() { 
+                Id = model.Id, 
+                Force = model.Force };
+
+
+        }
+
+
+
+
+
     }
 }

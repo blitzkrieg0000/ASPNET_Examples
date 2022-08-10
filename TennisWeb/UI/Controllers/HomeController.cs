@@ -21,13 +21,12 @@ namespace UI.Controllers {
             _streamService = streamService;
         }
 
-
-
+        //! LİST
         public IActionResult Index() {
             return View();
         }
 
-        public async Task<IActionResult> PlayingDatum() {
+        public async Task<IActionResult> ListPlayingDatum() {
             var data = await _playingDatumService.GetPlayingData();
             return this.ResponseView<List<PlayingDatumListDto>>(data);
         }
@@ -37,47 +36,32 @@ namespace UI.Controllers {
             return this.ResponseView<List<StreamListDto>>(data);
         }
 
+        public async Task<IActionResult> StreamDetail(int id) {
+            var data = await _streamService.GetById(id);
+            return this.ResponseView(data);
+        }
+
+        public async Task<IActionResult> PrepareProcessData(){
+
+
+        }
+        
+
+        //! REMOVE
         public async Task<IActionResult> Remove(int id) {
             var response = await _playingDatumService.Remove(id);
             return this.ResponseRedirectToAction(response, "ListStream");
         }
 
-        public async Task<IActionResult> StreamRemove(int id) {
+        public async Task<IActionResult> RemoveStream(int id) {
 
             var response = await _streamService.Remove(id);
 
             return this.ResponseRedirectToAction(response, "ListStream");
         }
 
-        public async Task<IActionResult> StreamDetail(int id) {
-            var data = await _streamService.GetById(id);
-            return this.ResponseView(data);
-        }
 
-        public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
-
-            CourtLineDetectRequestModel model = new() {
-                Id = id,
-                Force = Force
-            };
-
-            var lineImage = await _grpcService.DetectCourtLines(model);
-
-            return View(lineImage.Data);
-        }
-
-
-        [HttpPost]
-        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
-        [RequestSizeLimit(209715200)]
-        public async Task<IActionResult> UpdateStream(IFormFile formFile, StreamListDto dto) {
-            
-            var response = await _streamService.Update(dto);
-
-            return View();
-        }
-
-
+        //! CREATE
         public IActionResult CreateStream() {
             var data = new CreateStreamDto() {
                 Name = Guid.NewGuid().ToString()
@@ -85,10 +69,7 @@ namespace UI.Controllers {
             return View(data);
         }
 
-
-        [HttpPost]
-        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
-        [RequestSizeLimit(209715200)]
+        [HttpPost, RequestFormLimits(MultipartBodyLengthLimit = 209715200), RequestSizeLimit(209715200)]
         public async Task<IActionResult> CreateStream(IFormFile formFile, CreateStreamDto dto) {
 
             if (formFile == null) {
@@ -137,7 +118,28 @@ namespace UI.Controllers {
             return RedirectToAction("CreateStream");
         }
 
+        [HttpPost, RequestFormLimits(MultipartBodyLengthLimit = 209715200), RequestSizeLimit(209715200)]
+        public async Task<IActionResult> UpdateStream(IFormFile formFile, StreamListDto dto) {
+            var response = await _streamService.Update(dto);
+            return View();
+        }
 
+
+        //! ALGORITMS
+        public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
+
+            DetectCourtLinesRequestModel model = new() {
+                Id = id,
+                Force = Force
+            };
+
+            var lineImage = await _grpcService.DetectCourtLines(model);
+
+            return View(lineImage.Data);
+        }
+
+
+        //! ERRORS
         public IActionResult NotFound(int code) {
             return View();
         }
