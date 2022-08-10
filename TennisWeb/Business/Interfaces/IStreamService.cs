@@ -8,5 +8,6 @@ namespace Business.Interfaces {
         Task<IResponse> Remove(int id);
         Task<Response<List<StreamListDto>>> GetAll();
         Task<Response<StreamListDto>> GetById(int id);
+        Task<IResponse<StreamListDto>> Update(StreamListDto dto);
     }
 }

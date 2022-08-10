@@ -11,6 +11,7 @@ using UI.Extensions;
 
 namespace UI.Controllers {
     public class HomeController : Controller {
+
         private readonly IPlayingDatumService _playingDatumService;
         private readonly IGRPCService _grpcService;
         private readonly IStreamService _streamService;
@@ -19,6 +20,8 @@ namespace UI.Controllers {
             _grpcService = grpcService;
             _streamService = streamService;
         }
+
+
 
         public IActionResult Index() {
             return View();
@@ -40,7 +43,9 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> StreamRemove(int id) {
+
             var response = await _streamService.Remove(id);
+
             return this.ResponseRedirectToAction(response, "ListStream");
         }
 
@@ -50,14 +55,28 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
+
             CourtLineDetectRequestModel model = new() {
                 Id = id,
                 Force = Force
             };
 
             var lineImage = await _grpcService.DetectCourtLines(model);
+
             return View(lineImage.Data);
         }
+
+
+        [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        [RequestSizeLimit(209715200)]
+        public async Task<IActionResult> UpdateStream(IFormFile formFile, StreamListDto dto) {
+            
+            var response = await _streamService.Update(dto);
+
+            return View();
+        }
+
 
         public IActionResult CreateStream() {
             var data = new CreateStreamDto() {
@@ -65,6 +84,7 @@ namespace UI.Controllers {
             };
             return View(data);
         }
+
 
         [HttpPost]
         [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
@@ -117,9 +137,11 @@ namespace UI.Controllers {
             return RedirectToAction("CreateStream");
         }
 
+
         public IActionResult NotFound(int code) {
             return View();
         }
+
 
     }
 }

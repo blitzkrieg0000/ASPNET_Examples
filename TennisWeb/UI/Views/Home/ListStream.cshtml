@@ -39,8 +39,6 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Source</th>
-                    <th>CourtLineArray</th>
-                    <th>KafkaTopicName</th>
                     <th>SaveDate</th>
                     <th>IsActivated</th>
                     <th>Actions</th>
@@ -53,10 +51,17 @@
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td>@item.Source</td>
-                        <td>@item.CourtLineArray</td>
-                        <td>@item.KafkaTopicName</td>
                         <td>@item.SaveDate</td>
-                        <td><span class="badge badge-success">@(item.IsActivated ? 1 : 0)</span></td>
+                        <td>
+                            @{
+                                if(item.IsActivated){
+                                    <span class="badge badge-success">1</span>
+                                }else{
+                                    <span class="badge badge-danger">0</span>
+                                }
+                            
+                            } 
+                        </td>
 
                         <td class="text-center">
                             <div class="list-icons">

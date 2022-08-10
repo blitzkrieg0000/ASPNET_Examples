@@ -21,7 +21,8 @@ namespace Business.Services {
         public async Task<Response<DetectCourtLinesDto>> DetectCourtLines(CourtLineDetectRequestModel model) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new mainRouterServer.mainRouterServerClient(channel);
-            var reply = await client.detectCourtLinesControllerAsync(new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force });
+            var requestData = new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force };
+            var reply = await client.detectCourtLinesControllerAsync(requestData);
 
             //! PARSE
             var raw = reply.Lines;

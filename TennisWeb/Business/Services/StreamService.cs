@@ -45,5 +45,18 @@ namespace Business.Services {
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
+
+        public async Task<IResponse<StreamListDto>> Update(StreamListDto dto) {
+
+            var updatedEntity = await _unitOfWork.GetRepository<Stream>().Find(dto.Id);
+            _unitOfWork.GetRepository<Stream>().Update(_mapper.Map<Stream>(dto), updatedEntity);
+            
+            await _unitOfWork.SaveChanges();
+
+            return new Response<StreamListDto>(ResponseType.Success, dto);
+        }
+
+
+
     }
 }
