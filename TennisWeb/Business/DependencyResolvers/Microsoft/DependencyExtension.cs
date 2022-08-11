@@ -25,6 +25,7 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<IPlayingDatumService, PlayingDatumService>();
             services.AddScoped<IStreamService, StreamService>();
             services.AddScoped<IGRPCService, GRPCService>();
+            services.AddScoped<IGeneralService, GeneralService>();
 
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {

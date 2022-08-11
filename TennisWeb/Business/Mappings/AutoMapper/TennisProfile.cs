@@ -9,6 +9,8 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<PlayingDatum, PlayingDatumRelatedListDto>().ReverseMap();
             CreateMap<Stream, StreamListDto>().ReverseMap();
             CreateMap<Stream, StreamCreateDto>().ReverseMap();
+            CreateMap<Player, PlayerListDto>().ReverseMap();
+            CreateMap<Court, CourtListDto>().ReverseMap();
         }
     }
 }

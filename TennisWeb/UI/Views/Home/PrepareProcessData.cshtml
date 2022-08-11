@@ -1,0 +1,29 @@
+@model GeneralDto
+
+@{
+    ViewData["Title"] = "PrepareProcessData";
+}
+
+@{
+    var aostypelist = new SelectList(Model.AOSTypeList, "Id", "Name");
+    var streamlist = new SelectList(Model.StreamList, "Id", "Name");
+    var playerlist = new SelectList(Model.PlayerList, "Id", "Name");
+    var courtlist = new SelectList(Model.CourtList, "Id", "Name");
+}
+
+
+<div>
+
+    <select class="form-select" asp-items="@aostypelist" name="AccountId">
+    </select>
+
+    <select class="form-select" asp-items="@streamlist" name="StreamId">
+    </select>
+
+    <select class="form-select" asp-items="@playerlist" name="PlayerId">
+    </select>
+
+    <select class="form-select" asp-items="@courtlist" name="CourtId">
+    </select>
+
+</div>

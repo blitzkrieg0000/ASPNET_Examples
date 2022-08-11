@@ -46,21 +46,15 @@ namespace Business.Services {
             return new Response<DetectCourtLinesDto>(ResponseType.Success, data);
         }
 
+        // public async Task StartGameObservation() {
+        //     using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+        //     var client = new mainRouterServer.mainRouterServerClient(channel);
 
+        //     var requestData = new detectCourtLinesRequestData() { 
+        //         Id = model.Id, 
+        //         Force = model.Force };
 
-
-        public async Task StartGameObservation() {
-            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
-            var client = new mainRouterServer.mainRouterServerClient(channel);
-
-            var requestData = new detectCourtLinesRequestData() { 
-                Id = model.Id, 
-                Force = model.Force };
-
-
-        }
-
-
+        // }
 
 
 

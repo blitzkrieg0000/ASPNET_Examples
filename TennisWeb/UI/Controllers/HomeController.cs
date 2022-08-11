@@ -15,10 +15,13 @@ namespace UI.Controllers {
         private readonly IPlayingDatumService _playingDatumService;
         private readonly IGRPCService _grpcService;
         private readonly IStreamService _streamService;
-        public HomeController(IPlayingDatumService playingDatumService, IGRPCService grpcService, IStreamService streamService) {
+        private readonly IGeneralService _generalService;
+
+        public HomeController(IPlayingDatumService playingDatumService, IGRPCService grpcService, IStreamService streamService, IGeneralService generalService = null) {
             _playingDatumService = playingDatumService;
-            _grpcService = grpcService;
             _streamService = streamService;
+            _grpcService = grpcService;
+            _generalService = generalService;
         }
 
         //! LİST
@@ -41,11 +44,11 @@ namespace UI.Controllers {
             return this.ResponseView(data);
         }
 
-        public async Task<IActionResult> PrepareProcessData(){
-
-
+        public async Task<IActionResult> PrepareProcessData() {
+            var data = await _generalService.GetAll();
+            return this.ResponseView(data);
         }
-        
+
 
         //! REMOVE
         public async Task<IActionResult> Remove(int id) {
@@ -59,7 +62,6 @@ namespace UI.Controllers {
 
             return this.ResponseRedirectToAction(response, "ListStream");
         }
-
 
         //! CREATE
         public IActionResult CreateStream() {
@@ -126,12 +128,8 @@ namespace UI.Controllers {
 
 
         //! ALGORITMS
-        public async Task<IActionResult> DetectCourtLines(int id, bool Force = false) {
+        public async Task<IActionResult> DetectCourtLines(DetectCourtLinesRequestModel model) {
 
-            DetectCourtLinesRequestModel model = new() {
-                Id = id,
-                Force = Force
-            };
 
             var lineImage = await _grpcService.DetectCourtLines(model);
 
