@@ -24,7 +24,7 @@ namespace UI.Controllers {
             _generalService = generalService;
         }
 
-        //! LİST
+        //! LIST
         public IActionResult Index() {
             return View();
         }
@@ -127,13 +127,15 @@ namespace UI.Controllers {
         }
 
 
-        //! ALGORITMS
+        //! ALGORITMS 
         public async Task<IActionResult> DetectCourtLines(DetectCourtLinesRequestModel model) {
-
-
             var lineImage = await _grpcService.DetectCourtLines(model);
-
             return View(lineImage.Data);
+        }
+
+        public async Task<IActionResult> StartGameObservation(StartGameObservationRequestModel model) {
+            var data = await _grpcService.StartGameObservation(model);
+            return View(data.Data);
         }
 
 

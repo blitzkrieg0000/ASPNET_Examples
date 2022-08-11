@@ -46,15 +46,37 @@ namespace Business.Services {
             return new Response<DetectCourtLinesDto>(ResponseType.Success, data);
         }
 
-        // public async Task StartGameObservation() {
-        //     using var channel = GrpcChannel.ForAddress("http://localhost:50011");
-        //     var client = new mainRouterServer.mainRouterServerClient(channel);
 
-        //     var requestData = new detectCourtLinesRequestData() { 
-        //         Id = model.Id, 
-        //         Force = model.Force };
+        public async Task<Response<StartGameObservationDto>> StartGameObservation(StartGameObservationRequestModel model) {
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+            var client = new mainRouterServer.mainRouterServerClient(channel);
 
-        // }
+            var requestData = new gameObservationRequestData() {
+                Id = model.Id,
+                AosTypeId = model.AOSTypeId,
+                CourtId = model.CourtId,
+                Limit = model.Limit,
+                PlayerId = model.PlayerId
+            };
+
+            var reply = await client.gameObservationControllerAsync(requestData);
+            float[,] FallPoints = new float[reply.FallPoints.Count, 2];
+
+
+            for (int i = 0; i < reply.FallPoints.Count; i++) {
+                FallPoints[i, 0] = reply.FallPoints[i].X;
+                FallPoints[i, 1] = reply.FallPoints[i].Y;
+            }
+
+            var data = new StartGameObservationDto() {
+                Score = reply.Score,
+                Frame = reply.Frame,
+                FallPoints = FallPoints
+            };
+
+            return new Response<StartGameObservationDto>(ResponseType.Success, data);
+
+        }
 
 
 

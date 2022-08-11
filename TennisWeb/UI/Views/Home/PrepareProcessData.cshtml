@@ -24,7 +24,9 @@
 
     <div class="card-body">
 
-        <form asp-action="" asp-controller="Home" method="post">
+        <form asp-action="StartGameObservation" asp-controller="Home" method="post">
+
+
 
             <div class="form-group">
                 <label>Oyuncu Seçiniz:</label>
@@ -33,22 +35,28 @@
 
             <div class="form-group">
                 <label>Hesaplanacak AOS Tipi Seçiniz:</label>
-                <select class="form-select" asp-items="@aostypelist" name="AccountId"></select>
+                <select class="form-select" asp-items="@aostypelist" name="AOSTypeId"></select>
             </div>
 
             <div class="form-group">
                 <label>Video/Stream Seçiniz:</label>
-                <select class="form-select" asp-items="@streamlist" name="StreamId"></select>
+                <select class="form-select" asp-items="@streamlist" name="Id"></select>
             </div>
 
             <div class="form-group">
                 <label>Saha Seçiniz:</label>
-                <select class="form-select" asp-items="@courtlist" name="CourtId" disabled></select>
+                <select class="form-select" asp-items="@courtlist" name="CourtId"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Limit (İşlenecek Frame Sayısı):</label>
+                <input class="input-group-text" type="number" name="Limit"></input>
             </div>
 
             <div class="row">
                 <div class="row">
-                    <button type="submit" class="btn btn-primary">AOS Puanını Hesapla<i class="icon-paperplane ml-2"></i></button>
+                    <button type="submit" class="btn btn-primary">AOS Puanını Hesapla<i
+                            class="icon-paperplane ml-2"></i></button>
                 </div>
             </div>
         </form>

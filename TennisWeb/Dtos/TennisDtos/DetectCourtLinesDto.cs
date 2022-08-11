@@ -6,7 +6,6 @@ using Dtos.Interface;
 
 namespace Dtos.TennisDtos {
     public class DetectCourtLinesDto : IDto {
-
         public float[,] Lines { get; set; }
         public string Base64Img { get; set; }
     }
