@@ -53,7 +53,7 @@ namespace UI.Controllers {
         //! REMOVE
         public async Task<IActionResult> Remove(int id) {
             var response = await _playingDatumService.Remove(id);
-            return this.ResponseRedirectToAction(response, "ListStream");
+            return this.ResponseRedirectToAction(response, "ListPlayingDatum");
         }
 
         public async Task<IActionResult> RemoveStream(int id) {
@@ -62,6 +62,7 @@ namespace UI.Controllers {
 
             return this.ResponseRedirectToAction(response, "ListStream");
         }
+
 
         //! CREATE
         public IActionResult CreateStream() {
