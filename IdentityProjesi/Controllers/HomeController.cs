@@ -7,6 +7,7 @@ using IdentityProjesi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IdentityProjesi.Controllers {
 
@@ -21,6 +22,10 @@ namespace IdentityProjesi.Controllers {
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+        
+        public IActionResult AccessDenied(string returnUrl) {
+            return View();
+        }
 
         public IActionResult Index() {
             return View();
@@ -29,7 +34,6 @@ namespace IdentityProjesi.Controllers {
         public IActionResult Create() {
             return View(new UserCreateModel());
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(UserCreateModel model) {
@@ -40,18 +44,19 @@ namespace IdentityProjesi.Controllers {
                     UserName = model.Username
                 };
 
-
-
                 var identityResult = await _userManager.CreateAsync(user, model.Password);
                 if (identityResult.Succeeded) {
 
-                    await _roleManager.CreateAsync(new() {
-                        Name = "Admin",
-                        CreatedTime = DateTime.Now
-                    });
 
-                    await _userManager.AddToRoleAsync(user, "Admin");
-                    
+                    var memberRole = await _roleManager.FindByNameAsync("Member");
+                    if (memberRole == null) {
+                        await _roleManager.CreateAsync(new() {
+                            Name = "Member",
+                            CreatedTime = DateTime.Now
+                        });
+                    }
+
+                    await _userManager.AddToRoleAsync(user, "Member");
                     return RedirectToAction("Index");
                 }
 
@@ -64,24 +69,53 @@ namespace IdentityProjesi.Controllers {
         }
 
 
-        public IActionResult SignIn() {
-            return View();
-
+        public IActionResult SignIn(string returnUrl) {
+            return View(new UserSignInModel() { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         public async Task<IActionResult> SignIn(UserSignInModel model) {
             if (ModelState.IsValid) {
-                var signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+
+                var user = await _userManager.FindByNameAsync(model.Username);
+                var signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
 
                 if (signInResult.Succeeded) {
 
+                    if (!string.IsNullOrWhiteSpace(model.ReturnUrl)) {
+                        return Redirect(model.ReturnUrl);
+                    }
+
+
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (roles.Contains("Admin")) {
+                        return RedirectToAction("AdminPanel");
+                    } else {
+                        return RedirectToAction("Panel");
+                    }
+
+                    //signInResult.IsLockedOut
+                    //signInResult.IsNotAllowed
                 } else if (signInResult.IsLockedOut) {
+                    var lockOutEnd = await _userManager.GetLockoutEndDateAsync(user);
 
-                } else if (signInResult.IsNotAllowed) {
+                    ModelState.AddModelError("", $"Hesabınızın kilidi {(lockOutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes} dk sonra açılacaktır.");
 
+                } else {
+                    var message = string.Empty;
+                    if (user != null) {
+                        var failedCount = await _userManager.GetAccessFailedCountAsync(user);
+                        message = $"{_userManager.Options.Lockout.MaxFailedAccessAttempts - failedCount} kez daha deneme yaparsanız, hesap geçici olarak kilitlenecektir.";
+                    } else {
+                        message = "Kullanıcı Adı veya Şifre Hatalı.";
+                    }
+
+                    ModelState.AddModelError("", message);
                 }
+
+
             }
+
             return View(model);
         }
 
@@ -90,6 +124,26 @@ namespace IdentityProjesi.Controllers {
             var userName = User.Identity.Name;
             var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminPanel() {
+            return View();
+        }
+
+        [Authorize(Roles = "Member")]
+        public IActionResult Panel() {
+            return View();
+        }
+
+        [Authorize(Roles = "Member")]
+        public IActionResult MemberPage() {
+            return View();
+        }
+
+        public async Task<IActionResult> LogOut() {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
         }
 
     }

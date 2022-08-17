@@ -1,0 +1,25 @@
+@model List<AppUser>
+@{
+    Layout = "_Layout";
+}
+
+<a asp-action="Create" asp-controller="User" class="d-inline-block my-2"><button type="button"  class="btn btn-success">Yeni Kullanıcı Ekle</button></a>
+<table class="table table-hovered table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Gender</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Gender</td>
+                <td>@user.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
