@@ -19,8 +19,8 @@ namespace UI.Controllers {
 
         public HomeController(IPlayingDatumService playingDatumService, IGRPCService grpcService, IStreamService streamService, IGeneralService generalService = null) {
             _playingDatumService = playingDatumService;
-            _streamService = streamService;
             _grpcService = grpcService;
+            _streamService = streamService;
             _generalService = generalService;
         }
 
@@ -88,6 +88,9 @@ namespace UI.Controllers {
                 } else {
                     baseName = Guid.NewGuid().ToString();
                 }
+                baseName = baseName.Replace(" ", "_");
+                baseName = baseName.Replace(":", "-");
+                baseName = baseName.Replace("/", "-");
 
                 var newName = baseName + Path.GetExtension(formFile.FileName);
                 var path = Path.Combine("/srv/nfs/mydata/docker-tennis/assets", newName);
@@ -107,7 +110,7 @@ namespace UI.Controllers {
 
                 var response = await _playingDatumService.Create(new StreamCreateDto() {
                     Name = newName,
-                    Source = "/srv/nfs/mydata/docker-tennis/assets/" + newName
+                    Source = "/assets/" + newName
                 });
 
                 TempData["Upload_Message"] = "Başarılı!";
