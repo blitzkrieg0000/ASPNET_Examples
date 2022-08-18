@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityProjesi.Data.Contexts;
@@ -14,14 +15,16 @@ namespace IdentityProjesi.Controllers {
 
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
-        public UserController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager = null) {
+        private readonly MainContext _context;
+        public UserController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager = null, MainContext context = null) {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index() {
 
-            //Admin Olmayanları getitir.
+            //Admin Olmayanları getirir.
             // var users = _context.Users
             // .Join(_context.UserRoles,
             //     user => user.Id, userRole => userRole.UserId,
@@ -46,9 +49,24 @@ namespace IdentityProjesi.Controllers {
             // }).ToList();
 
             //Sadece Memberları getirir. Çünkü iki adet rolümüz var.
-            var users = await _userManager.GetUsersInRoleAsync("Member");
+            //var users = await _userManager.GetUsersInRoleAsync("Member");
 
-            return View(users);
+            // return View(users);
+
+
+            List<AppUser> filteredUsers = new();
+
+            var users = _userManager.Users.ToList();
+
+            foreach (var user in users) {
+                
+                var roles = await _userManager.GetRolesAsync(user);
+                if(roles.Contains("Admin")){
+                    filteredUsers.Add(user);
+                }
+            }
+
+            return View(filteredUsers);
         }
 
         public IActionResult Create() {
@@ -87,6 +105,51 @@ namespace IdentityProjesi.Controllers {
             }
             return View(model);
         }
+
+
+        public async Task<IActionResult> AssignRole(int id) {
+            var user = _userManager.Users.SingleOrDefault(x => x.Id == id);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var roles = _roleManager.Roles.ToList();
+
+            RoleAssignSendModel model = new();
+            List<RoleAssignListModel> list = new();
+
+            foreach (var role in roles) {
+                list.Add(new() {
+                    Name = role.Name,
+                    RoleId = role.Id,
+                    Exist = userRoles.Contains(role.Name)
+                });
+            }
+
+            model.Roles = list;
+            model.UserId = id;
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> AssignRole(RoleAssignSendModel model) {
+
+            var user = _userManager.Users.SingleOrDefault(x => x.Id == model.UserId);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in model.Roles) {
+                if (role.Exist) {
+                    if (!userRoles.Contains(role.Name)) {
+                        await _userManager.AddToRoleAsync(user, role.Name);
+                    }
+                } else {
+                    if (userRoles.Contains(role.Name)) {
+                        await _userManager.RemoveFromRoleAsync(user, role.Name);
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

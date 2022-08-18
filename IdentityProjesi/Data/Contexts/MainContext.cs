@@ -6,8 +6,7 @@ namespace IdentityProjesi.Data.Contexts {
     public class MainContext : IdentityDbContext<AppUser, AppRole, int> {
 
         public MainContext(DbContextOptions<MainContext> options) : base(options) {
-
-
         }
+
     }
 }

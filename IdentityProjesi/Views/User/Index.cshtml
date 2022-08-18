@@ -3,13 +3,16 @@
     Layout = "_Layout";
 }
 
-<a asp-action="Create" asp-controller="User" class="d-inline-block my-2"><button type="button"  class="btn btn-success">Yeni Kullanıcı Ekle</button></a>
+<a asp-action="Create" asp-controller="User" class="d-inline-block my-2"><button type="button"
+        class="btn btn-success">Yeni Kullanıcı Ekle</button></a>
 <table class="table table-hovered table-bordered table-sm">
     <thead>
         <tr>
             <th>Username</th>
             <th>Gender</th>
             <th>Email</th>
+            <th>Role Info</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +22,16 @@
                 <td>@user.UserName</td>
                 <td>@user.Gender</td>
                 <td>@user.Email</td>
+                <td>
+                    <getUserInfo user-id="@user.Id"></getUserInfo>
+                </td>
+                <td>
+                    <a asp-action="AssignRole" asp-controller="User" asp-route-id="@user.Id" class="my-2">
+                        <button type="button" class="btn btn-warning">Role Düzenle</button>
+                    </a>
+                </td>
             </tr>
         }
+
     </tbody>
 </table>
