@@ -8,6 +8,7 @@ using IdentityProjesi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityProjesi.Controllers {
     [Authorize(Roles = "Admin")]
@@ -33,7 +34,8 @@ namespace IdentityProjesi.Controllers {
             //     two => two.userRole.RoleId,
             //     role => role.Id,
             //     (two, role) => new { two.user, two.userRole, role })
-            // .Where(x => x.role.Name != "Admin").Select(x => new AppUser {
+            // .Where(x => x.role.Name != "Admin")
+            // .Select(x => new AppUser {
             //     Id = x.user.Id,
             //     AccessFailedCount = x.user.AccessFailedCount,
             //     ConcurrencyStamp = x.user.ConcurrencyStamp,
@@ -61,7 +63,7 @@ namespace IdentityProjesi.Controllers {
             foreach (var user in users) {
                 
                 var roles = await _userManager.GetRolesAsync(user);
-                if(roles.Contains("Admin")){
+                if(!roles.Contains("Admin")){
                     filteredUsers.Add(user);
                 }
             }
@@ -107,10 +109,11 @@ namespace IdentityProjesi.Controllers {
         }
 
 
-        public async Task<IActionResult> AssignRole(int id) {
-            var user = _userManager.Users.SingleOrDefault(x => x.Id == id);
+        public async Task<IActionResult> AssignRoleList(int id) {
+            
+            var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == id);
             var userRoles = await _userManager.GetRolesAsync(user);
-            var roles = _roleManager.Roles.ToList();
+            var roles = await _roleManager.Roles.ToListAsync();
 
             RoleAssignSendModel model = new();
             List<RoleAssignListModel> list = new();

@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace IdentityProjesi {
     public class Startup {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services) {
+            
             services.AddIdentity<AppUser, AppRole>(opt => {
                 opt.Password.RequireDigit = false;
                 opt.Password.RequiredLength = 1;
@@ -27,7 +27,7 @@ namespace IdentityProjesi {
                 opt.Lockout.MaxFailedAccessAttempts = 10;
             }).AddErrorDescriber<CustomErrorDescriber>().AddEntityFrameworkStores<MainContext>();
 
-            services.ConfigureApplicationCookie(opt =>{
+            services.ConfigureApplicationCookie(opt => {
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.SameSite = SameSiteMode.Strict;
                 opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
@@ -41,7 +41,7 @@ namespace IdentityProjesi {
 
             services.AddDbContext<MainContext>(opt => {
                 opt.UseSqlServer("server=localhost; user=sa; database=IdentityDb; password=DGH2022.");
-                opt.LogTo(Console.WriteLine, LogLevel.Information);
+                //opt.LogTo(Console.WriteLine, LogLevel.Information);
             });
         }
 

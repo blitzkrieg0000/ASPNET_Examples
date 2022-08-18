@@ -7,7 +7,6 @@ using IdentityProjesi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IdentityProjesi.Controllers {
 
@@ -22,7 +21,7 @@ namespace IdentityProjesi.Controllers {
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-        
+
         public IActionResult AccessDenied(string returnUrl) {
             return View();
         }
@@ -45,9 +44,8 @@ namespace IdentityProjesi.Controllers {
                 };
 
                 var identityResult = await _userManager.CreateAsync(user, model.Password);
+
                 if (identityResult.Succeeded) {
-
-
                     var memberRole = await _roleManager.FindByNameAsync("Member");
                     if (memberRole == null) {
                         await _roleManager.CreateAsync(new() {
@@ -68,7 +66,6 @@ namespace IdentityProjesi.Controllers {
             return View(model);
         }
 
-
         public IActionResult SignIn(string returnUrl) {
             return View(new UserSignInModel() { ReturnUrl = returnUrl });
         }
@@ -78,6 +75,7 @@ namespace IdentityProjesi.Controllers {
             if (ModelState.IsValid) {
 
                 var user = await _userManager.FindByNameAsync(model.Username);
+
                 var signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
 
                 if (signInResult.Succeeded) {
@@ -85,7 +83,6 @@ namespace IdentityProjesi.Controllers {
                     if (!string.IsNullOrWhiteSpace(model.ReturnUrl)) {
                         return Redirect(model.ReturnUrl);
                     }
-
 
                     var roles = await _userManager.GetRolesAsync(user);
                     if (roles.Contains("Admin")) {
@@ -98,7 +95,6 @@ namespace IdentityProjesi.Controllers {
                     //signInResult.IsNotAllowed
                 } else if (signInResult.IsLockedOut) {
                     var lockOutEnd = await _userManager.GetLockoutEndDateAsync(user);
-
                     ModelState.AddModelError("", $"Hesabınızın kilidi {(lockOutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes} dk sonra açılacaktır.");
 
                 } else {
@@ -113,14 +109,18 @@ namespace IdentityProjesi.Controllers {
                     ModelState.AddModelError("", message);
                 }
 
-
             }
-
             return View(model);
+        }
+
+        public async Task<IActionResult> LogOut() {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
         }
 
         [Authorize]
         public IActionResult GetUserInfo() {
+            
             var userName = User.Identity.Name;
             var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
             return View();
@@ -141,10 +141,6 @@ namespace IdentityProjesi.Controllers {
             return View();
         }
 
-        public async Task<IActionResult> LogOut() {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
-        }
 
     }
 }

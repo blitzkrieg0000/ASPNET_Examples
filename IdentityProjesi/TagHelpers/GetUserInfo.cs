@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using IdentityProjesi.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +19,7 @@ namespace IdentityProjesi.TagHelpers {
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == UserId);
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var item in roles) {
-                html+=item + "";
+                html+=item + " ";
             }
             output.Content.SetHtmlContent(html);
         }

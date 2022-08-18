@@ -157,7 +157,7 @@
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.17" /> 		// Business
 
 	
-	//Identity
+	//Identity Projesi
 	<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" /> //İçerisinde EFCore Var
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
