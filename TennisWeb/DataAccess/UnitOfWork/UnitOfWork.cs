@@ -8,8 +8,8 @@ namespace DataAccess.UnitOfWork {
     public class UnitOfWork : IUnitOfWork {
         //Tek bir context üzerinden Repositorylerin kullanılması sağlanıyor.
 
-        private readonly TenisContext _context;
-        public UnitOfWork(TenisContext context) {
+        private readonly TennisContext _context;
+        public UnitOfWork(TennisContext context) {
             _context = context;
         }
 

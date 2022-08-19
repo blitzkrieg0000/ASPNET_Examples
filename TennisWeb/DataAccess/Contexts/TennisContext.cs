@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace UI.Entities.Concrete {
-    public partial class TenisContext : DbContext {
+    public partial class TennisContext : DbContext {
 
-        public TenisContext(DbContextOptions<TenisContext> options) : base(options) {
+        public TennisContext(DbContextOptions<TennisContext> options) : base(options) {
         }
 
         public DbSet<Aostype> Aostypes { get; set; }

@@ -6,7 +6,6 @@ using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.PlayingDatumDtos;
 using Dtos.StreamDtos;
-using Dtos.TennisDtos;
 using Microsoft.EntityFrameworkCore;
 using UI.Entities.Concrete;
 
@@ -22,14 +21,14 @@ namespace Business.Services {
             _mapper = mapper;
         }
 
-        public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAll() {
-            var data = _mapper.Map<List<PlayingDatumRelatedListDto>>(
+        public async Task<Response<List<PlayingDatumListDto>>> GetAll() {
+            var data = _mapper.Map<List<PlayingDatumListDto>>(
                 await _unitOfWork.GetRepository<PlayingDatum>().GetAll()
             );
-            return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
+            return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<List<PlayingDatumListDto>>> GetPlayingData() {
+        public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAllRelated() {
             var query = _unitOfWork.GetRepository<PlayingDatum>().GetQuery();
 
             //TODO DO MAP
@@ -40,8 +39,7 @@ namespace Business.Services {
             .Include(x => x.Stream)
             .ToListAsync();
 
-            var data = new List<PlayingDatumListDto>();
-
+            var data = new List<PlayingDatumRelatedListDto>();
             foreach (var item in raw) {
                 data.Add(new() {
                     Id = item.Id,
@@ -56,7 +54,7 @@ namespace Business.Services {
                 });
             }
 
-            return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
+            return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
 
         public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {

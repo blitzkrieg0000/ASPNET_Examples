@@ -30,7 +30,8 @@ namespace UI.Controllers {
             return this.ResponseView(data);
         }
 
-        public IActionResult CreateStream() {
+        public IActionResult Create() {
+            TempData["Upload_Message"] = null;
             var data = new CreateStreamDto() {
                 Name = Guid.NewGuid().ToString()
             };
@@ -38,7 +39,7 @@ namespace UI.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStream(IFormFile formFile, CreateStreamDto dto) {
+        public async Task<IActionResult> Create(IFormFile formFile, CreateStreamDto dto) {
             if (formFile == null) {
                 TempData["Upload_Message"] = "Başarısız! Dosya Okunamadı";
                 return RedirectToAction("Create");
@@ -79,7 +80,7 @@ namespace UI.Controllers {
 
                 TempData["Upload_Message"] = "Başarılı!";
 
-                return this.ResponseRedirectToAction(response, "ListStream");
+                return this.ResponseRedirectToAction(response, "Index");
 
             } else {
                 TempData["Upload_Message"] = "Başarısız! (Type: mp4 olmalıdır!)";
@@ -89,7 +90,7 @@ namespace UI.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateStream(IFormFile formFile, StreamListDto dto) {
+        public async Task<IActionResult> Update(IFormFile formFile, StreamListDto dto) {
             var response = await _streamService.Update(dto);
             return View();
         }

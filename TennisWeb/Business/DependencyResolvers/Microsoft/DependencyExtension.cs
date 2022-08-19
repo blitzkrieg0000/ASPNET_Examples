@@ -16,7 +16,7 @@ namespace Business.DependencyResolvers.Microsoft {
 
             //! DEPENDENCY INJECTIONS
             //Context in OnConfiguring kısmını dependency injection aracılığıyla yapıyoruz.
-            services.AddDbContext<TenisContext>(opt => {
+            services.AddDbContext<TennisContext>(opt => {
                 opt.UseNpgsql("Host=localhost;Database=tenis;Username=tenis;Password=2sfcNavA89A294V4");
                 opt.LogTo(Console.WriteLine, LogLevel.Information);
             });

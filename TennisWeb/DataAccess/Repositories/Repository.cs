@@ -12,8 +12,8 @@ namespace DataAccess.Repositories {
     public class Repository<T> : IRepository<T> where T : BaseEntity {
         // Sadece Database İşlemleri Yapılıyor
 
-        private readonly TenisContext _context;
-        public Repository(TenisContext context) {
+        private readonly TennisContext _context;
+        public Repository(TennisContext context) {
             _context = context;
         }
 
@@ -46,7 +46,7 @@ namespace DataAccess.Repositories {
         public void Update(T entity, T unchanged) {
             _context.Entry(unchanged).CurrentValues.SetValues(entity);
         }
-        
+
 
     }
 }

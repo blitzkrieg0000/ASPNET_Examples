@@ -6,8 +6,8 @@ using Dtos.StreamDtos;
 
 namespace Business.Interfaces {
     public interface IPlayingDatumService {
-        Task<Response<List<PlayingDatumRelatedListDto>>> GetAll();
-        Task<Response<List<PlayingDatumListDto>>> GetPlayingData();
+        Task<Response<List<PlayingDatumListDto>>> GetAll();
+        Task<Response<List<PlayingDatumRelatedListDto>>> GetAllRelated();
         Task<IResponse> Remove(int id);
         Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto);
     }
