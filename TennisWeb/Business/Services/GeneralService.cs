@@ -4,6 +4,10 @@ using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
+using Dtos.AOSTypeDtos;
+using Dtos.CourtDtos;
+using Dtos.PlayerDtos;
+using Dtos.StreamDtos;
 using Dtos.TennisDtos;
 using UI.Entities.Concrete;
 
@@ -37,7 +41,7 @@ namespace Business.Services {
                 await _unitOfWork.GetRepository<Court>().GetAll()
             );
 
-            GeneralDto GeneralDto = new(){
+            GeneralDto GeneralDto = new() {
                 CourtList = CourtData,
                 StreamList = StreamData,
                 PlayerList = PlayerData,

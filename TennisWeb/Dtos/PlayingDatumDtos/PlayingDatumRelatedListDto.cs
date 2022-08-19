@@ -1,7 +1,7 @@
 using System;
 using Dtos.Interface;
 
-namespace Dtos.TennisDtos {
+namespace Dtos.PlayingDatumDtos {
     public class PlayingDatumRelatedListDto : IDto {
         public long Id { get; set; }
         public long PlayerId { get; set; }

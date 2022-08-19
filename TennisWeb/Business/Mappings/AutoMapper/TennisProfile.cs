@@ -1,4 +1,9 @@
 using AutoMapper;
+using Dtos.AOSTypeDtos;
+using Dtos.CourtDtos;
+using Dtos.PlayerDtos;
+using Dtos.PlayingDatumDtos;
+using Dtos.StreamDtos;
 using Dtos.TennisDtos;
 using UI.Entities.Concrete;
 

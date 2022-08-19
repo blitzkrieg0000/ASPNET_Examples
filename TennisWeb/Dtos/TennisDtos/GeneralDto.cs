@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Dtos.AOSTypeDtos;
+using Dtos.CourtDtos;
 using Dtos.Interface;
-using Dtos.TennisDtos;
+using Dtos.PlayerDtos;
+using Dtos.StreamDtos;
 
 namespace Dtos.TennisDtos {
     public class GeneralDto : IDto {

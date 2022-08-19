@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.ResponseObjects;
-using Dtos.TennisDtos;
+using Dtos.PlayingDatumDtos;
+using Dtos.StreamDtos;
 
 namespace Business.Interfaces {
     public interface IPlayingDatumService {

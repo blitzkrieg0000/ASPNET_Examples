@@ -4,7 +4,7 @@ using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
-using Dtos.TennisDtos;
+using Dtos.StreamDtos;
 using UI.Entities.Concrete;
 
 namespace Business.Services {

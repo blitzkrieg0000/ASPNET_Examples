@@ -1,7 +1,7 @@
 using System;
 using Dtos.Interface;
 
-namespace Dtos.TennisDtos {
+namespace Dtos.AOSTypeDtos {
     public class AOSTypeListDto : IDto {
         public long Id { get; set; }
         public string Name { get; set; }

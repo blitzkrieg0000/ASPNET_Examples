@@ -1,7 +1,7 @@
 using System;
 using Dtos.Interface;
 
-namespace Dtos.TennisDtos {
+namespace Dtos.StreamDtos {
     public class StreamCreateDto : IDto{
 
         public long Id { get; set; }
