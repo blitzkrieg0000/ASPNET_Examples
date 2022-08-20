@@ -14,10 +14,9 @@ namespace UI.Controllers {
     public class StreamController : Controller {
 
         private readonly IStreamService _streamService;
-        private readonly IPlayingDatumService _playingDatumService;
-        public StreamController(IStreamService streamService, IPlayingDatumService playingDatumService) {
+        public StreamController(IStreamService streamService) {
             _streamService = streamService;
-            _playingDatumService = playingDatumService;
+
         }
 
         public async Task<IActionResult> Index() {
@@ -27,66 +26,20 @@ namespace UI.Controllers {
 
         public async Task<IActionResult> Detail(int id) {
             var data = await _streamService.GetById(id);
-            return this.ResponseView(data);
+            return this.ResponseView<StreamListDto>(data);
         }
 
         public IActionResult Create() {
             TempData["Upload_Message"] = null;
-            var data = new CreateStreamDto() {
+            return View(new StreamCreateDto() {
                 Name = Guid.NewGuid().ToString()
-            };
-            return View(data);
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile formFile, CreateStreamDto dto) {
-            if (formFile == null) {
-                TempData["Upload_Message"] = "Başarısız! Dosya Okunamadı";
-                return RedirectToAction("Create");
-            }
-
-            if (formFile.ContentType == "video/mp4") {
-
-                string baseName = "";
-                if (dto.Name != null) {
-                    baseName = dto.Name;
-                } else {
-                    baseName = Guid.NewGuid().ToString();
-                }
-                baseName = baseName.Replace(" ", "_");
-                baseName = baseName.Replace(":", "-");
-                baseName = baseName.Replace("/", "-");
-
-                var newName = baseName + Path.GetExtension(formFile.FileName);
-                var path = Path.Combine("/srv/nfs/mydata/docker-tennis/assets", newName);
-                var stream = new FileStream(path, FileMode.Create);
-
-                await formFile.CopyToAsync(stream);
-
-                //TODO HASH KONTROLÜ YAPILACAK
-                // var hash = "";
-                // using (var md5 = System.Security.Cryptography.MD5.Create()) {
-
-                //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
-                //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
-                //     }
-                // }
-                // System.Console.WriteLine(hash);
-
-                var response = await _playingDatumService.Create(new StreamCreateDto() {
-                    Name = newName,
-                    Source = "/assets/" + newName
-                });
-
-                TempData["Upload_Message"] = "Başarılı!";
-
-                return this.ResponseRedirectToAction(response, "Index");
-
-            } else {
-                TempData["Upload_Message"] = "Başarısız! (Type: mp4 olmalıdır!)";
-            }
-
-            return RedirectToAction("Create");
+        public async Task<IActionResult> Create(IFormFile formFile, StreamCreateDto dto) {
+            var response = await _streamService.Create(formFile, dto);
+            return this.ResponseRedirectToAction<StreamCreateDto>(response, "Index");
         }
 
         [HttpPost]

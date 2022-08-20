@@ -57,12 +57,6 @@ namespace Business.Services {
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<IResponse<StreamCreateDto>> Create(StreamCreateDto dto) {
-            await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
-            await _unitOfWork.SaveChanges();
-            return new Response<StreamCreateDto>(ResponseType.Success, dto);
-
-        }
 
         public async Task<IResponse> Remove(int id) {
             var removedEntity = await _unitOfWork.GetRepository<PlayingDatum>().GetByFilter(x => x.Id == id);

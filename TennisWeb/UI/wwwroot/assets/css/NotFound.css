@@ -9,10 +9,10 @@
 }
 
 .four_zero_four_bg {
-
     background-image: url("../image/NotFound.gif");
     height: 400px;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 

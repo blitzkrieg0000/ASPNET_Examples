@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace UI.Entities.Concrete {
-    public partial class TennisContext : DbContext {
+    public class TennisContext : DbContext {
 
         public TennisContext(DbContextOptions<TennisContext> options) : base(options) {
         }

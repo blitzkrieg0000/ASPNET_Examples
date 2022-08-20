@@ -1,8 +1,18 @@
-@model CreateStreamDto
+@model StreamCreateDto
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{
+    if (TempData["ResponseMessage"] != null)
+    {
+        <div class="bg-primary text-white text-center lead">
+            @TempData["ResponseMessage"]
+        </div>
+    }
+}
+
 
 @section Links{
 <link rel="stylesheet" href="~/assets/css/input.css">
@@ -18,8 +28,7 @@
 
             <div class="form-group">
                 <label>Video Adı:</label>
-                <input name="Name" type="text" class="form-control" placeholder="Video Adı">
-                <span class="form-text text-muted">Boş Bırakılırsa Varsayılan Ayarlanacak: @Model.Name</span>
+                <input asp-for="@Model.Name" class="form-control" placeholder="Video Adı">
             </div>
 
 
