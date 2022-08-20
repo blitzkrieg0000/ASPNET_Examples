@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using UI.Extensions;
 
 namespace UI.Controllers {
-
     [RequestFormLimits(MultipartBodyLengthLimit = 209715200), RequestSizeLimit(209715200)]
     public class StreamController : Controller {
 

@@ -14,8 +14,8 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> Index() {
-            var data = await _playingDatumService.GetAllRelated();
-            return this.ResponseView<List<PlayingDatumRelatedListDto>>(data);
+            var data = await _playingDatumService.GetAll();
+            return this.ResponseView<List<PlayingDatumListDto>>(data);
         }
 
         public async Task<IActionResult> Remove(int id) {

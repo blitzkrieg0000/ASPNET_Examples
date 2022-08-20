@@ -17,7 +17,7 @@ namespace UI.Entities.Concrete {
         public DateTime? SaveDate { get; set; }
         public bool IsDeleted { get; set; }
 
-        public Aostype AosType { get; set; }
+        public AosType AosType { get; set; }
         public Court Court { get; set; }
         public Player Player { get; set; }
         public Stream Stream { get; set; }

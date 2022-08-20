@@ -20,12 +20,12 @@ message requestData {
 }
 
 message detectCourtLinesRequestData{
-  int64 id=1;
+  int64 streamId=1;
   bool force=2;
 }
 
 message gameObservationRequestData{
-  int64 id=1;
+  int64 streamId=1;
   int64 limit=2;
   int64 aosTypeId=3;
   int64 playerId=4;

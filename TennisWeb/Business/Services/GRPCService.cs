@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using Business.GRPCData;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.CourtDtos;
+using Dtos.GRPCData;
 using Dtos.TennisDtos;
 using Grpc.Net.Client;
 
@@ -22,7 +22,7 @@ namespace Business.Services {
         public async Task<Response<DetectCourtLinesDto>> DetectCourtLines(DetectCourtLinesRequestModel model) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new mainRouterServer.mainRouterServerClient(channel);
-            var requestData = new detectCourtLinesRequestData() { Id = model.Id, Force = model.Force };
+            var requestData = new detectCourtLinesRequestData() { StreamId = model.StreamId, Force = model.Force };
             var reply = await client.detectCourtLinesControllerAsync(requestData);
 
             //! PARSE
@@ -53,7 +53,7 @@ namespace Business.Services {
             var client = new mainRouterServer.mainRouterServerClient(channel);
 
             var requestData = new gameObservationRequestData() {
-                Id = model.Id,
+                StreamId = model.StreamId,
                 AosTypeId = model.AOSTypeId,
                 CourtId = model.CourtId,
                 Limit = model.Limit,

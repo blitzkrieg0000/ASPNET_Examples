@@ -1,6 +1,6 @@
-namespace Business.GRPCData {
+namespace Dtos.GRPCData {
     public class DetectCourtLinesRequestModel {
-        public int Id { get; set; }
+        public int StreamId { get; set; }
         public bool Force { get; set; }
     }
 }

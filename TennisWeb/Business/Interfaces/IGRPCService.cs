@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Business.GRPCData;
 using Common.ResponseObjects;
 using Dtos.CourtDtos;
+using Dtos.GRPCData;
 using Dtos.TennisDtos;
 
 namespace Business.Interfaces {

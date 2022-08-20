@@ -1,4 +1,4 @@
-@model List<PlayingDatumRelatedListDto>
+@* @model List<PlayingDatumListDto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -44,9 +44,17 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Score</td>
-                        <td>@item.PlayerName</td>
-                        <td>@item.AosTypeName</td>
-                        <td>@item.CourtName</td>
+                        <td>
+                            <getPlayerInfo player-id="@item.PlayerId"></getPlayerInfo>
+                        </td>
+                        <td>
+                            <getAosTypeInfo aos-type-id="@item.AosTypeId"></getAosTypeInfo>
+                        </td>
+
+                        <td>
+                            <getCourtInfo court-id="@item.CourtId"></getCourtInfo>
+                        </td>
+
                         <td>@item.SaveDate</td>
                         <td>
                             <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id"
@@ -70,4 +78,4 @@
 @section Scripts{
 <script src="~/limitless/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="~/limitless/global_assets/js/demo_pages/datatables_basic.js"></script>
-}
+} *@

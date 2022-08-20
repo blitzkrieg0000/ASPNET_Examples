@@ -8,9 +8,9 @@ namespace Business.Interfaces {
     public interface IStreamService {
 
         Task<Response<List<StreamListDto>>> GetAll();
-        Task<Response<StreamListDto>> GetById(int id);
+        Task<Response<StreamListDto>> GetById(long id);
         Task<IResponse<StreamCreateDto>> Create(IFormFile formFile, StreamCreateDto dto);
         Task<IResponse<StreamListDto>> Update(StreamListDto dto);
-        Task<IResponse> Remove(int id);
+        Task<IResponse> Remove(long id);
     }
 }

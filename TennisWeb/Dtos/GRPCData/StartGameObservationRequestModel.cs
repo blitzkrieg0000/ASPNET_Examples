@@ -1,6 +1,6 @@
-namespace Business.GRPCData {
+namespace Dtos.GRPCData {
     public class StartGameObservationRequestModel {
-        public int Id { get; set; }
+        public int StreamId { get; set; }
         public int PlayerId { get; set; }
         public int AOSTypeId {get; set;}
         public int CourtId { get; set; }

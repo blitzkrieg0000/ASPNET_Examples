@@ -27,7 +27,7 @@ namespace Business.Services {
             return new Response<List<StreamListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<StreamListDto>> GetById(int id) {
+        public async Task<Response<StreamListDto>> GetById(long id) {
             var data = _mapper.Map<StreamListDto>(
                 await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );
@@ -85,7 +85,7 @@ namespace Business.Services {
             return new Response<StreamListDto>(ResponseType.Success, dto);
         }
 
-        public async Task<IResponse> Remove(int id) {
+        public async Task<IResponse> Remove(long id) {
             var removedEntity = await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == id);
 
             if (removedEntity != null) {

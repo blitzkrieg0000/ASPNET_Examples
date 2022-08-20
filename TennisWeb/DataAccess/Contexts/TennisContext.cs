@@ -7,7 +7,7 @@ namespace UI.Entities.Concrete {
         public TennisContext(DbContextOptions<TennisContext> options) : base(options) {
         }
 
-        public DbSet<Aostype> Aostypes { get; set; }
+        public DbSet<AosType> Aostypes { get; set; }
         public DbSet<Court> Courts { get; set; }
         public DbSet<CourtPointArea> CourtPointAreas { get; set; }
         public DbSet<CourtType> CourtTypes { get; set; }

@@ -5,8 +5,8 @@ using Entities.Concrete;
 #nullable disable
 
 namespace UI.Entities.Concrete {
-    public class Aostype : BaseEntity {
-        public Aostype() {
+    public class AosType : BaseEntity {
+        public AosType() {
             PlayingData = new HashSet<PlayingDatum>();
         }
 

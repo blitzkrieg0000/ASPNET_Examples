@@ -1,8 +1,8 @@
 using System;
 using Dtos.Interface;
 
-namespace Dtos.AOSTypeDtos {
-    public class AOSTypeListDto : IDto {
+namespace Dtos.AosTypeDtos {
+    public class AosTypeListDto : IDto {
         public long Id { get; set; }
         public string Name { get; set; }
         public long CourtPointAreaId { get; set; }

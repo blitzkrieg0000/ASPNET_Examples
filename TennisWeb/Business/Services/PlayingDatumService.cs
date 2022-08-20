@@ -5,7 +5,7 @@ using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.PlayingDatumDtos;
-using Dtos.StreamDtos;
+
 using Microsoft.EntityFrameworkCore;
 using UI.Entities.Concrete;
 
@@ -57,8 +57,7 @@ namespace Business.Services {
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
 
-
-        public async Task<IResponse> Remove(int id) {
+        public async Task<IResponse> Remove(long id) {
             var removedEntity = await _unitOfWork.GetRepository<PlayingDatum>().GetByFilter(x => x.Id == id);
 
             if (removedEntity != null) {

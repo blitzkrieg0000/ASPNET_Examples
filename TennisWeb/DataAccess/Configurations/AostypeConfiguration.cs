@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UI.Entities.Concrete;
 
 namespace DataAccess.Configurations {
-    public class AostypeConfiguration : IEntityTypeConfiguration<Aostype> {
+    public class AostypeConfiguration : IEntityTypeConfiguration<AosType> {
 
-        public void Configure(EntityTypeBuilder<Aostype> builder) {
+        public void Configure(EntityTypeBuilder<AosType> builder) {
 
             builder.ToTable("AOSType");
 

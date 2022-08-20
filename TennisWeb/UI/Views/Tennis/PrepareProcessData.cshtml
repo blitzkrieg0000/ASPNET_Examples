@@ -1,4 +1,4 @@
-@model GeneralDto
+@model StartGameObservationRequestModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,13 +6,6 @@
 
 @{
     ViewData["Title"] = "PrepareProcessData";
-}
-
-@{
-    var aostypelist = new SelectList(Model.AOSTypeList, "Id", "Name");
-    var streamlist = new SelectList(Model.StreamList, "Id", "Name");
-    var playerlist = new SelectList(Model.PlayerList, "Id", "Name");
-    var courtlist = new SelectList(Model.CourtList, "Id", "Name");
 }
 
 
@@ -26,26 +19,24 @@
 
         <form asp-action="StartGameObservation" asp-controller="Tennis" method="post">
 
-
-
             <div class="form-group">
                 <label>Oyuncu Seçiniz:</label>
-                <select class="form-select" asp-items="@playerlist" name="PlayerId"></select>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Player"} ))
             </div>
 
             <div class="form-group">
                 <label>Hesaplanacak AOS Tipi Seçiniz:</label>
-                <select class="form-select" asp-items="@aostypelist" name="AOSTypeId"></select>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="AosType"} ))
             </div>
 
             <div class="form-group">
                 <label>Video/Stream Seçiniz:</label>
-                <select class="form-select" asp-items="@streamlist" name="Id"></select>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Stream"} ))
             </div>
 
             <div class="form-group">
                 <label>Saha Seçiniz:</label>
-                <select class="form-select" asp-items="@courtlist" name="CourtId"></select>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Court"} ))
             </div>
 
             <div class="form-group">
