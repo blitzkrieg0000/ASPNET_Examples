@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Business.Services;
+using Business.Interfaces;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace UI.TagHelpers {
@@ -9,8 +9,8 @@ namespace UI.TagHelpers {
 
         public long CourtId { get; set; }
 
-        private readonly CourtService _courtService;
-        public GetCourtInfo(CourtService courtService) {
+        private readonly ICourtService _courtService;
+        public GetCourtInfo(ICourtService courtService) {
             _courtService = courtService;
         }
 

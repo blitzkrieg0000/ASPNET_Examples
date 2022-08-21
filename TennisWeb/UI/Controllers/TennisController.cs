@@ -1,14 +1,12 @@
-
 using System.Threading.Tasks;
-
 using Business.Interfaces;
 using Dtos.GRPCData;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace UI.Controllers {
+    
+    [AutoValidateAntiforgeryToken]
     public class TennisController : Controller {
-
 
         private readonly IGRPCService _grpcService;
         public TennisController(IGRPCService grpcService) {

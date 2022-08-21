@@ -1,0 +1,82 @@
+@model PlayerCreateDto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (TempData["ResponseMessage"] != null)
+    {
+        <div class="bg-primary text-white text-center lead">
+            @TempData["ResponseMessage"]
+        </div>
+    }
+}
+
+@section Links{
+<link rel="stylesheet" href="~/assets/css/input.css">
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Oyuncu Ekle</h5>
+    </div>
+
+    <div class="card-body">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Oyuncu Adı: </label>
+                <input asp-for="@Model.Name" class="form-control" placeholder="Ad">
+            </div>
+
+            <div class="form-group">
+                <label>Cinsiyet: </label>
+                <div class="row">
+                    <div class="col-1 form-check">
+
+                        @* <input asp-for="GenderId" type="radio" value="@item.Value" /> *@
+
+                        @Html.Label("Male","Erkek")
+                        @Html.RadioButtonFor(model=> model.GenderId, (long)1, new { @id="Male", @checked="checked"})
+                    </div>
+                    <div class="col-1 form-check">
+                        @Html.Label("Female","Kadın")
+                        @Html.RadioButtonFor(model=> model.GenderId, (long)2, new { @id = "Female", @checked="checked"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Doğum Günü:</label>
+                <div class="input-group">
+                    <span class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                    </span>
+                    <input asp-for="@Model.Birthday" type="text" class="form-control daterange-single"
+                        value="@DateTime.Now">
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Kaydet<i class="icon-paperplane ml-2"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/form_layouts.js"></script>
+
+<script src="~/limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<script src="~/limitless/global_assets/js/plugins/pickers/pickadate/picker.js"></script>
+<script src="~/limitless/global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+<script src="~/limitless/global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+<script src="~/limitless/global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
+<script src="~/limitless/global_assets/js/plugins/notifications/jgrowl.min.js"></script>
+
+<script src="assets/js/app.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/picker_date.js"></script>
+}

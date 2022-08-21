@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using UI.Extensions;
 
 namespace UI.Controllers {
+
+    [AutoValidateAntiforgeryToken]
     public class PlayingDatumController : Controller {
         private readonly IPlayingDatumService _playingDatumService;
 
@@ -17,6 +19,12 @@ namespace UI.Controllers {
             var data = await _playingDatumService.GetAll();
             return this.ResponseView<List<PlayingDatumListDto>>(data);
         }
+
+        public async Task<IActionResult> Detail(int id) {
+            var data = await _playingDatumService.GetById(id);
+            return this.ResponseView<PlayingDatumListDto>(data);
+        }
+
 
         public async Task<IActionResult> Remove(int id) {
             var response = await _playingDatumService.Remove(id);

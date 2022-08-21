@@ -1,6 +1,7 @@
 ﻿using DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace UI.Entities.Concrete {
     public class TennisContext : DbContext {
 
@@ -14,7 +15,7 @@ namespace UI.Entities.Concrete {
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayingDatum> PlayingData { get; set; }
         public DbSet<Stream> Streams { get; set; }
-
+        public DbSet<Gender> Genders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
@@ -26,7 +27,7 @@ namespace UI.Entities.Concrete {
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new PlayingDatumConfiguration());
             modelBuilder.ApplyConfiguration(new StreamConfiguration());
-
+            modelBuilder.ApplyConfiguration(new GenderConfiguration());
         }
 
     }

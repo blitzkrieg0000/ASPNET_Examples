@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+
 namespace UI.Controllers {
+    
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller {
 
         //! MAIN PAGE

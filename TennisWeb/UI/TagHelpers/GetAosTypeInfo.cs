@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
-using Business.Services;
+using Business.Interfaces;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace UI.TagHelpers {
-    
+
     [HtmlTargetElement("getAosTypeInfo")]
     public class GetAosTypeInfo : TagHelper {
 
         public long AosTypeId { get; set; }
 
-        private readonly AosTypeService _aosTypeService;
-        public GetAosTypeInfo(AosTypeService aosTypeService) {
+        private readonly IAosTypeService _aosTypeService;
+        public GetAosTypeInfo(IAosTypeService aosTypeService) {
             _aosTypeService = aosTypeService;
         }
 
@@ -20,7 +20,6 @@ namespace UI.TagHelpers {
             var html = "";
             html = player.Data.Name;
             output.Content.SetHtmlContent(html);
-
         }
     }
 }

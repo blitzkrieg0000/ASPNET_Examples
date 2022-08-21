@@ -13,10 +13,10 @@ namespace UI.Entities.Concrete {
         public long Id { get; set; }
         public string Name { get; set; }
         public DateTime? Birthday { get; set; }
-        public char Gender { get; set; }
+        public long? GenderId { get; set; }
         public DateTime SaveDate { get; set; }
         public bool IsDeleted { get; set; }
-
+        public Gender Gender { get; set; }
         public ICollection<PlayingDatum> PlayingData { get; set; }
     }
 }

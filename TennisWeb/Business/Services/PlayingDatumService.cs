@@ -28,6 +28,13 @@ namespace Business.Services {
             return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
         }
 
+        public async Task<Response<PlayingDatumListDto>> GetById(long id) {
+            var data = _mapper.Map<PlayingDatumListDto>(
+                await _unitOfWork.GetRepository<PlayingDatum>().GetByFilter(x => x.Id == id, asNoTracking: false)
+            );
+            return new Response<PlayingDatumListDto>(ResponseType.Success, data);
+        }
+
         public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAllRelated() {
             var query = _unitOfWork.GetRepository<PlayingDatum>().GetQuery();
 

@@ -238,8 +238,8 @@
 
                             <li class="media">
                                 <div class="mr-3 position-relative">
-                                    <img src="~/assets/image/TennisPlaceholder.jpg" width="36"
-                                        height="36" class="rounded-circle" alt="">
+                                    <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36"
+                                        class="rounded-circle" alt="">
                                 </div>
 
                                 <div class="media-body">
@@ -268,8 +268,7 @@
                 <a href="#"
                     class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100"
                     data-toggle="dropdown">
-                    <img src="~/assets/image/TennisPlaceholder.jpg" class="rounded-pill"
-                        height="34" alt="">
+                    <img src="~/assets/image/TennisPlaceholder.jpg" class="rounded-pill" height="34" alt="">
                     <span class="d-none d-lg-inline-block ml-2">BlitzKrieg</span>
                 </a>
 
@@ -312,8 +311,7 @@
                     <div class="sidebar-section-body">
                         <div class="media">
                             <a href="#" class="mr-3">
-                                <img src="~/assets/image/TennisPlaceholder.jpg"
-                                    class="rounded-circle" alt="">
+                                <img src="~/assets/image/TennisPlaceholder.jpg" class="rounded-circle" alt="">
                             </a>
 
                             <div class="media-body">
@@ -357,42 +355,49 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Stream" class="nav-link">
-                                <i class="icon-list-unordered"></i>
-                                <span>List Streams</span>
+                        <li class="nav-item nav-item-submenu">
+                            <a class="nav-link" <i class="icon-copy"></i>
+                                <span>Videolar/Kameralar</span>
                             </a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                                <li class="nav-item">
+                                    <a asp-action="Index" asp-controller="Stream" class="nav-link active">Listele</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="Stream" class="nav-link active">Oluştur</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a class="nav-link" <i class="icon-copy"></i>
+                                <span>Oyuncu</span>
+                            </a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                                <li class="nav-item">
+                                    <a asp-action="Index" asp-controller="Player" class="nav-link active">Listele</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="Player" class="nav-link active">Oluştur</a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
                             <a asp-action="PrepareProcessData" asp-controller="Tennis" class="nav-link">
                                 <i class="icon-list-unordered"></i>
-                                <span>AOS Testi Yap</span>
+                                <span>AOS Testi</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a asp-action="Index" asp-controller="PlayingDatum" class="nav-link">
                                 <i class="icon-list-unordered"></i>
-                                <span>Test Geçmişi</span>
+                                <span>AOS Geçmişi</span>
                             </a>
                         </li>
 
-                        <li class="nav-item nav-item-submenu">
-                            <a class="nav-link">
-                                <i class="icon-copy"></i>
-                                <span>TEST</span>
-                            </a>
 
-                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-
-                                <li class="nav-item">
-                                    <a asp-action="Index" asp-controller="Home" class="nav-link active">Test 1</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
 
                     </ul>
                 </div>

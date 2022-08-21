@@ -16,9 +16,8 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.Birthday).HasColumnName("birthday");
 
-            builder.Property(e => e.Gender)
-                .HasMaxLength(1)
-                .HasColumnName("gender");
+            builder.Property(e => e.GenderId).HasColumnName("gender_id")
+            .HasDefaultValueSql("1");
 
             builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
@@ -29,6 +28,12 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(d => d.Gender)
+                .WithMany(p => p.Players)
+                .HasForeignKey(d => d.GenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("player_fk");
 
         }
     }

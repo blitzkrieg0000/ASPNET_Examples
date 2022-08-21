@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Dtos.StreamDtos;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using UI.Extensions;
 
 namespace UI.Controllers {
+
+    [AutoValidateAntiforgeryToken]
     [RequestFormLimits(MultipartBodyLengthLimit = 209715200), RequestSizeLimit(209715200)]
     public class StreamController : Controller {
 
