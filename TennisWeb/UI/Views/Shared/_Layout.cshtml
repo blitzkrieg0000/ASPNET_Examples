@@ -356,7 +356,9 @@
                         </li>
 
                         <li class="nav-item nav-item-submenu">
-                            <a class="nav-link" <i class="icon-copy"></i>
+                            <a class="nav-link">
+
+                                <i class="icon-copy"></i>
                                 <span>Videolar/Kameralar</span>
                             </a>
                             <ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -370,7 +372,8 @@
                         </li>
 
                         <li class="nav-item nav-item-submenu">
-                            <a class="nav-link" <i class="icon-copy"></i>
+                            <a class="nav-link">
+                                <i class="icon-copy"></i>
                                 <span>Oyuncu</span>
                             </a>
                             <ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -379,6 +382,20 @@
                                 </li>
                                 <li class="nav-item">
                                     <a asp-action="Create" asp-controller="Player" class="nav-link active">Oluştur</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a class="nav-link"> <i class="icon-copy"></i>
+                                <span>Saha</span>
+                            </a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                                <li class="nav-item">
+                                    <a asp-action="Index" asp-controller="Court" class="nav-link active">Listele</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="Court" class="nav-link active">Oluştur</a>
                                 </li>
                             </ul>
                         </li>

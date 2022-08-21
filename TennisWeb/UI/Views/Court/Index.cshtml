@@ -1,4 +1,4 @@
-@model List<PlayerListDto>
+@model List<CourtListDto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,13 +21,13 @@
     <!-- Scrollable datatable -->
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Oyuncu Listesi</h5>
+            <h5 class="card-title">Saha Listesi</h5>
         </div>
 
         <div class="card-body">
 
             <td class="text-center">
-                <a asp-action="Create" asp-controller="Player" class="btn btn-success btn-sm">Ekle</a>
+                <a asp-action="Create" asp-controller="Court" class="btn btn-success btn-sm">Ekle</a>
             </td>
 
         </div>
@@ -36,10 +36,9 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Oyuncu Adı</th>
-                    <th>Cinsiyet</th>
-                    <th>Doğum Günü</th>
-                    <th>Kayıt Tarihi</th>
+                    <th>Adı</th>
+                    <th>Türü</th>
+                    <th>Kayıt</th>
                     <th>İşlemler</th>
                     <th>Diğer</th>
                 </tr>
@@ -50,14 +49,14 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td>@(item.GenderId==(long)1 ? "Erkek" : item.GenderId==(long)2 ? "Kadın" : "Belirtilmedi")</td>
-                        <td>@item.Birthday</td>
+                        <td>
+                            <getCourtTypeInfo court-type-id="@item.CourtTypeId"></getCourtTypeInfo>
+                        </td>
                         <td>@item.SaveDate</td>
                         <td>
-                            <a asp-action="Remove" asp-controller="Player" asp-route-id="@item.Id"
+                            <a asp-action="Remove" asp-controller="Court" asp-route-id="@item.Id"
                             class="btn btn-danger btn-sm">Sil</a>
-
-                            <a asp-action="Detail" asp-controller="Player" asp-route-id="@item.Id"
+                            <a asp-action="Detail" asp-controller="Court" asp-route-id="@item.Id"
                             class="btn btn-success btn-sm">Detay</a>
                         </td>
 

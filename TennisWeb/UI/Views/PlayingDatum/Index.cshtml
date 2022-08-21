@@ -28,13 +28,13 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Score</th>
-                    <th>Player Name</th>
-                    <th>AOS Type</th>
-                    <th>Court</th>
-                    <th>SaveDate</th>
-                    <th></th>
-                    <th></th>
+                    <th>Puan</th>
+                    <th>Oyuncu</th>
+                    <th>AOS Türü</th>
+                    <th>Saha</th>
+                    <th>Kayıt Tarihi</th>
+                    <th>İşlemler</th>
+                    <th>Diğer</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,12 +57,29 @@
                         <td>
                             <a asp-action="Remove" asp-controller="PlayingDatum" asp-route-id="@item.Id"
                             class="btn btn-danger btn-sm">Sil</a>
+                            <a asp-action="Detail" asp-controller="PlayingDatum" asp-route-id="@item.Id"
+                            class="btn btn-success btn-sm">Detay</a>
                         </td>
 
                         <td class="text-center">
-                            <a asp-action="Detail" asp-controller="PlayingDatum" asp-route-id="@item.Id"
-                            class="btn btn-warning btn-sm dropdown-item">Ayrıntıya Git</a>
+                            <div class="list-icons">
+                                <div class="dropdown">
+
+                                    <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                        <i class="icon-menu9"></i>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right">
+
+                                        <a class="btn btn-danger btn-sm dropdown-item">Yakında...</a>
+
+                                    </div>
+                                </div>
+                            </div>
                         </td>
+
+
+
                     </tr>
                 }
 

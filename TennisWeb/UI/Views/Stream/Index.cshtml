@@ -31,7 +31,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h5 class="card-title">Stream List</h5>
+            <h5 class="card-title">Video/Stream Listesi</h5>
         </div>
 
         <div class="card-body">
@@ -46,11 +46,12 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Source</th>
-                    <th>SaveDate</th>
-                    <th>IsActivated</th>
-                    <th>Actions</th>
+                    <th>Ad</th>
+                    <th>Kaynak</th>
+                    <th>Kayıt</th>
+                    <th>Aktiflik</th>
+                    <th>İşlemler</th>
+                    <th>Diğer</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +75,13 @@
 
                             }
                         </td>
+                        <td>
+                            <a asp-action="Remove" asp-controller="Stream" asp-route-id="@item.Id"
+                            class="btn btn-danger btn-sm">Sil</a>
 
+                            <a asp-action="Detail" asp-controller="Stream" asp-route-id="@item.Id"
+                            class="btn btn-success btn-sm">Detay</a>
+                        </td>
                         <td class="text-center">
                             <div class="list-icons">
                                 <div class="dropdown">
@@ -85,18 +92,8 @@
 
                                     <div class="dropdown-menu dropdown-menu-right">
 
-                                        <a asp-action="Remove" asp-controller="Stream" asp-route-id="@item.Id"
-                                        class="btn btn-danger btn-sm dropdown-item">Sil</a>
+                                        <a class="btn btn-danger btn-sm dropdown-item">Yakında...</a>
 
-                                        <a asp-action="Detail" asp-controller="Stream" asp-route-id="@item.Id"
-                                        class="btn btn-success btn-sm dropdown-item">Detaya Git</a>
-
-                                        @* <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" asp-for="">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                            Force
-                                            </label>
-                                            </div> *@
                                     </div>
                                 </div>
                             </div>

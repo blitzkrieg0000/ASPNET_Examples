@@ -16,9 +16,9 @@ namespace UI.TagHelpers {
 
         public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
 
-            var player = await _aosTypeService.GetById(AosTypeId);
+            var response = await _aosTypeService.GetById(AosTypeId);
             var html = "";
-            html = player.Data.Name;
+            html = response.Data.Name;
             output.Content.SetHtmlContent(html);
         }
     }

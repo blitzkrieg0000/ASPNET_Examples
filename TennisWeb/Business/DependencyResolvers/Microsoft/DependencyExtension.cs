@@ -28,6 +28,7 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IAosTypeService, AosTypeService>();
             services.AddScoped<ICourtService, CourtService>();
+            services.AddScoped<ICourtTypeService, CourtTypeService>();
             services.AddScoped<IGenericService, GenericService>();
 
             //! AUTOMAPPER CONFIGURATIONS

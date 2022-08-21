@@ -1,6 +1,7 @@
 using AutoMapper;
 using Dtos.AosTypeDtos;
 using Dtos.CourtDtos;
+using Dtos.CourtTypeDtos;
 using Dtos.PlayerDtos;
 using Dtos.PlayingDatumDtos;
 using Dtos.StreamDtos;
@@ -11,12 +12,15 @@ namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {
         public TennisProfile() {
             CreateMap<PlayingDatum, PlayingDatumListDto>().ReverseMap();
-            CreateMap<Stream, StreamCreateDto>().ReverseMap();
             CreateMap<AosType, AosTypeListDto>().ReverseMap();
             CreateMap<Stream, StreamListDto>().ReverseMap();
+            CreateMap<Stream, StreamCreateDto>().ReverseMap();
             CreateMap<Player, PlayerListDto>().ReverseMap();
-            CreateMap<Court, CourtListDto>().ReverseMap();
             CreateMap<Player, PlayerCreateDto>().ReverseMap();
+            CreateMap<Court, CourtListDto>().ReverseMap();
+            CreateMap<Court, CourtCreateDto>().ReverseMap();
+            CreateMap<CourtType, CourtTypeListDto>().ReverseMap();
+
         }
     }
 }
