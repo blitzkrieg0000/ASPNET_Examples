@@ -16,8 +16,9 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.Birthday).HasColumnName("birthday");
 
-            builder.Property(e => e.GenderId).HasColumnName("gender_id")
-            .HasDefaultValueSql("1");
+            builder.Property(e => e.GenderId)
+                .HasColumnName("gender_id")
+                .HasDefaultValueSql("1");
 
             builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
@@ -32,7 +33,6 @@ namespace DataAccess.Configurations {
             builder.HasOne(d => d.Gender)
                 .WithMany(p => p.Players)
                 .HasForeignKey(d => d.GenderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("player_fk");
 
         }

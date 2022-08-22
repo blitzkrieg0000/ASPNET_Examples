@@ -16,6 +16,9 @@ namespace UI.Entities.Concrete {
         public DbSet<PlayingDatum> PlayingData { get; set; }
         public DbSet<Stream> Streams { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<ProcessParameter> ProcessParameters { get; set; }
+        public DbSet<Process> Processes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
@@ -28,6 +31,10 @@ namespace UI.Entities.Concrete {
             modelBuilder.ApplyConfiguration(new PlayingDatumConfiguration());
             modelBuilder.ApplyConfiguration(new StreamConfiguration());
             modelBuilder.ApplyConfiguration(new GenderConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SessionConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessParameterConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessConfiguration());
         }
 
     }

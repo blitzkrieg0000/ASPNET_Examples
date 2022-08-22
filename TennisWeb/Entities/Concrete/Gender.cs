@@ -5,7 +5,7 @@ using UI.Entities.Concrete;
 #nullable disable
 
 namespace UI.Entities.Concrete {
-    public partial class Gender : BaseEntity {
+    public class Gender : BaseEntity {
         public Gender() {
             Players = new HashSet<Player>();
         }
@@ -13,6 +13,6 @@ namespace UI.Entities.Concrete {
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Player> Players { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }

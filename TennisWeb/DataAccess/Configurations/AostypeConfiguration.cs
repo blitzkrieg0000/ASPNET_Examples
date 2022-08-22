@@ -31,7 +31,7 @@ namespace DataAccess.Configurations {
                 .HasForeignKey(d => d.CourtPointAreaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("aostype_fk");
-                
+
         }
 
     }

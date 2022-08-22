@@ -5,16 +5,17 @@ using Entities.Concrete;
 #nullable disable
 
 namespace UI.Entities.Concrete {
-    public class CourtType : BaseEntity {
-        public CourtType() {
-            Courts = new HashSet<Court>();
+    public class Session : BaseEntity {
+        public Session() {
+            Processes = new HashSet<Process>();
         }
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public DateTime SaveDate { get; set; }
+        public DateTime? SaveDate { get; set; }
+        public bool? IsActivated { get; set; }
         public bool IsDeleted { get; set; }
 
-        public ICollection<Court> Courts { get; set; }
+        public ICollection<Process> Processes { get; set; }
     }
 }

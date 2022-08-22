@@ -166,7 +166,7 @@
 
 ## SCAFFOLD 
 ```
-	dotnet ef dbcontext scaffold "Host=localhost;Database=tenis;Username=tenis;Password=2sfcNavA89A294V4" Npgsql.EntityFrameworkCore.PostgreSQL -o Entities/Concrete/ --project UI/UI.csproj
+	dotnet ef dbcontext scaffold "Host=localhost;Database=tenis;Username=tenis;Password=2sfcNavA89A294V4" Npgsql.EntityFrameworkCore.PostgreSQL -o ../Entities/Scaffold/ --project UI/UI.csproj
 ```
 
 ## MIGRATIONS
