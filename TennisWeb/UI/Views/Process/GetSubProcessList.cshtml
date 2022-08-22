@@ -15,133 +15,88 @@
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
 <style>
-    .radial-gradient {
-        background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
-    }
-
     .card img {
         width: 100%;
     }
 
-    .card{
-        background-color: #2b325800;
+    .card {
+        background-color: #1c183c7d;
+        border-radius: 20px;
     }
-    
+
+    .content.pt-0 {
+        background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
+        z-index: 0;
+    }
+
+    svg {
+        display: initial;
+    }
 </style>
 }
 
 <div class="wrapper">
     <div class="cards">
-        <h1 class="pen-title">
-            Image <br />
-            Shadow
-        </h1>
-        <div class="card">
-            <div class="card-content">
-                <div class="top">
-                    <h3 class="name">Jeffery Rogers</h3>
-                    <div class="date"><span>06 September</span></div>
-                </div>
-                <div class="bottom">
-                    <h2>Toughening the Mind by Challenging the Body</h2>
-                    <div class="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
-                            viewBox="0 0 24 24" class="bookmark-icn">
-                            <path
-                                d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z">
-                            </path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="card-bg">
-                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" alt="leafs" />
-            </div>
-            <div class="shadow">
-                <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" alt="leafs" />
-            </div>
-        </div>
+        <h4 class="pen-title">
+            Process Listesi
+        </h4>
 
-        <div class="card">
-            <div class="card-content">
-                <div class="top">
-                    <h3 class="name">Wanda Todd</h3>
-                    <div class="date"><span>12 November</span></div>
-                </div>
-                <div class="bottom">
-                    <h2>It’s Time to Embrace the Sleep Divorce</h2>
-                    <div class="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
-                            viewBox="0 0 24 24" class="bookmark-icn">
-                            <path
-                                d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z">
-                            </path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="card-bg">
-                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/ITKSNPZ1VP.jpg"
-                    alt="colorful smoke" />
-            </div>
-            <div class="shadow">
-                <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/ITKSNPZ1VP.jpg"
-                    alt="colorful smoke" />
-            </div>
-        </div>
+        @foreach (var item in Model)
+        {
+            <div class="card">
 
-        <div class="card">
-            <div class="card-content">
-                <div class="top">
-                    <h3 class="name">Pam Robbins</h3>
-                    <div class="date"><span>17 August</span></div>
-                </div>
-                <div class="bottom">
-                    <h2>Nature By Design</h2>
-                    <div class="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
-                            viewBox="0 0 24 24" class="bookmark-icn">
-                            <path
-                                d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z">
-                            </path>
-                        </svg>
+                <div class="card-content">
+                    <div class="top">
+                        <h4 class="name">@item.Name</h4>
+                        <div class="date"><span>"@item.SaveDate"</span></div>
                     </div>
-                </div>
-            </div>
-            <div class="card-bg">
-                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/VM8ZWBFUCU.jpg" alt="red colour" />
-            </div>
-            <div class="shadow">
-                <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/VM8ZWBFUCU.jpg"
-                    alt="red colour" />
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="card-content">
-                <div class="top">
-                    <h3 class="name">Wilfred Davis</h3>
-                    <div class="date"><span>23 June</span></div>
-                </div>
-                <div class="bottom">
-                    <h2>Revolutionary Prototyping Techiques</h2>
-                    <div class="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
-                            viewBox="0 0 24 24" class="bookmark-icn">
-                            <path
-                                d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z">
-                            </path>
-                        </svg>
+                    <div class="bottom">
+                        @if (item.IsCompleted)
+                        {
+                            <h4>Sonuçlandı.</h4>
+                            <a class="btn btn-success btn-sm" asp-action="GetSubProcessParameter" asp-controller="ProcessParameter"
+                        asp-route-id="@item.ProcessParameterId"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                                    <path
+                                d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
+                                    <path
+                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                    <path
+                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                </svg>
+                                Detay
+                            </a>
+
+                        }
+                        else if (!item.IsCompleted)
+                        {
+                            <h4>İşleniyor...</h4>
+                            <i class="icon-spinner2 spinner"></i>
+                        }
+                        else
+                        {
+                            <h4>Durum Bilinmiyor</h4>
+                        }
+
+
                     </div>
                 </div>
+
+                <div class="card-bg">
+                    <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                </div>
+
+                <div class="shadow">
+                    <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                </div>
+
             </div>
-            <div class="card-bg">
-                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/J3ZGHIF8XT.jpg" alt="wave" />
-            </div>
-            <div class="shadow">
-                <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/J3ZGHIF8XT.jpg" alt="wave" />
-            </div>
-        </div>
+        }
+
+
+
+
     </div>
 </div>
 

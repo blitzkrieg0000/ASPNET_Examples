@@ -32,7 +32,8 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<IGenericService, GenericService>();
             services.AddScoped<IProcessService, ProcessService>();
-            
+            services.AddScoped<IProcessParameterService, ProcessParameterService>();
+
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {
                 opt.AddProfile(new TennisProfile());

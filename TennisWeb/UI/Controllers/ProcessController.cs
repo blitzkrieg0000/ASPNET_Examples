@@ -14,7 +14,7 @@ namespace UI.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> GetSubProcessList(long id){
-            var response = await _processService.GetListByFilter(x=> x.Id == id);
+            var response = await _processService.GetListByFilter(x=> x.SessionId == id);
             return this.ResponseView(response);
         }
 

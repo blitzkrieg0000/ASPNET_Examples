@@ -5,6 +5,7 @@ using Dtos.CourtTypeDtos;
 using Dtos.PlayerDtos;
 using Dtos.PlayingDatumDtos;
 using Dtos.ProcessDtos;
+using Dtos.ProcessParameterDtos;
 using Dtos.SessionDtos;
 using Dtos.StreamDtos;
 
@@ -25,6 +26,10 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<Session, SessionListDto>().ReverseMap();
             CreateMap<Session, SessionCreateDto>().ReverseMap();
             CreateMap<Process, ProcessCreateDto>().ReverseMap();
+            CreateMap<Process, ProcessListDto>().ReverseMap();
+            CreateMap<ProcessParameter, ProcessParameterListDto>().ReverseMap();
+            CreateMap<ProcessParameter, ProcessParameterCreateDto>().ReverseMap();
+
         }
     }
 }

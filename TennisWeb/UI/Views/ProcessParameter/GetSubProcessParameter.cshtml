@@ -1,0 +1,48 @@
+@model ProcessParameterListDto
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Links{
+<link href="~/assets/css/card.css" rel="stylesheet" type="text/css">
+}
+
+
+<div class="row flex">
+
+    <div class="card_efected">
+        <div class="content">
+            <th>İsim:</th><br>
+            @Model.Name
+        </div>
+    </div>
+
+    <div class="card_efected">
+        <div class="content">
+            <th>Oyuncu:</th><br>
+            <getPlayerInfo player-id="@Model.PlayerId"></getPlayerInfo>
+        </div>
+    </div>
+
+    <div class="card_efected">
+        <div class="content">
+            <th>AOS Türü: </th><br>
+            <getAosTypeInfo aos-type-id="@Model.AosTypeId"></getAosTypeInfo>
+        </div>
+    </div>
+    <div class="card_efected">
+        <div class="content">
+            <th>Saha İsmi: </th><br>
+            <getCourtInfo court-id="@Model.CourtId"></getCourtInfo>
+        </div>
+    </div>
+    <div class="card_efected">
+        <div class="content">
+            <th>Saha İsmi: </th><br>
+            <getStreamInfo stream-id="@Model.StreamId"></getStreamInfo>
+        </div>
+    </div>
+
+</div>

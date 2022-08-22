@@ -28,8 +28,10 @@ namespace Business.Services {
         }
 
         public async Task<Response<List<ProcessListDto>>> GetListByFilter(Expression<Func<Process, bool>> filter) {
+            var raw = await _unitOfWork.GetRepository<Process>().GetListByFilter(filter, asNoTracking: false);
+            
             var data = _mapper.Map<List<ProcessListDto>>(
-                await _unitOfWork.GetRepository<Process>().GetByFilter(filter, asNoTracking: false)
+                raw
             );
             return new Response<List<ProcessListDto>>(ResponseType.Success, data);
         }
