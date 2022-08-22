@@ -1,7 +1,6 @@
 ﻿using DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace UI.Entities.Concrete {
     public class TennisContext : DbContext {
 
@@ -31,7 +30,6 @@ namespace UI.Entities.Concrete {
             modelBuilder.ApplyConfiguration(new PlayingDatumConfiguration());
             modelBuilder.ApplyConfiguration(new StreamConfiguration());
             modelBuilder.ApplyConfiguration(new GenderConfiguration());
-
             modelBuilder.ApplyConfiguration(new SessionConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessParameterConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());

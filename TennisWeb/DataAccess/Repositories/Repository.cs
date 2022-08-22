@@ -29,6 +29,12 @@ namespace DataAccess.Repositories {
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public async Task<List<T>> GetListByFilter(Expression<Func<T, bool>> filter, bool asNoTracking = false) {
+            return asNoTracking ?
+                await _context.Set<T>().Where(filter).ToListAsync() :
+                await _context.Set<T>().AsNoTracking().Where(filter).ToListAsync();
+        }
+
         public async Task<T> GetByFilter(Expression<Func<T, bool>> filter, bool asNoTracking = false) {
             return asNoTracking ?
                 await _context.Set<T>().SingleOrDefaultAsync(filter) :

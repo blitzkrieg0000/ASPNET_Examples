@@ -400,6 +400,20 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item nav-item-submenu">
+                            <a class="nav-link"> <i class="icon-copy"></i>
+                                <span>Session</span>
+                            </a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                                <li class="nav-item">
+                                    <a asp-action="Index" asp-controller="Session" class="nav-link active">Listele</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="Session" class="nav-link active">Oluştur</a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a asp-action="PrepareProcessData" asp-controller="Tennis" class="nav-link">
                                 <i class="icon-list-unordered"></i>
@@ -413,7 +427,6 @@
                                 <span>AOS Geçmişi</span>
                             </a>
                         </li>
-
 
 
                     </ul>

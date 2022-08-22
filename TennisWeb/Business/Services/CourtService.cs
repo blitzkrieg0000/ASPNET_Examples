@@ -34,7 +34,7 @@ namespace Business.Services {
         public async Task<IResponse<CourtCreateDto>> Create(CourtCreateDto dto) {
             await _unitOfWork.GetRepository<Court>().Create(_mapper.Map<Court>(dto));
             await _unitOfWork.SaveChanges();
-            return new Response<CourtCreateDto>(ResponseType.Success, "Yeni Oyuncu Eklendi.");
+            return new Response<CourtCreateDto>(ResponseType.Success, "Yeni Court Eklendi.");
         }
 
     }

@@ -12,7 +12,6 @@ namespace DataAccess.Configurations {
                 .UseIdentityAlwaysColumn();
 
             builder.Property(e => e.IsActivated)
-                .IsRequired()
                 .HasColumnName("is_activated")
                 .HasDefaultValueSql("true");
 
