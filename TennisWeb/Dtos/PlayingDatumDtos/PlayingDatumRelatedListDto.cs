@@ -9,9 +9,9 @@ namespace Dtos.PlayingDatumDtos {
         public string AosTypeName { get; set; }
         public long StreamName { get; set; }
         public double? Score { get; set; }
-        public byte[] BallPositionArea { get; set; }
-        public byte[] PlayerPositionArea { get; set; }
-        public byte[] BallFallArray { get; set; }
+        public string BallPositionArea { get; set; }
+        public string PlayerPositionArea { get; set; }
+        public string BallFallArray { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool IsDeleted { get; set; }
     }

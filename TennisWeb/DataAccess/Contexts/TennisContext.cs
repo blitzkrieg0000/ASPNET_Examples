@@ -18,6 +18,7 @@ namespace UI.Entities.Concrete {
         public DbSet<Session> Sessions { get; set; }
         public DbSet<ProcessParameter> ProcessParameters { get; set; }
         public DbSet<Process> Processes { get; set; }
+        public DbSet<ProcessResponseConfiguration> ProcessResponseConfigurations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
@@ -33,6 +34,7 @@ namespace UI.Entities.Concrete {
             modelBuilder.ApplyConfiguration(new SessionConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessParameterConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessResponseConfiguration());
         }
 
     }
