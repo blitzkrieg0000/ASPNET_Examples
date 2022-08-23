@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Common.ResponseObjects;
 using Dtos.ProcessParameterDtos;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Interfaces {
     public interface IProcessParameterService {

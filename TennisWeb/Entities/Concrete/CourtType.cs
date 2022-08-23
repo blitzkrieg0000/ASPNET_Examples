@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.Concrete;
 
 #nullable disable
 
-namespace UI.Entities.Concrete {
+namespace Entities.Concrete {
     public class CourtType : BaseEntity {
         public CourtType() {
             Courts = new HashSet<Court>();

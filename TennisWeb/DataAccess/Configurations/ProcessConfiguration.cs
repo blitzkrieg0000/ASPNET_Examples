@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace DataAccess.Configurations {
     public class ProcessConfiguration : IEntityTypeConfiguration<Process> {

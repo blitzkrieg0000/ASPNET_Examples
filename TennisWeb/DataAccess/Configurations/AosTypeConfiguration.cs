@@ -1,10 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace DataAccess.Configurations {
-    public class AostypeConfiguration : IEntityTypeConfiguration<AosType> {
+    public class AosTypeConfiguration : IEntityTypeConfiguration<AosType> {
 
         public void Configure(EntityTypeBuilder<AosType> builder) {
 

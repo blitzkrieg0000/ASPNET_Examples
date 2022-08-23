@@ -4,10 +4,10 @@ using Business.Interfaces;
 using Business.Mappings.AutoMapper;
 using Business.Services;
 using DataAccess.UnitOfWork;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using UI.Entities.Concrete;
 
 namespace Business.DependencyResolvers.Microsoft {
     public static class DependencyExtension {

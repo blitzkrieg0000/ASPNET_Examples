@@ -9,7 +9,7 @@ using Dtos.ProcessParameterDtos;
 using Dtos.SessionDtos;
 using Dtos.StreamDtos;
 
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {

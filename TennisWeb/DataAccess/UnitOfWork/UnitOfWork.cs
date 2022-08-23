@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Entities.Concrete;
-using UI.Entities.Concrete;
 
 namespace DataAccess.UnitOfWork {
     public class UnitOfWork : IUnitOfWork {

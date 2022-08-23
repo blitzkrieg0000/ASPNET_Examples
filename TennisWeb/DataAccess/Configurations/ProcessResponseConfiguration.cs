@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DataAccess.Configurations {
     public class ProcessResponseConfiguration : IEntityTypeConfiguration<ProcessResponse> {
         public void Configure(EntityTypeBuilder<ProcessResponse> builder) {
+            
             builder.ToTable("ProcessResponse");
 
             builder.Property(e => e.Id)
@@ -30,9 +31,6 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-
 
         }
     }

@@ -1,9 +1,6 @@
 ﻿using System;
-using Entities.Concrete;
 
-#nullable disable
-
-namespace UI.Entities.Concrete {
+namespace Entities.Concrete {
     public class PlayingDatum : BaseEntity {
 		public long Id { get; set; }
 		public long PlayerId { get; set; }

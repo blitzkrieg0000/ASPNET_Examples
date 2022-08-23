@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.Concrete;
 
 #nullable disable
 
-namespace UI.Entities.Concrete {
+namespace Entities.Concrete {
     public class ProcessParameter : BaseEntity{
         public ProcessParameter() {
             Processes = new HashSet<Process>();

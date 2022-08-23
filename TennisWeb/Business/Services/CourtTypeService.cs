@@ -7,7 +7,7 @@ using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.CourtTypeDtos;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Services {
     public class CourtTypeService : ICourtTypeService {

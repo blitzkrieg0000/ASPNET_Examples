@@ -7,7 +7,7 @@ using DataAccess.UnitOfWork;
 using Dtos.PlayingDatumDtos;
 
 using Microsoft.EntityFrameworkCore;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Services {
     public class PlayingDatumService : IPlayingDatumService {

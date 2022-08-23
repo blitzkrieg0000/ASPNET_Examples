@@ -1,7 +1,7 @@
 ﻿using DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace UI.Entities.Concrete {
+namespace Entities.Concrete {
     public class TennisContext : DbContext {
 
         public TennisContext(DbContextOptions<TennisContext> options) : base(options) {
@@ -18,12 +18,12 @@ namespace UI.Entities.Concrete {
         public DbSet<Session> Sessions { get; set; }
         public DbSet<ProcessParameter> ProcessParameters { get; set; }
         public DbSet<Process> Processes { get; set; }
-        public DbSet<ProcessResponseConfiguration> ProcessResponseConfigurations { get; set; }
+        public DbSet<ProcessResponse> ProcessResponseConfigurations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
 
-            modelBuilder.ApplyConfiguration(new AostypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AosTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CourtConfiguration());
             modelBuilder.ApplyConfiguration(new CourtPointAreaConfiguration());
             modelBuilder.ApplyConfiguration(new CourtTypeConfiguration());

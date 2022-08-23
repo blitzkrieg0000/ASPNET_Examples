@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using DataAccess.Interfaces;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
-using UI.Entities.Concrete;
 
 namespace DataAccess.Repositories {
     public class Repository<T> : IRepository<T> where T : BaseEntity {

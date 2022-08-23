@@ -6,7 +6,7 @@ using Dtos.PlayerDtos;
 using Dtos.StreamDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace UI.ViewComponents {
     public class SelectListFromTable : ViewComponent {

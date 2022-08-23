@@ -7,7 +7,7 @@ using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.StreamDtos;
 using Microsoft.AspNetCore.Http;
-using UI.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Services {
     public class StreamService : IStreamService {

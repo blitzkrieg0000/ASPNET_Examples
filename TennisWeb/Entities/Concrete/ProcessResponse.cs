@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UI.Entities.Concrete;
 
 namespace Entities.Concrete {
     public class ProcessResponse {
-        public ProcessResponse()
-        {
+        public ProcessResponse() {
             Processes = new HashSet<Process>();
         }
 
