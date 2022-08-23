@@ -11,9 +11,13 @@ namespace DataAccess.Configurations {
                 .HasColumnName("id")
                 .UseIdentityAlwaysColumn();
 
-            builder.Property(e => e.IsCompleted).HasColumnName("is_completed");
+            builder.Property(e => e.IsCompleted)
+                .HasColumnName("is_completed")
+                .HasDefaultValueSql("false");
 
-            builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            builder.Property(e => e.IsDeleted)
+                .HasColumnName("is_deleted")
+                .HasDefaultValueSql("false");
 
             builder.Property(e => e.Name)
                 .IsRequired()
@@ -21,6 +25,8 @@ namespace DataAccess.Configurations {
                 .HasColumnName("name");
 
             builder.Property(e => e.ProcessParameterId).HasColumnName("process_parameter_id");
+
+            builder.Property(e => e.ProcessResponseId).HasColumnName("process_response_id");
 
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
@@ -33,6 +39,11 @@ namespace DataAccess.Configurations {
                 .HasForeignKey(d => d.ProcessParameterId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("process_fk_1");
+
+            builder.HasOne(d => d.ProcessResponse)
+                .WithMany(p => p.Processes)
+                .HasForeignKey(d => d.ProcessResponseId)
+                .HasConstraintName("process_fk_2");
 
             builder.HasOne(d => d.Session)
                 .WithMany(p => p.Processes)

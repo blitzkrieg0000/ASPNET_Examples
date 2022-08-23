@@ -22,8 +22,9 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
-            builder.Property(e => e.Limit).HasColumnName("limit")
-            .HasDefaultValueSql("'-1'::integer");
+            builder.Property(e => e.Limit)
+                .HasColumnName("limit")
+                .HasDefaultValueSql("'-1'::integer");
 
             builder.Property(e => e.Name)
                 .IsRequired()
