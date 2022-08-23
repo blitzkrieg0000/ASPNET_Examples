@@ -11,8 +11,8 @@ namespace Entities.Concrete {
         public bool? IsCompleted { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public virtual ProcessParameter ProcessParameter { get; set; }
-        public virtual ProcessResponse ProcessResponse { get; set; }
-        public virtual Session Session { get; set; }
+        public ProcessParameter ProcessParameter { get; set; }
+        public ProcessResponse ProcessResponse { get; set; }
+        public Session Session { get; set; }
     }
 }
