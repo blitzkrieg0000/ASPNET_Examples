@@ -17,7 +17,7 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<AosTypeListDto>> GetById(long id) {
+        public async Task<Response<AosTypeListDto>> GetById(long? id) {
             var data = _mapper.Map<AosTypeListDto>(
                 await _unitOfWork.GetRepository<AosType>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );

@@ -7,7 +7,7 @@ namespace UI.TagHelpers {
     [HtmlTargetElement("getPlayerInfo")]
     public class GetPlayerInfo : TagHelper {
 
-        public long PlayerId { get; set; }
+        public long? PlayerId { get; set; }
 
         private readonly IPlayerService _playerService;
         public GetPlayerInfo(IPlayerService playerService) {

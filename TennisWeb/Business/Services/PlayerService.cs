@@ -26,7 +26,7 @@ namespace Business.Services {
             return new Response<List<PlayerListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<PlayerListDto>> GetById(long id) {
+        public async Task<Response<PlayerListDto>> GetById(long? id) {
             var data = _mapper.Map<PlayerListDto>(
                 await _unitOfWork.GetRepository<Player>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );
@@ -39,7 +39,7 @@ namespace Business.Services {
             return new Response<PlayerCreateDto>(ResponseType.Success, "Yeni Oyuncu Eklendi.");
         }
 
-        public async Task<IResponse> Remove(long id) {
+        public async Task<IResponse> Remove(long? id) {
             var removedEntity = await _unitOfWork.GetRepository<Player>().GetByFilter(x => x.Id == id);
             if (removedEntity != null) {
                 _unitOfWork.GetRepository<Player>().Remove(removedEntity);

@@ -7,7 +7,7 @@ namespace UI.TagHelpers {
     [HtmlTargetElement("getCourtInfo")]
     public class GetCourtInfo : TagHelper {
 
-        public long CourtId { get; set; }
+        public long? CourtId { get; set; }
 
         private readonly ICourtService _courtService;
         public GetCourtInfo(ICourtService courtService) {

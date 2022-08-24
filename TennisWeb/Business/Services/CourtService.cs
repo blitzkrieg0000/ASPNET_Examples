@@ -24,7 +24,7 @@ namespace Business.Services {
             return new Response<List<CourtListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<CourtListDto>> GetById(long id) {
+        public async Task<Response<CourtListDto>> GetById(long? id) {
             var data = _mapper.Map<CourtListDto>(
                 await _unitOfWork.GetRepository<Court>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );

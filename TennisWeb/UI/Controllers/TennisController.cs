@@ -2,29 +2,30 @@ using System.Threading.Tasks;
 using Business.Interfaces;
 using Dtos.GRPCData;
 using Microsoft.AspNetCore.Mvc;
+using UI.Extensions;
 
 namespace UI.Controllers {
-    
+
     [AutoValidateAntiforgeryToken]
     public class TennisController : Controller {
 
-        private readonly IGRPCService _grpcService;
-        public TennisController(IGRPCService grpcService) {
-            _grpcService = grpcService;
+
+        private readonly ITennisService _tennisService;
+        public TennisController(ITennisService tennisService) {
+
+            _tennisService = tennisService;
         }
 
-        public IActionResult PrepareProcessData() {
-            return View(new StartGameObservationRequestModel());
-        }
+        // public IActionResult GenerateProcess() {
+        //     return View(new GenerateProcessModel());
+        // }
 
-        public async Task<IActionResult> DetectCourtLines(DetectCourtLinesRequestModel model) {
-            var lineImage = await _grpcService.DetectCourtLines(model);
-            return View(lineImage.Data);
-        }
+        [HttpPost]
+        public async Task<IActionResult> GenerateProcess(GenerateProcessModel model) {
+            var response = await _tennisService.Create(model);
 
-        public async Task<IActionResult> StartGameObservation(StartGameObservationRequestModel model) {
-            var data = await _grpcService.StartGameObservation(model);
-            return View(data.Data);
+            return RedirectToAction("Index", "Process", new{@id = model.SessionId});
+
         }
     }
 }

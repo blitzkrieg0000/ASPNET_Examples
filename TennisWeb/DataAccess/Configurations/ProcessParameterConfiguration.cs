@@ -5,12 +5,11 @@ using Entities.Concrete;
 namespace DataAccess.Configurations {
     public class ProcessParameterConfiguration : IEntityTypeConfiguration<ProcessParameter> {
         public void Configure(EntityTypeBuilder<ProcessParameter> builder) {
-
             builder.ToTable("ProcessParameter");
 
             builder.Property(e => e.Id)
-                .HasColumnName("id")
-                .UseIdentityAlwaysColumn();
+                .HasColumnType("character varying")
+                .HasColumnName("id");
 
             builder.Property(e => e.AosTypeId).HasColumnName("aos_type_id");
 
@@ -25,11 +24,6 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.Limit)
                 .HasColumnName("limit")
                 .HasDefaultValueSql("'-1'::integer");
-
-            builder.Property(e => e.Name)
-                .IsRequired()
-                .HasColumnType("character varying")
-                .HasColumnName("name");
 
             builder.Property(e => e.PlayerId).HasColumnName("player_id");
 

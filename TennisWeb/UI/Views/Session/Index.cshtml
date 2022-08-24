@@ -62,7 +62,7 @@
                         <td>@item.SaveDate</td>
                         <td>
                             @{
-                                if (item.IsActivated)
+                                if ((bool)item.IsActivated)
                                 {
                                     <span class="badge badge-success">1</span>
                                 }
@@ -79,7 +79,7 @@
                             <a asp-action="Detail" asp-controller="Session" asp-route-id="@item.Id"
                             class="btn btn-success btn-sm">Detay</a>
 
-                            <a asp-action="GetSubProcessList" asp-controller="Process" asp-route-id="@item.Id"
+                            <a asp-action="Index" asp-controller="Process" asp-route-id="@item.Id"
                             class="btn btn-warning btn-sm">Giriş</a>
                         </td>
                         <td class="text-center">

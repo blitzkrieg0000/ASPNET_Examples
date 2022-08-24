@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using UI.Extensions;
+using UI.Models;
 
 namespace UI.Controllers {
     public class ProcessController : Controller {
@@ -13,9 +13,8 @@ namespace UI.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSubProcessList(long id){
-            var response = await _processService.GetListByFilter(x=> x.SessionId == id);
-            return this.ResponseView(response);
+        public IActionResult Index(long id) {
+            return View(new SessionIdDto() { SessionId = id });
         }
 
     }

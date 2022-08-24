@@ -4,6 +4,6 @@ using Dtos.AosTypeDtos;
 
 namespace Business.Interfaces {
     public interface IAosTypeService {
-        Task<Response<AosTypeListDto>> GetById(long id);
+        Task<Response<AosTypeListDto>> GetById(long? id);
     }
 }

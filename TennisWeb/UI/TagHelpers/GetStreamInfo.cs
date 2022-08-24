@@ -8,7 +8,7 @@ namespace UI.TagHelpers {
     [HtmlTargetElement("getStreamInfo")]
     public class GetStreamInfo : TagHelper{
 
-        public long StreamId { get; set; }
+        public long? StreamId { get; set; }
 
         private readonly IStreamService _streamService;
 

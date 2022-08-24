@@ -1,0 +1,63 @@
+@model GenerateProcessModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "PrepareProcessData";
+}
+
+
+<!-- Basic layout-->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">AOS TESTİ BAŞLAT</h5>
+    </div>
+
+    <div class="card-body">
+
+        <form asp-action="StartGameObservation" asp-controller="Tennis" method="post">
+
+            <div class="form-group">
+                <label>Oyuncu Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Player"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Hesaplanacak AOS Tipi Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="AosType"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Video/Stream Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Stream"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Saha Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Court"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Limit (İşlenecek Frame Sayısı):</label>
+                <input class="input-group-text" type="number" name="Limit" value="-1"></input>
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <button type="submit" class="btn btn-primary">AOS Puanını Hesapla<i
+                            class="icon-paperplane ml-2"></i></button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- /basic layout -->
+
+
+@section Scripts{
+<script src="~/limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/limitless/global_assets/js/demo_pages/form_layouts.js"></script>
+}

@@ -19,7 +19,7 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<CourtTypeListDto>> GetById(long id) {
+        public async Task<Response<CourtTypeListDto>> GetById(long? id) {
             var data = _mapper.Map<CourtTypeListDto>(
                 await _unitOfWork.GetRepository<CourtType>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 #nullable disable
 
 namespace Entities.Concrete {
-    public class ProcessParameter : BaseEntity{
-        public ProcessParameter() {
+    public class ProcessParameter : BaseEntity {
+        public ProcessParameter()
+        {
             Processes = new HashSet<Process>();
         }
 
-        public long Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; }
         public long? StreamId { get; set; }
         public long? AosTypeId { get; set; }
         public long? PlayerId { get; set; }

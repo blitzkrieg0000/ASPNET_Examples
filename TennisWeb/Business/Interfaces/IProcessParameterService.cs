@@ -11,6 +11,6 @@ namespace Business.Interfaces {
         Task<Response<List<ProcessParameterListDto>>> GetAll();
         Task<Response<List<ProcessParameterListDto>>> GetListByFilter(Expression<Func<ProcessParameter, bool>> filter);
         Task<IResponse<ProcessParameterCreateDto>> Create(ProcessParameterCreateDto dto);
-        Task<IResponse> Remove(long id);
+        Task<IResponse> Remove(string id);
     }
 }

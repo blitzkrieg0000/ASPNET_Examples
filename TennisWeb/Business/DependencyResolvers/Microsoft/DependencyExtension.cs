@@ -33,6 +33,8 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<IGenericService, GenericService>();
             services.AddScoped<IProcessService, ProcessService>();
             services.AddScoped<IProcessParameterService, ProcessParameterService>();
+            services.AddScoped<IProcessResponseService, ProcessResponseService>();
+            services.AddScoped<ITennisService, TennisService>();
 
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {

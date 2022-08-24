@@ -2,8 +2,6 @@ using System;
 
 namespace Dtos.ProcessParameterDtos {
     public class ProcessParameterCreateDto {
-        public long Id { get; set; }
-        public string Name { get; set; }
         public long? StreamId { get; set; }
         public long? AosTypeId { get; set; }
         public long? PlayerId { get; set; }

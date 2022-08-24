@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
 
-namespace Entities.Concrete {
-    public class ProcessResponse : BaseEntity {
-        public ProcessResponse() {
-            Processes = new HashSet<Process>();
-        }
-
+namespace Dtos.ProcessResponseDtos {
+    public class ProcessResponseCreateDto {
         public string Id { get; set; }
         public string Description { get; set; }
         public string Canvas { get; set; }
@@ -15,7 +10,5 @@ namespace Entities.Concrete {
         public string PlayerPositionArray { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool? IsDeleted { get; set; }
-
-        public ICollection<Process> Processes { get; set; }
     }
 }

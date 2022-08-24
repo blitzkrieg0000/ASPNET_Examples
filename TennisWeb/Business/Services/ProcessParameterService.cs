@@ -41,7 +41,7 @@ namespace Business.Services {
             return new Response<ProcessParameterCreateDto>(ResponseType.Success, "Yeni ProcessParameter Eklendi.");
         }
 
-        public async Task<IResponse> Remove(long id) {
+        public async Task<IResponse> Remove(string id) {
             var removedEntity = await _unitOfWork.GetRepository<ProcessParameter>().GetByFilter(x => x.Id == id);
             if (removedEntity != null) {
                 _unitOfWork.GetRepository<ProcessParameter>().Remove(removedEntity);

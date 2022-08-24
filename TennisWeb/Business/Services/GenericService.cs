@@ -26,8 +26,7 @@ namespace Business.Services {
         where RepositoryT : BaseEntity {
 
             var data = _mapper.Map<List<DtoT>>(
-                await _unitOfWork.GetRepository<RepositoryT>()
-                .GetAll()
+                await _unitOfWork.GetRepository<RepositoryT>().GetAll()
             );
             return new Response<List<DtoT>>(ResponseType.Success, data);
         }
