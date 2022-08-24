@@ -12,6 +12,12 @@ namespace UI.Controllers {
             _processService = processService;
         }
 
+        //TODO Tüm Processleri Listele
+        // [HttpGet]
+        // public IActionResult Index() {
+        //     return View(new SessionIdDto() { SessionId = id });
+        // }
+
         [HttpGet]
         public IActionResult Index(long id) {
             return View(new SessionIdDto() { SessionId = id });
