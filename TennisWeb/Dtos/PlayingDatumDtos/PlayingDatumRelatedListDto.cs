@@ -7,7 +7,7 @@ namespace Dtos.PlayingDatumDtos {
         public string PlayerName { get; set; }
         public string CourtName { get; set; }
         public string AosTypeName { get; set; }
-        public long StreamName { get; set; }
+        public string StreamName { get; set; }
         public double? Score { get; set; }
         public string BallPositionArea { get; set; }
         public string PlayerPositionArea { get; set; }

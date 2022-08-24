@@ -146,7 +146,7 @@ namespace WebProjesi.Controllers {
             }
 
             FileInfo fileInfo = new FileInfo(logFilePath);
-            var writer = fileInfo.CreateText();
+            var writer = fileInfo.CreateText();Player
 
             writer.WriteLine("Hatanın Gerçekleştiği Yer:"+ exceptionHandlerPathFeature.Path);
             writer.WriteLine("Hata:"+ exceptionHandlerPathFeature.Error.Message);

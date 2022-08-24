@@ -190,7 +190,7 @@ namespace EFCoreProjesi.Controllers {
 
         public IActionResult EagerLoading() {
             BlogContext context = new();
-
+            
             //! EagerLoading:
             var blogs = context.Blogs.Include(x => x.Comments.Where(x => x.Content.Contains("Yorum1"))).ToList(); //Şartları belirtiriz ve tek seferde kayıtlar gelir.
 

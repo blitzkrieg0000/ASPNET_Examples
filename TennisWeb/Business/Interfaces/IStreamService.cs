@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace Business.Interfaces {
     public interface IStreamService {
-
         Task<Response<List<StreamListDto>>> GetAll();
         Task<Response<StreamListDto>> GetById(long? id);
         Task<IResponse<StreamCreateDto>> Create(IFormFile formFile, StreamCreateDto dto);

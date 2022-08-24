@@ -17,6 +17,7 @@ namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {
 
         public TennisProfile() {
+            CreateMap<PlayingDatum, PlayingDatumRelatedListDto>().ReverseMap();
             CreateMap<PlayingDatum, PlayingDatumListDto>().ReverseMap();
             CreateMap<AosType, AosTypeListDto>().ReverseMap();
             CreateMap<Stream, StreamListDto>().ReverseMap();
@@ -28,8 +29,9 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<CourtType, CourtTypeListDto>().ReverseMap();
             CreateMap<Session, SessionListDto>().ReverseMap();
             CreateMap<Session, SessionCreateDto>().ReverseMap();
-            CreateMap<Process, ProcessCreateDto>().ReverseMap();
             CreateMap<Process, ProcessListDto>().ReverseMap();
+            CreateMap<Process, ProcessCreateDto>().ReverseMap();
+
             CreateMap<ProcessParameter, ProcessParameterListDto>().ReverseMap();
             CreateMap<ProcessParameter, ProcessParameterCreateDto>().ReverseMap();
             CreateMap<ProcessResponse, ProcessParameterListDto>().ReverseMap();

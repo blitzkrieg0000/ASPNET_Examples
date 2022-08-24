@@ -8,6 +8,8 @@ using Dtos.PlayingDatumDtos;
 
 using Microsoft.EntityFrameworkCore;
 using Entities.Concrete;
+using System.Linq;
+using AutoMapper.QueryableExtensions;
 
 namespace Business.Services {
     public class PlayingDatumService : IPlayingDatumService {
@@ -39,27 +41,43 @@ namespace Business.Services {
             var query = _unitOfWork.GetRepository<PlayingDatum>().GetQuery();
 
             //TODO DO MAP
-            var raw = await query
+            // var data = await query
+            // .Include(x => x.Player)
+            // .Include(x => x.AosType)
+            // .Include(x => x.Court)
+            // .Include(x => x.Stream).Select(x => new PlayingDatumRelatedListDto() {
+            //     PlayerName = x.Player.Name,
+            //     CourtName = x.Court.Name,
+            //     AosTypeName = x.AosType.Name,
+            //     StreamName = x.Stream.Name,
+            //     Score = x.Score,
+            //     BallPositionArea = x.BallPositionArea,
+            //     PlayerPositionArea = x.PlayerPositionArea,
+            //     BallFallArray = x.BallFallArray,
+            //     SaveDate = x.SaveDate,
+            //     IsDeleted = x.IsDeleted,
+            //     Id = x.Id
+            // })
+            // .ToListAsync();
+
+
+            var data = await query
             .Include(x => x.Player)
             .Include(x => x.AosType)
             .Include(x => x.Court)
-            .Include(x => x.Stream)
+            .Include(x => x.Stream).ProjectTo<PlayingDatumRelatedListDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
 
-            var data = new List<PlayingDatumRelatedListDto>();
-            foreach (var item in raw) {
-                data.Add(new() {
-                    Id = item.Id,
-                    Score = item.Score,
-                    PlayerName = item.Player.Name,
-                    AosTypeName = item.AosType.Name,
-                    CourtName = item.Court.Name,
-                    IsDeleted = item.IsDeleted,
-                    SaveDate = item.SaveDate,
-                    BallFallArray = item.BallFallArray,
-                    BallPositionArea = item.BallPositionArea,
-                });
-            }
+
+
+
+
+
+
+
+
+            //TODO AutoMapper ı daha iyi bir şekilde yapılandır.
+            // data = _mapper.Map<List<PlayingDatumRelatedListDto>>(data);
 
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
