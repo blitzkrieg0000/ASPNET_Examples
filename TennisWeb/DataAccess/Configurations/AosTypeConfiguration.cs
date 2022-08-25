@@ -7,7 +7,6 @@ namespace DataAccess.Configurations {
     public class AosTypeConfiguration : IEntityTypeConfiguration<AosType> {
 
         public void Configure(EntityTypeBuilder<AosType> builder) {
-
             builder.ToTable("AOSType");
 
             builder.Property(e => e.Id)

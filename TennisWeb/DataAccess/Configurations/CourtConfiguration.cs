@@ -31,8 +31,6 @@ namespace DataAccess.Configurations {
                 .HasForeignKey(d => d.CourtTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("court_fk");
-
-
         }
 
     }

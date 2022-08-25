@@ -9,7 +9,7 @@ namespace Dtos.StreamDtos {
         public byte[] CourtLineArray { get; set; }
         public string KafkaTopicName { get; set; }
         public DateTime SaveDate { get; set; }
-        public bool IsActivated { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool? IsActivated { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

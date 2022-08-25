@@ -23,7 +23,6 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
         }
     }
 }

@@ -64,7 +64,7 @@
                         <td>@item.SaveDate</td>
                         <td>
                             @{
-                                if (item.IsActivated)
+                                if ((bool)item.IsActivated)
                                 {
                                     <span class="badge badge-success">1</span>
                                 }

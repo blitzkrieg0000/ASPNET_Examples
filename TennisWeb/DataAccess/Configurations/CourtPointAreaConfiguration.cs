@@ -7,11 +7,13 @@ namespace DataAccess.Configurations {
     public class CourtPointAreaConfiguration : IEntityTypeConfiguration<CourtPointArea> {
 
         public void Configure(EntityTypeBuilder<CourtPointArea> builder) {
-            builder.ToTable("CourtType");
+            builder.ToTable("CourtPointArea");
 
             builder.Property(e => e.Id)
                 .HasColumnName("id")
                 .UseIdentityAlwaysColumn();
+
+            builder.Property(e => e.AreaArray).HasColumnName("area_array");
 
             builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
