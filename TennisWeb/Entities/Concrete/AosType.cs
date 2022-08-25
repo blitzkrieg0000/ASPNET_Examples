@@ -5,7 +5,7 @@ namespace Entities.Concrete {
     public class AosType : BaseEntity {
         public AosType() {
             PlayingData = new HashSet<PlayingDatum>();
-            ProcessParameters = new HashSet<ProcessParameter>();
+            SessionParameters = new HashSet<SessionParameter>();
         }
 
         public long Id { get; set; }
@@ -16,6 +16,6 @@ namespace Entities.Concrete {
 
         public CourtPointArea CourtPointArea { get; set; }
         public ICollection<PlayingDatum> PlayingData { get; set; }
-        public ICollection<ProcessParameter> ProcessParameters { get; set; }
+        public ICollection<SessionParameter> SessionParameters { get; set; }
     }
 }

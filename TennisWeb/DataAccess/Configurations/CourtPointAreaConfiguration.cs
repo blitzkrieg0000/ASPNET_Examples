@@ -7,14 +7,11 @@ namespace DataAccess.Configurations {
     public class CourtPointAreaConfiguration : IEntityTypeConfiguration<CourtPointArea> {
 
         public void Configure(EntityTypeBuilder<CourtPointArea> builder) {
-
-            builder.ToTable("CourtPointArea");
+            builder.ToTable("CourtType");
 
             builder.Property(e => e.Id)
                 .HasColumnName("id")
                 .UseIdentityAlwaysColumn();
-
-            builder.Property(e => e.AreaArray).HasColumnName("area_array");
 
             builder.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
@@ -25,9 +22,6 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-
         }
 
     }

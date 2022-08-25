@@ -4,7 +4,7 @@ using System.Collections.Generic;
 #nullable disable
 
 namespace Entities.Concrete {
-    public class CourtPointArea : BaseEntity{
+    public class CourtPointArea : BaseEntity {
         public CourtPointArea() {
             Aostypes = new HashSet<AosType>();
         }
@@ -18,3 +18,4 @@ namespace Entities.Concrete {
         public ICollection<AosType> Aostypes { get; set; }
     }
 }
+

@@ -1,7 +1,8 @@
 using System;
 
-namespace Dtos.ProcessParameterDtos {
-    public class ProcessParameterCreateDto {
+namespace Dtos.SessionParameterDtos {
+    public class SessionParameterListDto {
+        public long Id { get; set; }
         public long? StreamId { get; set; }
         public long? AosTypeId { get; set; }
         public long? PlayerId { get; set; }

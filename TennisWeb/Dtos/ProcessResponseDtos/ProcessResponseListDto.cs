@@ -2,7 +2,7 @@ using System;
 
 namespace Dtos.ProcessResponseDtos {
     public class ProcessResponseListDto {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string Description { get; set; }
         public string Canvas { get; set; }
         public string BallPositionArray { get; set; }

@@ -8,6 +8,7 @@ namespace DataAccess.Configurations {
             builder.ToTable("Session");
 
             builder.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .UseIdentityAlwaysColumn();
 
@@ -25,6 +26,12 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(d => d.IdNavigation)
+                .WithOne(p => p.Session)
+                .HasForeignKey<Session>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("session_fk");
         }
     }
 }

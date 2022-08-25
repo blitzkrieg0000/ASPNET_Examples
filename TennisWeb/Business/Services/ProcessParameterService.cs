@@ -6,7 +6,7 @@ using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
-using Dtos.ProcessParameterDtos;
+using Dtos.SessionParameterDtos;
 using Entities.Concrete;
 
 namespace Business.Services {
@@ -19,32 +19,32 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<List<ProcessParameterListDto>>> GetAll() {
-            var data = _mapper.Map<List<ProcessParameterListDto>>(
-                await _unitOfWork.GetRepository<ProcessParameter>().GetAll()
+        public async Task<Response<List<SessionParameterListDto>>> GetAll() {
+            var data = _mapper.Map<List<SessionParameterListDto>>(
+                await _unitOfWork.GetRepository<SessionParameter>().GetAll()
             );
-            return new Response<List<ProcessParameterListDto>>(ResponseType.Success, data);
+            return new Response<List<SessionParameterListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<Response<List<ProcessParameterListDto>>> GetListByFilter(Expression<Func<ProcessParameter, bool>> filter) {
-            var raw = await _unitOfWork.GetRepository<ProcessParameter>().GetListByFilter(filter, asNoTracking: false);
+        public async Task<Response<List<SessionParameterListDto>>> GetListByFilter(Expression<Func<SessionParameter, bool>> filter) {
+            var raw = await _unitOfWork.GetRepository<SessionParameter>().GetListByFilter(filter, asNoTracking: false);
 
-            var data = _mapper.Map<List<ProcessParameterListDto>>(
+            var data = _mapper.Map<List<SessionParameterListDto>>(
                 raw
             );
-            return new Response<List<ProcessParameterListDto>>(ResponseType.Success, data);
+            return new Response<List<SessionParameterListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<IResponse<ProcessParameterCreateDto>> Create(ProcessParameterCreateDto dto) {
-            await _unitOfWork.GetRepository<ProcessParameter>().Create(_mapper.Map<ProcessParameter>(dto));
+        public async Task<IResponse<SessionParameterCreatetDto>> Create(SessionParameterCreatetDto dto) {
+            await _unitOfWork.GetRepository<SessionParameter>().Create(_mapper.Map<SessionParameter>(dto));
             await _unitOfWork.SaveChanges();
-            return new Response<ProcessParameterCreateDto>(ResponseType.Success, "Yeni ProcessParameter Eklendi.");
+            return new Response<SessionParameterCreatetDto>(ResponseType.Success, "Yeni SessionParameter Eklendi.");
         }
 
-        public async Task<IResponse> Remove(string id) {
-            var removedEntity = await _unitOfWork.GetRepository<ProcessParameter>().GetByFilter(x => x.Id == id);
+        public async Task<IResponse> Remove(long id) {
+            var removedEntity = await _unitOfWork.GetRepository<SessionParameter>().GetByFilter(x => x.Id == id);
             if (removedEntity != null) {
-                _unitOfWork.GetRepository<ProcessParameter>().Remove(removedEntity);
+                _unitOfWork.GetRepository<SessionParameter>().Remove(removedEntity);
                 await _unitOfWork.SaveChanges();
                 return new Response(ResponseType.Success);
             }

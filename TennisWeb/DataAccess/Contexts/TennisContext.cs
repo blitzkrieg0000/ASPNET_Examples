@@ -16,7 +16,7 @@ namespace Entities.Concrete {
         public DbSet<Stream> Streams { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<ProcessParameter> ProcessParameters { get; set; }
+        public DbSet<SessionParameter> ProcessParameters { get; set; }
         public DbSet<Process> Processes { get; set; }
         public DbSet<ProcessResponse> ProcessResponseConfigurations { get; set; }
 
@@ -32,7 +32,7 @@ namespace Entities.Concrete {
             modelBuilder.ApplyConfiguration(new StreamConfiguration());
             modelBuilder.ApplyConfiguration(new GenderConfiguration());
             modelBuilder.ApplyConfiguration(new SessionConfiguration());
-            modelBuilder.ApplyConfiguration(new ProcessParameterConfiguration());
+            modelBuilder.ApplyConfiguration(new SessionParameterConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessResponseConfiguration());
         }

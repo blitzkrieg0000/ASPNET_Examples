@@ -6,7 +6,7 @@ using Dtos.GRPCData;
 using Dtos.PlayerDtos;
 using Dtos.PlayingDatumDtos;
 using Dtos.ProcessDtos;
-using Dtos.ProcessParameterDtos;
+using Dtos.SessionParameterDtos;
 using Dtos.ProcessResponseDtos;
 using Dtos.SessionDtos;
 using Dtos.StreamDtos;
@@ -34,20 +34,20 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<Process, ProcessListDto>().ReverseMap();
             CreateMap<Process, ProcessCreateDto>().ReverseMap();
 
-            CreateMap<ProcessParameter, ProcessParameterListDto>().ReverseMap();
-            CreateMap<ProcessParameter, ProcessParameterCreateDto>().ReverseMap();
-            CreateMap<ProcessResponse, ProcessParameterListDto>().ReverseMap();
-            CreateMap<ProcessResponse, ProcessParameterCreateDto>().ReverseMap();
+            CreateMap<SessionParameter, SessionParameterListDto>().ReverseMap();
+            CreateMap<SessionParameter, SessionParameterCreatetDto>().ReverseMap();
+            CreateMap<ProcessResponse, SessionParameterListDto>().ReverseMap();
+            CreateMap<ProcessResponse, SessionParameterCreatetDto>().ReverseMap();
 
-            CreateMap<GenerateProcessModel, ProcessParameter>();
+            CreateMap<GenerateProcessModel, SessionParameter>();
             CreateMap<GenerateProcessModel, ProcessResponse>();
             CreateMap<GenerateProcessModel, Process>().ForMember(x => x.Id, opt => opt.Ignore());
 
-            CreateMap<GenerateProcessModel, ProcessParameterCreateDto>();
+            CreateMap<GenerateProcessModel, SessionParameterCreatetDto>();
             CreateMap<GenerateProcessModel, ProcessResponseCreateDto>();
             CreateMap<GenerateProcessModel, ProcessCreateDto>();
 
-            CreateMap<ProcessParameterCreateDto, ProcessResponse>();
+            CreateMap<SessionParameterCreatetDto, ProcessResponse>();
             CreateMap<ProcessResponseCreateDto, ProcessResponse>();
 
         }

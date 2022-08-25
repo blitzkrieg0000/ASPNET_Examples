@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DataAccess.Configurations {
     public class ProcessResponseConfiguration : IEntityTypeConfiguration<ProcessResponse> {
         public void Configure(EntityTypeBuilder<ProcessResponse> builder) {
-
             builder.ToTable("ProcessResponse");
 
             builder.Property(e => e.Id)
-                .HasColumnType("character varying")
+                .ValueGeneratedNever()
                 .HasColumnName("id");
 
             builder.Property(e => e.BallFallArray).HasColumnName("ball_fall_array");

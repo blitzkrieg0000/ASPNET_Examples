@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
 namespace Entities.Concrete {
-    public class ProcessParameter : BaseEntity {
-        public ProcessParameter()
-        {
-            Processes = new HashSet<Process>();
-        }
-
-        public string Id { get; set; }
+    public class SessionParameter : BaseEntity {
+        public long Id { get; set; }
         public long? StreamId { get; set; }
         public long? AosTypeId { get; set; }
         public long? PlayerId { get; set; }
@@ -24,6 +18,6 @@ namespace Entities.Concrete {
         public Court Court { get; set; }
         public Player Player { get; set; }
         public Stream Stream { get; set; }
-        public ICollection<Process> Processes { get; set; }
+        public Session Session { get; set; }
     }
 }

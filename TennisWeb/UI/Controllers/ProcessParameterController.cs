@@ -13,7 +13,7 @@ namespace UI.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSubProcessParameter(string id) {
+        public async Task<IActionResult> GetSubProcessParameter(long id) {
             var response = await _processParameterService.GetListByFilter(x => x.Id == id);
             return this.ResponseView(response);
         }

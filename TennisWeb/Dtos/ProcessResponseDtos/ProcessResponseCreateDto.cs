@@ -2,7 +2,6 @@ using System;
 
 namespace Dtos.ProcessResponseDtos {
     public class ProcessResponseCreateDto {
-        public string Id { get; set; }
         public string Description { get; set; }
         public string Canvas { get; set; }
         public string BallPositionArray { get; set; }

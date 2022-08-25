@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Entities.Concrete;
 
 namespace DataAccess.Configurations {
-    public class ProcessParameterConfiguration : IEntityTypeConfiguration<ProcessParameter> {
-        public void Configure(EntityTypeBuilder<ProcessParameter> builder) {
-            builder.ToTable("ProcessParameter");
+    public class SessionParameterConfiguration : IEntityTypeConfiguration<SessionParameter> {
+        public void Configure(EntityTypeBuilder<SessionParameter> builder) {
+            builder.ToTable("SessionParameter");
 
             builder.Property(e => e.Id)
-                .HasColumnType("character varying")
+                .ValueGeneratedNever()
                 .HasColumnName("id");
 
             builder.Property(e => e.AosTypeId).HasColumnName("aos_type_id");
@@ -34,22 +34,22 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.StreamId).HasColumnName("stream_id");
 
             builder.HasOne(d => d.AosType)
-                .WithMany(p => p.ProcessParameters)
+                .WithMany(p => p.SessionParameters)
                 .HasForeignKey(d => d.AosTypeId)
                 .HasConstraintName("processparameter_fk_1");
 
             builder.HasOne(d => d.Court)
-                .WithMany(p => p.ProcessParameters)
+                .WithMany(p => p.SessionParameters)
                 .HasForeignKey(d => d.CourtId)
                 .HasConstraintName("processparameter_fk_3");
 
             builder.HasOne(d => d.Player)
-                .WithMany(p => p.ProcessParameters)
+                .WithMany(p => p.SessionParameters)
                 .HasForeignKey(d => d.PlayerId)
                 .HasConstraintName("processparameter_fk_2");
 
             builder.HasOne(d => d.Stream)
-                .WithMany(p => p.ProcessParameters)
+                .WithMany(p => p.SessionParameters)
                 .HasForeignKey(d => d.StreamId)
                 .HasConstraintName("processparameter_fk");
         }
