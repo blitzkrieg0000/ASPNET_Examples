@@ -20,17 +20,18 @@ namespace Business.Services {
 
         public async Task<IResponse<GenerateProcessModel>> Create(GenerateProcessModel dto) {
             var newId = Guid.NewGuid().ToString();
+
             dto.Id = newId;
-            
             var newTable = _mapper.Map<ProcessParameter>(dto);
             await _unitOfWork.GetRepository<ProcessParameter>().Create(newTable);
-            
-            var newProcessResponse = _mapper.Map<ProcessResponse>(new ProcessResponseCreateDto(){Id = newId});
+
+            var newProcessResponse = _mapper.Map<ProcessResponse>(new ProcessResponseCreateDto() { Id = newId });
             await _unitOfWork.GetRepository<ProcessResponse>().Create(newProcessResponse);
 
             var newProcess = _mapper.Map<Process>(dto);
+            newProcess.ProcessParameterId = newId;
+            newProcess.ProcessResponseId = newId;
             await _unitOfWork.GetRepository<Process>().Create(newProcess);
-            
             await _unitOfWork.SaveChanges();
 
             return new Response<GenerateProcessModel>(ResponseType.Success, "Yeni Process Eklendi.");

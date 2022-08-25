@@ -1,4 +1,4 @@
-@model List<CourtListDto>
+@model List<CourtListRelatedDto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -50,7 +50,8 @@
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td>
-                            <getCourtTypeInfo court-type-id="@item.CourtTypeId"></getCourtTypeInfo>
+                            @* <getCourtTypeInfo court-type-id="@item.CourtTypeId"></getCourtTypeInfo> *@
+                            @item.CourtTypeName
                         </td>
                         <td>@item.SaveDate</td>
                         <td>

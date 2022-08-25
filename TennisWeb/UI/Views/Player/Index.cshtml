@@ -1,4 +1,4 @@
-@model List<PlayerListDto>
+@model List<PlayerListRelatedDto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -43,7 +43,7 @@
                     <th>Id</th>
                     <th>Oyuncu Adı</th>
                     <th>Cinsiyet</th>
-                    <th>Doğum Günü</th>
+                    <th>Doğum Tarihi</th>
                     <th>Kayıt Tarihi</th>
                     <th>İşlemler</th>
                     <th>Diğer</th>
@@ -55,7 +55,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td>@(item.GenderId==(long)1 ? "Erkek" : item.GenderId==(long)2 ? "Kadın" : "Belirtilmedi")</td>
+                        <td>@item.GenderName</td>
                         <td>@item.Birthday</td>
                         <td>@item.SaveDate</td>
                         <td>

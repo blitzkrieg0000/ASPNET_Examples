@@ -24,7 +24,9 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<Stream, StreamCreateDto>().ReverseMap();
             CreateMap<Player, PlayerListDto>().ReverseMap();
             CreateMap<Player, PlayerCreateDto>().ReverseMap();
+            CreateMap<Player, PlayerListRelatedDto>().ReverseMap();
             CreateMap<Court, CourtListDto>().ReverseMap();
+            CreateMap<Court, CourtListRelatedDto>().ReverseMap();
             CreateMap<Court, CourtCreateDto>().ReverseMap();
             CreateMap<CourtType, CourtTypeListDto>().ReverseMap();
             CreateMap<Session, SessionListDto>().ReverseMap();

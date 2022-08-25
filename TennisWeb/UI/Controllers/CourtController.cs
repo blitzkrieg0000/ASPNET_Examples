@@ -14,7 +14,7 @@ namespace UI.Controllers {
         }
 
         public async Task<IActionResult> Index() {
-            var response = await _courtService.GetAll();
+            var response = await _courtService.GetAllRelated();
             return this.ResponseView(response);
         }
 

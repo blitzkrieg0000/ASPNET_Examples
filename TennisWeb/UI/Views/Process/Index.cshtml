@@ -32,7 +32,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Vertical form</h5>
+                <h5 class="modal-title">Process Ekleme</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -72,7 +72,6 @@
                 </div>
 
                 <div class="modal-footer">
-
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     <div class="row">
                         <button type="submit" class="btn btn-primary">Process Ekle<i
@@ -93,7 +92,7 @@
             Process Ekle <i class="icon-play3 ml-2"></i>
         </button>
     </td>
-
+    <!-- #SESSION PROCESS -->
     @(await Component.InvokeAsync("ProcessListCard", new{sessionId=@Model.SessionId} ))
 
 </div>

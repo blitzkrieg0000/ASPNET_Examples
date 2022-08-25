@@ -12,7 +12,6 @@ namespace UI.Controllers {
 
         private readonly ITennisService _tennisService;
         public TennisController(ITennisService tennisService) {
-
             _tennisService = tennisService;
         }
 
@@ -23,9 +22,7 @@ namespace UI.Controllers {
         [HttpPost]
         public async Task<IActionResult> GenerateProcess(GenerateProcessModel model) {
             var response = await _tennisService.Create(model);
-
             return RedirectToAction("Index", "Process", new{@id = model.SessionId});
-
         }
     }
 }
