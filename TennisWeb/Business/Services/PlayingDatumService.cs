@@ -37,48 +37,16 @@ namespace Business.Services {
             return new Response<PlayingDatumListDto>(ResponseType.Success, data);
         }
 
+
         public async Task<Response<List<PlayingDatumRelatedListDto>>> GetAllRelated() {
             var query = _unitOfWork.GetRepository<PlayingDatum>().GetQuery();
-
-            //TODO DO MAP
-            // var data = await query
-            // .Include(x => x.Player)
-            // .Include(x => x.AosType)
-            // .Include(x => x.Court)
-            // .Include(x => x.Stream).Select(x => new PlayingDatumRelatedListDto() {
-            //     PlayerName = x.Player.Name,
-            //     CourtName = x.Court.Name,
-            //     AosTypeName = x.AosType.Name,
-            //     StreamName = x.Stream.Name,
-            //     Score = x.Score,
-            //     BallPositionArea = x.BallPositionArea,
-            //     PlayerPositionArea = x.PlayerPositionArea,
-            //     BallFallArray = x.BallFallArray,
-            //     SaveDate = x.SaveDate,
-            //     IsDeleted = x.IsDeleted,
-            //     Id = x.Id
-            // })
-            // .ToListAsync();
-
-
             var data = await query
             .Include(x => x.Player)
             .Include(x => x.AosType)
             .Include(x => x.Court)
             .Include(x => x.Stream).ProjectTo<PlayingDatumRelatedListDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-
-
-
-
-
-
-
-
-
-            //TODO AutoMapper ı daha iyi bir şekilde yapılandır.
-            // data = _mapper.Map<List<PlayingDatumRelatedListDto>>(data);
-
+            
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
 
