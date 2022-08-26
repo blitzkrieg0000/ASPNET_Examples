@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
@@ -28,7 +26,9 @@ namespace Business.Services {
         }
 
         public async Task<IResponse<SessionCreateDto>> Create(SessionCreateDto dto) {
-            await _unitOfWork.GetRepository<Session>().Create(_mapper.Map<Session>(dto));
+            //TODO Mapping i gözden geçir
+            var data = _mapper.Map<Session>(dto);
+            await _unitOfWork.GetRepository<Session>().Create(data);
             await _unitOfWork.SaveChanges();
             return new Response<SessionCreateDto>(ResponseType.Success, "Yeni Session Eklendi.");
         }

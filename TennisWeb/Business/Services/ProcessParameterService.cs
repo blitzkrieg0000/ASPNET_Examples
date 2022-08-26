@@ -35,10 +35,10 @@ namespace Business.Services {
             return new Response<List<SessionParameterListDto>>(ResponseType.Success, data);
         }
 
-        public async Task<IResponse<SessionParameterCreatetDto>> Create(SessionParameterCreatetDto dto) {
+        public async Task<IResponse<SessionParameterCreateDto>> Create(SessionParameterCreateDto dto) {
             await _unitOfWork.GetRepository<SessionParameter>().Create(_mapper.Map<SessionParameter>(dto));
             await _unitOfWork.SaveChanges();
-            return new Response<SessionParameterCreatetDto>(ResponseType.Success, "Yeni SessionParameter Eklendi.");
+            return new Response<SessionParameterCreateDto>(ResponseType.Success, "Yeni SessionParameter Eklendi.");
         }
 
         public async Task<IResponse> Remove(long id) {

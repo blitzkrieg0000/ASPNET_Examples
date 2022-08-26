@@ -9,7 +9,8 @@ namespace Entities.Concrete {
         public bool? IsCompleted { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public ProcessResponse IdNavigation { get; set; }
         public Session Session { get; set; }
+        public ProcessParameter ProcessParameter { get; set; }
+        public ProcessResponse ProcessResponse { get; set; }
     }
 }

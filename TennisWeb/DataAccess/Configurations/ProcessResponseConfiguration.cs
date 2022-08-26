@@ -28,6 +28,12 @@ namespace DataAccess.Configurations {
             builder.Property(e => e.SaveDate)
                 .HasColumnName("save_date")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(d => d.IdNavigation)
+                .WithOne(p => p.ProcessResponse)
+                .HasForeignKey<ProcessResponse>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("processresponse_fk");
         }
     }
 }

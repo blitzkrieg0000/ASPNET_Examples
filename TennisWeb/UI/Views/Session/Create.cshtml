@@ -30,6 +30,31 @@
                 <input asp-for="@Model.Name" class="form-control" placeholder="Ad">
             </div>
 
+            <div class="form-group">
+                <label>Oyuncu Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Player"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Hesaplanacak AOS Tipi Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="AosType"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Video/Stream Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Stream"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Saha Seçiniz:</label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Court"} ))
+            </div>
+
+            <div class="form-group">
+                <label>Limit (İşlenecek Frame Sayısı):</label>
+                <input class="input-group-text" type="number" name="Limit" value="-1"></input>
+            </div>
+
             <div class="text-right">
                 <button type="submit" class="btn btn-primary">Kaydet<i class="icon-paperplane ml-2"></i></button>
             </div>

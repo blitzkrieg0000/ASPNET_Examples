@@ -5,6 +5,7 @@ namespace Entities.Concrete {
     public class Stream : BaseEntity {
         public Stream() {
             PlayingData = new HashSet<PlayingDatum>();
+            ProcessParameters = new HashSet<ProcessParameter>();
             SessionParameters = new HashSet<SessionParameter>();
         }
 
@@ -17,7 +18,8 @@ namespace Entities.Concrete {
         public bool? IsActivated { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public virtual ICollection<PlayingDatum> PlayingData { get; set; }
-        public virtual ICollection<SessionParameter> SessionParameters { get; set; }
+        public ICollection<PlayingDatum> PlayingData { get; set; }
+        public ICollection<ProcessParameter> ProcessParameters { get; set; }
+        public ICollection<SessionParameter> SessionParameters { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Entities.Concrete {
         public bool? IsActivated { get; set; }
         public bool IsDeleted { get; set; }
 
-        public SessionParameter IdNavigation { get; set; }
+        public SessionParameter SessionParameter { get; set; }
         public ICollection<Process> Processes { get; set; }
     }
 }

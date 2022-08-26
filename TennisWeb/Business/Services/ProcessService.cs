@@ -6,7 +6,9 @@ using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
+using Dtos.GRPCData;
 using Dtos.ProcessDtos;
+using Dtos.ProcessResponseDtos;
 using Entities.Concrete;
 
 namespace Business.Services {
@@ -29,18 +31,23 @@ namespace Business.Services {
 
         public async Task<Response<List<ProcessListDto>>> GetListByFilter(Expression<Func<Process, bool>> filter) {
             var raw = await _unitOfWork.GetRepository<Process>().GetListByFilter(filter, asNoTracking: false);
-            
+
             var data = _mapper.Map<List<ProcessListDto>>(
                 raw
             );
             return new Response<List<ProcessListDto>>(ResponseType.Success, data);
         }
 
+
         public async Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto) {
-            await _unitOfWork.GetRepository<Process>().Create(_mapper.Map<Process>(dto));
+
+            var data = _mapper.Map<Process>(dto);
+            await _unitOfWork.GetRepository<Process>().Create(data);
             await _unitOfWork.SaveChanges();
-            return new Response<ProcessCreateDto>(ResponseType.Success, "Yeni Session Eklendi.");
+
+            return new Response<ProcessCreateDto>(ResponseType.Success, "Yeni Process Eklendi.");
         }
+
 
         public async Task<IResponse> Remove(long id) {
             var removedEntity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id);

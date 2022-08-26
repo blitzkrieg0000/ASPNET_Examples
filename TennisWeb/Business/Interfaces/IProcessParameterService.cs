@@ -10,7 +10,7 @@ namespace Business.Interfaces {
     public interface IProcessParameterService {
         Task<Response<List<SessionParameterListDto>>> GetAll();
         Task<Response<List<SessionParameterListDto>>> GetListByFilter(Expression<Func<SessionParameter, bool>> filter);
-        Task<IResponse<SessionParameterCreatetDto>> Create(SessionParameterCreatetDto dto);
+        Task<IResponse<SessionParameterCreateDto>> Create(SessionParameterCreateDto dto);
         Task<IResponse> Remove(long id);
     }
 }

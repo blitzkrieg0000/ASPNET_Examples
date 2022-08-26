@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Business.Interfaces;
+using Dtos.ProcessDtos;
 using Microsoft.AspNetCore.Mvc;
 using UI.Models;
 
@@ -21,6 +22,12 @@ namespace UI.Controllers {
         [HttpGet]
         public IActionResult Index(long id) {
             return View(new SessionIdDto() { SessionId = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProcessCreateDto model) {
+            var response = await _processService.Create(model);
+            return RedirectToAction("Index", "Process", new { @id = model.SessionId });
         }
 
     }

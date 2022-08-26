@@ -36,21 +36,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form asp-action="GenerateProcess" asp-controller="Tennis" method="post">
+            <form asp-action="Create" asp-controller="Process" method="post">
                 <input type="hidden" value="@Model.SessionId" name="SessionId" />
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-
-                            <div class="form-group">
-                                <label>Oyuncu Seçiniz:</label>
-                                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Player"} ))
-                            </div>
-
-                            <div class="form-group">
-                                <label>Hesaplanacak AOS Tipi Seçiniz:</label>
-                                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="AosType"} ))
-                            </div>
 
                             <div class="form-group">
                                 <label>Video/Stream Seçiniz:</label>
@@ -58,21 +48,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Saha Seçiniz:</label>
-                                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Court"} ))
-                            </div>
-
-                            <div class="form-group">
                                 <label>Limit (İşlenecek Frame Sayısı):</label>
                                 <input class="input-group-text" type="number" name="Limit" value="-1"></input>
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
                     <div class="row">
                         <button type="submit" class="btn btn-primary">Process Ekle<i
                                 class="icon-paperplane ml-2"></i></button>

@@ -8,7 +8,6 @@ namespace DataAccess.Configurations {
             builder.ToTable("Process");
 
             builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .UseIdentityAlwaysColumn();
 
@@ -30,17 +29,11 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.SessionId).HasColumnName("session_id");
 
-            builder.HasOne(d => d.IdNavigation)
-                .WithOne(p => p.Process)
-                .HasForeignKey<Process>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("process_fk");
-
             builder.HasOne(d => d.Session)
                 .WithMany(p => p.Processes)
                 .HasForeignKey(d => d.SessionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("process_fk_2");
+                .HasConstraintName("process_fk");
         }
     }
 }

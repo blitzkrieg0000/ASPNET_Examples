@@ -1,7 +1,7 @@
 using System;
 
 namespace Dtos.SessionParameterDtos {
-    public class SessionParameterCreatetDto {
+    public class SessionParameterCreateDto {
         public long? StreamId { get; set; }
         public long? AosTypeId { get; set; }
         public long? PlayerId { get; set; }

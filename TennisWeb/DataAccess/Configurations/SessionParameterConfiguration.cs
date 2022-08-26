@@ -43,6 +43,12 @@ namespace DataAccess.Configurations {
                 .HasForeignKey(d => d.CourtId)
                 .HasConstraintName("processparameter_fk_3");
 
+            builder.HasOne(d => d.IdNavigation)
+                .WithOne(p => p.SessionParameter)
+                .HasForeignKey<SessionParameter>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("sessionparameter_fk");
+
             builder.HasOne(d => d.Player)
                 .WithMany(p => p.SessionParameters)
                 .HasForeignKey(d => d.PlayerId)

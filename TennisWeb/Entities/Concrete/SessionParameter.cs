@@ -16,8 +16,8 @@ namespace Entities.Concrete {
 
         public AosType AosType { get; set; }
         public Court Court { get; set; }
+        public Session IdNavigation { get; set; }
         public Player Player { get; set; }
         public Stream Stream { get; set; }
-        public Session Session { get; set; }
     }
 }

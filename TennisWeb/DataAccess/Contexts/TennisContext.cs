@@ -16,9 +16,10 @@ namespace Entities.Concrete {
         public DbSet<Stream> Streams { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<SessionParameter> ProcessParameters { get; set; }
+        public DbSet<SessionParameter> SessionParameters { get; set; }
         public DbSet<Process> Processes { get; set; }
-        public DbSet<ProcessResponse> ProcessResponseConfigurations { get; set; }
+        public DbSet<ProcessResponse> ProcessResponses { get; set; }
+        public DbSet<ProcessParameter> ProcessParameters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
@@ -35,6 +36,7 @@ namespace Entities.Concrete {
             modelBuilder.ApplyConfiguration(new SessionParameterConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessConfiguration());
             modelBuilder.ApplyConfiguration(new ProcessResponseConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcessParameterConfiguration());
         }
 
     }
