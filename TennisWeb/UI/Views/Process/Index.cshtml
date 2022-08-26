@@ -36,45 +36,82 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form asp-action="Create" asp-controller="Process" method="post">
-                <input type="hidden" value="@Model.SessionId" name="SessionId" />
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item"><a href="#basic-justified-tab1" class="nav-link active" data-toggle="tab">Normal
+                        Process Ekle</a></li>
+                <li class="nav-item"><a href="#basic-justified-tab2" class="nav-link" data-toggle="tab">Özelleştir</a>
+                </li>
 
-                            <div class="form-group">
-                                <label>Video/Stream Seçiniz:</label>
-                                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="Stream"} ))
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="basic-justified-tab1">
+
+                        <form asp-action="Create" asp-controller="Process" method="post">
+                            <input type="hidden" value="@Model.SessionId" name="SessionId" />
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <input name="Override" value="0" class="form-check-input" type="hidden">
+
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Limit (İşlenecek Frame Sayısı):</label>
-                                <input class="input-group-text" type="number" name="Limit" value="-1"></input>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
+                                <div class="row">
+                                    <button type="submit" class="btn btn-primary">Process Ekle<i
+                                            class="icon-paperplane ml-2"></i></button>
+                                </div>
                             </div>
+                        </form>
 
-
-
-                            <div class="form-check">
-                                <input name="Override" class="form-check-input" type="checkbox">
-                                <label class="form-check-label" for="defaultCheck1">Üzerine Yaz</label>
-                            </div>
-
-
-                        </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary">Process Ekle<i
-                                class="icon-paperplane ml-2"></i></button>
+                    <div class="tab-pane fade" id="basic-justified-tab2">
+
+                        <form asp-action="Create" asp-controller="Process" method="post">
+                            <input type="hidden" value="@Model.SessionId" name="SessionId" />
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <label>Video/Stream Seçiniz:</label>
+                                            @(await Component.InvokeAsync("SelectListFromTable",
+                                            new{tableName="Stream"} ))
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Limit (İşlenecek Frame Sayısı):</label>
+                                            <input class="input-group-text" type="number" name="Limit"
+                                                value="-1"></input>
+                                        </div>
+
+                                        <input name="Override" value="1" class="form-check-input" type="hidden">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
+                                <div class="row">
+                                    <button type="submit" class="btn btn-primary">Process Ekle<i
+                                            class="icon-paperplane ml-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
-                </div>
-            </form>
 
+
+                </div>
         </div>
+
+
     </div>
+</div>
 </div>
 
 
