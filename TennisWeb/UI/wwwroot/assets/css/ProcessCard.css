@@ -28,7 +28,7 @@ body {
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  grid-gap: 4rem;
+  grid-gap: 3rem;
 }
 
 .pen-title {
