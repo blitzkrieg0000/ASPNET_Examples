@@ -41,7 +41,14 @@ namespace Business.Services {
 
         public async Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto) {
 
+
+
             var data = _mapper.Map<Process>(dto);
+
+            if (!dto.Override){
+                data.ProcessParameter = new ProcessParameter();
+            }
+
             await _unitOfWork.GetRepository<Process>().Create(data);
             await _unitOfWork.SaveChanges();
 
