@@ -37,6 +37,13 @@
                 </div>
 
                 <div class="bottom">
+                    <a asp-action="StartProcess" asp-controller="Process" asp-route-id="@item.Id"
+                    class="btn btn-success btn-sm">Başlat</a>
+                    <a asp-action="StopProcess" asp-controller="Process" asp-route-id="@item.Id"
+                    class="btn btn-danger btn-sm">Durdur</a>
+                </div>
+
+                <div class="bottom">
                     @if ((bool)item.IsCompleted)
                     {
                         <h4>Sonuçlandı.</h4>

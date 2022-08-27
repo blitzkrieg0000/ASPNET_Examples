@@ -6,6 +6,7 @@ using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.SessionDtos;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services {
     public class SessionService : ISessionService {
@@ -34,7 +35,10 @@ namespace Business.Services {
         }
 
         public async Task<IResponse> Remove(long id) {
-            var removedEntity = await _unitOfWork.GetRepository<Session>().GetByFilter(x => x.Id == id);
+            var query = _unitOfWork.GetRepository<Session>().GetQuery();
+
+            var removedEntity = await query.Include(x => x.Processes).SingleOrDefaultAsync(x => x.Id == id);
+
             if (removedEntity != null) {
                 _unitOfWork.GetRepository<Session>().Remove(removedEntity);
                 await _unitOfWork.SaveChanges();
