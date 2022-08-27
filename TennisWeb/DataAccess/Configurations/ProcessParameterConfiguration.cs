@@ -7,8 +7,8 @@ namespace DataAccess.Configurations {
         public void Configure(EntityTypeBuilder<ProcessParameter> builder) {
 
             builder.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+                                .ValueGeneratedNever()
+                                .HasColumnName("id");
 
             builder.Property(e => e.Limit).HasColumnName("limit");
 
@@ -17,14 +17,12 @@ namespace DataAccess.Configurations {
             builder.HasOne(d => d.IdNavigation)
                 .WithOne(p => p.ProcessParameter)
                 .HasForeignKey<ProcessParameter>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("processparameters_fk");
 
             builder.HasOne(d => d.Stream)
                 .WithMany(p => p.ProcessParameters)
                 .HasForeignKey(d => d.StreamId)
                 .HasConstraintName("processparameters_fk_1");
-
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DataAccess.Configurations {
             builder.HasOne(d => d.Session)
                 .WithMany(p => p.Processes)
                 .HasForeignKey(d => d.SessionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("process_fk");
         }
     }

@@ -46,7 +46,6 @@ namespace DataAccess.Configurations {
             builder.HasOne(d => d.IdNavigation)
                 .WithOne(p => p.SessionParameter)
                 .HasForeignKey<SessionParameter>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("sessionparameter_fk");
 
             builder.HasOne(d => d.Player)

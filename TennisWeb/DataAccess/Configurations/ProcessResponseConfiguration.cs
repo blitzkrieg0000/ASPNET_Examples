@@ -32,7 +32,6 @@ namespace DataAccess.Configurations {
             builder.HasOne(d => d.IdNavigation)
                 .WithOne(p => p.ProcessResponse)
                 .HasForeignKey<ProcessResponse>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("processresponse_fk");
         }
     }
