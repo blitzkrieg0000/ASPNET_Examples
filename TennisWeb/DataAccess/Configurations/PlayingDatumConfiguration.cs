@@ -9,8 +9,8 @@ namespace DataAccess.Configurations {
         public void Configure(EntityTypeBuilder<PlayingDatum> builder) {
 
             builder.Property(e => e.Id)
-                   .HasColumnName("id")
-                   .UseIdentityAlwaysColumn();
+                                .HasColumnName("id")
+                                .UseIdentityAlwaysColumn();
 
             builder.Property(e => e.AosTypeId).HasColumnName("aos_type_id");
 

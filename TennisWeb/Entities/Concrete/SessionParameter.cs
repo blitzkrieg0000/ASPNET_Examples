@@ -14,10 +14,10 @@ namespace Entities.Concrete {
         public DateTime SaveDate { get; set; }
         public bool IsDeleted { get; set; }
 
-        public AosType AosType { get; set; }
-        public Court Court { get; set; }
-        public Session IdNavigation { get; set; }
-        public Player Player { get; set; }
-        public Stream Stream { get; set; }
+        public virtual AosType AosType { get; set; }
+        public virtual Court Court { get; set; }
+        public virtual Session IdNavigation { get; set; }
+        public virtual Player Player { get; set; }
+        public virtual Stream Stream { get; set; }
     }
 }

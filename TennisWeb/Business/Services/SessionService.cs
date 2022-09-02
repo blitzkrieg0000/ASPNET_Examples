@@ -37,6 +37,7 @@ namespace Business.Services {
         public async Task<IResponse> Remove(long id) {
             var query = _unitOfWork.GetRepository<Session>().GetQuery();
 
+            //TODO Repository.cs de CASCADE DELETE METHODU YAP
             var removedEntity = await query.Include(x => x.Processes).SingleOrDefaultAsync(x => x.Id == id);
 
             if (removedEntity != null) {

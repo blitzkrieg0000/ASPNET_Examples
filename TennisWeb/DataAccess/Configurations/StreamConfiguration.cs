@@ -25,6 +25,8 @@ namespace DataAccess.Configurations {
                 .HasColumnName("is_deleted")
                 .HasDefaultValueSql("true");
 
+            builder.Property(e => e.IsVideo).HasColumnName("is_video");
+
             builder.Property(e => e.KafkaTopicName).HasColumnName("kafka_topic_name");
 
             builder.Property(e => e.Name)

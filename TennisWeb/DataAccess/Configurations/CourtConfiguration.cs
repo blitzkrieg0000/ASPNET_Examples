@@ -7,7 +7,6 @@ namespace DataAccess.Configurations {
     public class CourtConfiguration : IEntityTypeConfiguration<Court> {
 
         public void Configure(EntityTypeBuilder<Court> builder) {
-
             builder.ToTable("Court");
 
             builder.Property(e => e.Id)

@@ -16,8 +16,8 @@ namespace Entities.Concrete {
         public DateTime SaveDate { get; set; }
         public bool IsDeleted { get; set; }
 
-        public CourtType CourtType { get; set; }
-        public ICollection<PlayingDatum> PlayingData { get; set; }
-        public ICollection<SessionParameter> SessionParameters { get; set; }
+        public virtual CourtType CourtType { get; set; }
+        public virtual ICollection<PlayingDatum> PlayingData { get; set; }
+        public virtual ICollection<SessionParameter> SessionParameters { get; set; }
     }
 }

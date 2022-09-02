@@ -11,6 +11,6 @@ namespace Entities.Concrete {
         public DateTime? SaveDate { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public Process IdNavigation { get; set; }
+        public virtual Process IdNavigation { get; set; }
     }
 }
