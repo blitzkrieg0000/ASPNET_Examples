@@ -1,3 +1,5 @@
+using System;
+
 namespace Dtos.ProcessDtos {
     public class ProcessCreateDto {
         public bool Override { get; set; }
