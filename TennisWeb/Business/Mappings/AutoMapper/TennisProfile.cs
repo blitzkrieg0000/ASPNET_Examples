@@ -40,20 +40,21 @@ namespace Business.Mappings.AutoMapper {
 
             CreateMap<Process, ProcessListDto>().ReverseMap();
 
-            CreateMap<SessionCreateDto, Session>().ForMember(dst => dst.SessionParameter, opt => opt.MapFrom(src => new SessionParameter() {
-                StreamId = src.StreamId,
-                AosTypeId = src.AOSTypeId,
-                PlayerId = src.PlayerId,
-                CourtId = src.CourtId,
-                Limit = src.Limit,
-                Force = src.Force
+            CreateMap<SessionCreateDto, Session>().ForMember(dst => dst.SessionParameter,
+                opt => opt.MapFrom(src => new SessionParameter() {
+                    StreamId = src.StreamId,
+                    AosTypeId = src.AOSTypeId,
+                    PlayerId = src.PlayerId,
+                    CourtId = src.CourtId,
+                    Limit = src.Limit,
+                    Force = src.Force
             }));
 
-            CreateMap<ProcessCreateDto, Process>().ForMember(dst => dst.ProcessParameter, opt => opt.MapFrom(src => new ProcessParameter() {
-                StreamId = src.StreamId,
-                Limit = src.Limit
+            CreateMap<ProcessCreateDto, Process>().ForMember(dst => dst.ProcessParameter,
+                opt => opt.MapFrom(src => new ProcessParameter() {
+                    StreamId = src.StreamId,
+                    Limit = src.Limit
             })).ForMember(dst => dst.ProcessResponse, opt => opt.MapFrom(src => new ProcessResponse()));
-
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Entities.Concrete {
         public string BallPositionArray { get; set; }
         public string BallFallArray { get; set; }
         public string PlayerPositionArray { get; set; }
+        public long? Score { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool? IsDeleted { get; set; }
 
