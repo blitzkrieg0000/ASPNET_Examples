@@ -41,11 +41,9 @@ namespace Business.Services {
 
         public async Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto) {
 
-
-
             var data = _mapper.Map<Process>(dto);
 
-            if (!dto.Override){
+            if (dto.Override == 0){
                 data.ProcessParameter = new ProcessParameter();
             }
 

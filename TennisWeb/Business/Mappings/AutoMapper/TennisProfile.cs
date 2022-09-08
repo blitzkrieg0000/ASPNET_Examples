@@ -2,17 +2,13 @@ using AutoMapper;
 using Dtos.AosTypeDtos;
 using Dtos.CourtDtos;
 using Dtos.CourtTypeDtos;
-using Dtos.GRPCData;
 using Dtos.PlayerDtos;
 using Dtos.PlayingDatumDtos;
 using Dtos.ProcessDtos;
-using Dtos.SessionParameterDtos;
-using Dtos.ProcessResponseDtos;
 using Dtos.SessionDtos;
 using Dtos.StreamDtos;
 
 using Entities.Concrete;
-using System;
 
 namespace Business.Mappings.AutoMapper {
     public class TennisProfile : Profile {
