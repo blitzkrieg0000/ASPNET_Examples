@@ -48,8 +48,8 @@
                     {
                         <h4>Sonuçlandı.</h4>
                         <a class="btn btn-success btn-sm" asp-action="GetSubProcessParameter" asp-controller="SessionParameter"
-                    asp-route-id="@item.Process.Id"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                    asp-route-id="@item.Process.Id"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
                                 <path
                             d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
                                 <path
@@ -73,13 +73,29 @@
                 </div>
             </div>
 
-            <div class="card-bg">
-                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
-            </div>
+            @{
+                if (item.ProcessResponse.Canvas == null){
+                    <div class="card-bg">
+                        <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                    </div>
 
-            <div class="shadow">
-                <img class="shadow-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
-            </div>
+                    <div class="shadow">
+                        <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                    </div>
+                }
+                else
+                {
+                    <div class="card-bg">
+                        <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
+                    </div>
+
+                    <div class="shadow">
+                        <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
+                    </div>
+                }
+
+            }
+
 
         </div>
     }

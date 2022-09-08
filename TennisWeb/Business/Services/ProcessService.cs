@@ -42,7 +42,8 @@ namespace Business.Services {
                 .Include(x => x.ProcessParameter)
                 .Include(x => x.ProcessResponse)
                 .Join(_unitOfWork.GetRepository<Stream>().GetQuery(),
-                 src => src.ProcessParameter.StreamId == null ? src.Session.SessionParameter.StreamId : src.ProcessParameter.StreamId, dst => dst.Id,
+                 src => src.ProcessParameter.StreamId == null ? src.Session.SessionParameter.StreamId :
+                  src.ProcessParameter.StreamId, dst => dst.Id,
                  (Process, Stream) => new { Process, Stream })
                  .Where(x => x.Process.SessionId == id)
                 .ToListAsync();
@@ -56,9 +57,7 @@ namespace Business.Services {
                     Stream = _mapper.Map<StreamListDto>(item.Stream)
                 });
             }
-
             return new Response<List<ProcessListRelatedDto>>(ResponseType.Success, data);
-
         }
 
 
