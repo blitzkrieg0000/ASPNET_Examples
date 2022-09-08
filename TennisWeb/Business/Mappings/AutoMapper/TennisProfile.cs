@@ -5,7 +5,9 @@ using Dtos.CourtTypeDtos;
 using Dtos.PlayerDtos;
 using Dtos.PlayingDatumDtos;
 using Dtos.ProcessDtos;
+using Dtos.ProcessResponseDtos;
 using Dtos.SessionDtos;
+using Dtos.SessionParameterDtos;
 using Dtos.StreamDtos;
 
 using Entities.Concrete;
@@ -35,7 +37,7 @@ namespace Business.Mappings.AutoMapper {
             CreateMap<Session, SessionListDto>().ReverseMap();
 
             CreateMap<Process, ProcessListDto>().ReverseMap();
-
+            CreateMap<ProcessResponse, ProcessResponseListDto>().ReverseMap();
             CreateMap<SessionCreateDto, Session>().ForMember(dst => dst.SessionParameter,
                 opt => opt.MapFrom(src => new SessionParameter() {
                     StreamId = src.StreamId,

@@ -12,7 +12,8 @@ namespace UI.ViewComponents {
         }
 
         public async Task<IViewComponentResult> InvokeAsync(long sessionId){
-            var response = await _processService.GetListByFilter(x=> x.SessionId == sessionId);
+            var response = await _processService.GetAllRelated(sessionId);
+            // var response = await _processService.GetListByFilter(x=> x.SessionId == sessionId);
             return View(response.Data);
         }
 
