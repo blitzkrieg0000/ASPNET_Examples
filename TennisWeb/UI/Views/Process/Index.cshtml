@@ -15,7 +15,8 @@
 
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
-<link rel="stylesheet" type="text/css" href="~/assets/css/zoom.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.css" />
+@* <link rel="stylesheet" href="~/node_modules/@@fancyapps/ui/dist/fancybox.css" type="text/css" media="screen" /> *@
 
 <style>
     .modal-backdrop {
@@ -99,7 +100,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
         </div>
@@ -120,8 +120,10 @@
 
 @section Scripts{
 <script src="~/global_assets/js/demo_pages/components_modals.js"></script>
-
 <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!--Detail Modal-->
 <script>
     var detailModal = document.getElementById('detailModal');
     detailModal.addEventListener('show.bs.modal', function (event) {
@@ -136,8 +138,8 @@
         var modalTitle = detailModal.querySelector('.modal-title')
         modalTitle.textContent = 'Details: ' + data["process"]["id"]
 
-        var court_name = detailModal.querySelector("#court_name")
-        court_name.innerHTML = data["processResponse"]["score"]
+        @* var court_name = detailModal.querySelector("#court_name")
+        court_name.innerHTML = data["processResponse"]["score"] *@
 
         var court_description = detailModal.querySelector("#court_description")
         court_description.innerHTML = data["processResponse"]["description"]
@@ -155,178 +157,23 @@
             court_isVideo.innerHTML = "Kameradan Alındı."
         }
 
-        var base64img = "data:image/png;base64, " + data["processResponse"]["canvas"]
+        var imgbase64 = "data:image/png;base64, " + data["processResponse"]["canvas"]
+        @* var court_image = detailModal.querySelector("#court_image") *@
+        var court_image_gallery = detailModal.querySelector("#court_image_gallery")
+        @* court_image.src = imgbase64 *@
+        court_image_gallery.setAttribute('data-src', imgbase64);
 
-        @* var image = detailModal.querySelector("#court_image")
-                image.style = "background-image:url('data:image/png;base64, " + data["processResponse"]["canvas"] + "');" *@
+        var image = detailModal.querySelector("#court_image")
+        image.style = "background-image:url('"+ imgbase64 +"');"
 
-            myCanvas = new canvas();
-        myCanvas.construct(base64img);
+
+
 
     });
 </script>
 
-
+<!--Detail Canvas Effect-->
 <script>
-
-    function canvas() {
-        return {
-            lastZoomFactor: 1,
-            zoomLevel: 0,
-            maxZoom: 80,
-            minZoom: -29,
-            image: null,
-            interval: null,
-            mousePosition: { x: null, y: null },
-            imagePosition: { x: 100, y: 100 },
-            mouseButtonDown: false,
-            construct(base64img) {
-                this.canvas = document.getElementById('canvas');
-
-                this.image = new Image();
-                this.image.src = base64img;
-
-                this.context = this.canvas.getContext('2d');
-                this.addHandlers();
-                this.start();
-            },
-            addHandlers() {
-                this.canvas.addEventListener('mousedown', this.mouseDown, false);
-                this.canvas.addEventListener('touchstart', this.mouseDown, false);
-                window.addEventListener('mousemove', this.mouseMove, false);
-                window.addEventListener('touchmove', this.mouseMove, false);
-                window.addEventListener('mouseup', this.mouseUp, false);
-                window.addEventListener('touchend', this.mouseUp, false);
-                this.canvas.addEventListener('wheel', this.scroll, false);
-            },
-            scroll(e) {
-                if (e.wheelDelta > 0) { myCanvas.zoomIn(); }
-                if (e.wheelDelta < 0) { myCanvas.zoomOut(); }
-                return false;
-            },
-            zoomIn() {
-                if (this.zoomLevel < this.maxZoom)
-                    this.zoomLevel++;
-            },
-            zoomOut() {
-                if (this.zoomLevel > this.minZoom)
-                    this.zoomLevel--;
-            },
-            mouseDown(e) {
-                coords = myCanvas.getCoordinates(e);
-                myCanvas.mouseButtonDown = true;
-                myCanvas.mousePosition = coords;
-            },
-            mouseUp(e) {
-                coords = myCanvas.getCoordinates(e);
-                myCanvas.mouseButtonDown = false;
-            },
-            mouseMove(e) {
-                coords = myCanvas.getCoordinates(e);
-                if (myCanvas.mouseButtonDown) {
-                    myCanvas.imagePosition.x += coords.x - myCanvas.mousePosition.x;
-                    myCanvas.imagePosition.y += coords.y - myCanvas.mousePosition.y;
-                }
-                myCanvas.mousePosition = coords;
-            },
-            start() {
-                this.interval = setInterval(function () {
-                    myCanvas.clearCanvas();
-                    myCanvas.displayImage();
-                }, 1000 / 60);
-            },
-            stop() {
-                clearInterval(this.interval);
-            },
-            displayImage() {
-                var zoomFactor = 1;
-                if (this.zoomLevel > 0) {
-                    zoomFactor = 1 + (this.zoomLevel / 10);
-                }
-                if (this.zoomLevel < 0) {
-                    zoomFactor = 1 + (this.zoomLevel / 30);
-                }
-
-                // Calculate our width & height based on the zoom factor
-                var width = this.image.width * zoomFactor;
-                var height = this.image.height * zoomFactor;
-
-                // If our zoom factor has changed since last frame, we're going to re-center imagePosition
-                // That way, it appears to grow from the mouse position, instead of the top left corner.
-                if (zoomFactor != this.lastZoomFactor) {
-                    // Calculate where our mouse is on the canvas
-
-                    if (this.mousePosition.x < this.imagePosition.x) {
-                        mousePercentX = 0;
-                    } else if (this.mousePosition.x > this.imagePosition.x + width) {
-                        mousePercentX = 1;
-                    } else {
-                        mousePercentX = (this.mousePosition.x - this.imagePosition.x) / width;
-                    }
-
-                    if (this.mousePosition.y < this.imagePosition.y) {
-                        mousePercentY = 0;
-                    } else if (this.mousePosition.y > this.imagePosition.y + width) {
-                        mousePercentY = 1;
-                    } else {
-                        mousePercentY = (this.mousePosition.y - this.imagePosition.y) / height;
-                    }
-
-                    // Calculate & apply the width delta
-                    var lastWidth = this.lastZoomFactor * this.image.width;
-                    var widthDelta = width - lastWidth;
-                    this.imagePosition.x -= widthDelta * mousePercentX;
-
-                    // Calculate & apply the height delta
-                    var lastHeight = this.lastZoomFactor * this.image.height;
-                    var heightDelta = height - lastHeight;
-                    this.imagePosition.y -= heightDelta * mousePercentY;
-                }
-
-
-                this.context.drawImage(this.image, this.imagePosition.x, this.imagePosition.y, width, height);
-                this.lastZoomFactor = zoomFactor;
-            },
-            clearCanvas() {
-                this.canvas.width = this.canvas.width;
-            },
-            getCoordinates(e) {
-                elem = this.canvas;
-                var ox = 0, oy = 0;
-                var first;
-                var pageX, pageY;
-
-                while (elem != null) {
-                    ox += elem.offsetLeft;
-                    oy += elem.offsetTop;
-                    elem = elem.offsetParent;
-                }
-
-                if (e.hasOwnProperty('changedTouches')) {
-                    first = ev.changedTouches[0];
-                    pageX = first.pageX;
-                    pageY = first.pageY;
-                } else {
-                    pageX = e.pageX;
-                    pageY = e.pageY;
-                }
-
-                localClick = { 'x': pageX - ox, 'y': pageY - oy };
-
-                return localClick;
-            }
-        }
-    }
-
-</script>
-
-
-
-<script>
-    $(".wrapper_zoom").on("dblclick", function () {
-        $(this).toggleClass("open");
-    })
-
     $(".wrapper_zoom:not(.open)").on("mousemove", function (e) {
         var target = $(this);
         var targetoffset = target.offset();
@@ -346,11 +193,27 @@
 
 </script>
 
+<!--Fancybox-->
+<script src="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 <script>
+    Fancybox.bind("[data-fancybox='gallery']", {
+        infinite: false,
+        Image: {
+            Panzoom: {
+            zoomFriction: 0.7,
+            maxScale: function () {
+                return 5;
+      },
+    },
+  },
+});
+</script>
 
+<!--Scroll Block-->
+<script>
     var modal_scroll_disabled = document.getElementById("modal_scroll_disabled");
     var disable_scroll = document.getElementById("detailModal");
-    
+
     modal_scroll_disabled.onmouseover = function () {
         document.body.style.overflowY = "hidden";
         disable_scroll.style.overflowY = "hidden";
@@ -359,8 +222,6 @@
         document.body.style.overflowY = "auto";
         disable_scroll.style.overflowY = "auto";
     };
-
 </script>
-
 
 }
