@@ -15,6 +15,7 @@
 
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/css/zoom.css" />
 
 <style>
     .modal-backdrop {
@@ -28,6 +29,7 @@
 }
 
 
+<!-- AddProcessModal -->
 <div id="modal_form_vertical" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -50,9 +52,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="row">
-
                                         <input name="Override" value="0" class="form-check-input" type="hidden">
-
                                     </div>
                                 </div>
                             </div>
@@ -60,8 +60,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-primary">Process Ekle<i
-                                            class="icon-paperplane ml-2"></i></button>
+                                    <button type="submit" class="btn btn-primary">Process Ekle<i class="icon-paperplane ml-2"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -84,8 +83,7 @@
 
                                         <div class="form-group">
                                             <label>Limit (İşlenecek Frame Sayısı):</label>
-                                            <input class="input-group-text" type="number" name="Limit"
-                                                value="-1"></input>
+                                            <input class="input-group-text" type="number" name="Limit" value="-1"></input>
                                         </div>
 
                                         <input name="Override" value="1" class="form-check-input" type="hidden">
@@ -97,37 +95,242 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-primary">Process Ekle<i
-                                            class="icon-paperplane ml-2"></i></button>
+                                    <button type="submit" class="btn btn-primary">Process Ekle<i class="icon-paperplane ml-2"></i></button>
                                 </div>
                             </div>
                         </form>
 
                     </div>
-
-
                 </div>
         </div>
-
-
     </div>
 </div>
 
-
-<div class="wrapper">
-
+<!-- AddProcessButton -->
+<div>
     <td>
         <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">
             Process Ekle <i class="icon-play3 ml-2"></i>
         </button>
     </td>
-    <!-- #SESSION PROCESS -->
-    @(await Component.InvokeAsync("ProcessListCard", new{sessionId=@Model.SessionId} ))
 
+    <!-- #SESSION PROCESSES -->
+    @(await Component.InvokeAsync("ProcessListCard", new{sessionId=@Model.SessionId} ))
 </div>
 
 @section Scripts{
-
 <script src="~/global_assets/js/demo_pages/components_modals.js"></script>
+
+<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var detailModal = document.getElementById('detailModal');
+    detailModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+
+        // Extract info from data-bs-* attributes
+        var raw = button.getAttribute('data-bs-whatever')
+        data = JSON.parse(raw)
+        console.log(raw)
+
+        var modalTitle = detailModal.querySelector('.modal-title')
+        modalTitle.textContent = 'Details: ' + data["process"]["id"]
+
+        var court_name = detailModal.querySelector("#court_name")
+        court_name.innerHTML = data["processResponse"]["score"]
+
+        var base64img = "data:image/png;base64, " + data["processResponse"]["canvas"]
+
+        @* var image = detailModal.querySelector("#court_image")
+        image.style = "background-image:url('data:image/png;base64, " + data["processResponse"]["canvas"] + "');" *@
+
+        myCanvas = new canvas();
+        myCanvas.construct(base64img);
+
+    });
+</script>
+
+
+<script>
+
+    function canvas() {
+        return {
+            lastZoomFactor: 1,
+            zoomLevel: 0,
+            maxZoom: 80,
+            minZoom: -29,
+            image: null,
+            interval: null,
+            mousePosition: { x: null, y: null },
+            imagePosition: { x: 100, y: 100 },
+            mouseButtonDown: false,
+            construct (base64img) {
+                this.canvas = document.getElementById('canvas');
+                
+                this.image = new Image();
+                this.image.src = base64img;
+
+                this.context = this.canvas.getContext('2d');
+                this.addHandlers();
+                this.start();
+            },
+            addHandlers () {
+                this.canvas.addEventListener('mousedown', this.mouseDown, false);
+                this.canvas.addEventListener('touchstart', this.mouseDown, false);
+                window.addEventListener('mousemove', this.mouseMove, false);
+                window.addEventListener('touchmove', this.mouseMove, false);
+                window.addEventListener('mouseup', this.mouseUp, false);
+                window.addEventListener('touchend', this.mouseUp, false);
+                this.canvas.addEventListener('wheel', this.scroll, false);
+            },
+            scroll (e) {
+                if (e.wheelDelta > 0) { myCanvas.zoomIn(); }
+                if (e.wheelDelta < 0) { myCanvas.zoomOut(); }
+                return false;
+            },
+            zoomIn () {
+                if (this.zoomLevel < this.maxZoom)
+                    this.zoomLevel++;
+            },
+            zoomOut () {
+                if (this.zoomLevel > this.minZoom)
+                    this.zoomLevel--;
+            },
+            mouseDown (e) {
+                coords = myCanvas.getCoordinates(e);
+                myCanvas.mouseButtonDown = true;
+                myCanvas.mousePosition = coords;
+            },
+            mouseUp(e) {
+                coords = myCanvas.getCoordinates(e);
+                myCanvas.mouseButtonDown = false;
+            },
+            mouseMove(e) {
+                coords = myCanvas.getCoordinates(e);
+                if (myCanvas.mouseButtonDown) {
+                    myCanvas.imagePosition.x += coords.x - myCanvas.mousePosition.x;
+                    myCanvas.imagePosition.y += coords.y - myCanvas.mousePosition.y;
+                }
+                myCanvas.mousePosition = coords;
+            },
+            start() {
+                this.interval = setInterval(function () {
+                    myCanvas.clearCanvas();
+                    myCanvas.displayImage();
+                }, 1000 / 60);
+            },
+            stop() {
+                clearInterval(this.interval);
+            },
+            displayImage() {
+                var zoomFactor = 1;
+                if (this.zoomLevel > 0) {
+                    zoomFactor = 1 + (this.zoomLevel / 10);
+                }
+                if (this.zoomLevel < 0) {
+                    zoomFactor = 1 + (this.zoomLevel / 30);
+                }
+
+                // Calculate our width & height based on the zoom factor
+                var width = this.image.width * zoomFactor;
+                var height = this.image.height * zoomFactor;
+
+                // If our zoom factor has changed since last frame, we're going to re-center imagePosition
+                // That way, it appears to grow from the mouse position, instead of the top left corner.
+                if (zoomFactor != this.lastZoomFactor) {
+                    // Calculate where our mouse is on the canvas
+
+                    if (this.mousePosition.x < this.imagePosition.x) {
+                        mousePercentX = 0;
+                    } else if (this.mousePosition.x > this.imagePosition.x + width) {
+                        mousePercentX = 1;
+                    } else {
+                        mousePercentX = (this.mousePosition.x - this.imagePosition.x) / width;
+                    }
+
+                    if (this.mousePosition.y < this.imagePosition.y) {
+                        mousePercentY = 0;
+                    } else if (this.mousePosition.y > this.imagePosition.y + width) {
+                        mousePercentY = 1;
+                    } else {
+                        mousePercentY = (this.mousePosition.y - this.imagePosition.y) / height;
+                    }
+
+                    // Calculate & apply the width delta
+                    var lastWidth = this.lastZoomFactor * this.image.width;
+                    var widthDelta = width - lastWidth;
+                    this.imagePosition.x -= widthDelta * mousePercentX;
+
+                    // Calculate & apply the height delta
+                    var lastHeight = this.lastZoomFactor * this.image.height;
+                    var heightDelta = height - lastHeight;
+                    this.imagePosition.y -= heightDelta * mousePercentY;
+                }
+
+
+                this.context.drawImage(this.image, this.imagePosition.x, this.imagePosition.y, width, height);
+                this.lastZoomFactor = zoomFactor;
+            },
+            clearCanvas() {
+                this.canvas.width = this.canvas.width;
+            },
+            getCoordinates(e) {
+                elem = this.canvas;
+                var ox = 0, oy = 0;
+                var first;
+                var pageX, pageY;
+
+                while (elem != null) {
+                    ox += elem.offsetLeft;
+                    oy += elem.offsetTop;
+                    elem = elem.offsetParent;
+                }
+
+                if (e.hasOwnProperty('changedTouches')) {
+                    first = ev.changedTouches[0];
+                    pageX = first.pageX;
+                    pageY = first.pageY;
+                } else {
+                    pageX = e.pageX;
+                    pageY = e.pageY;
+                }
+
+                localClick = { 'x': pageX - ox, 'y': pageY - oy };
+
+                return localClick;
+            }
+        }
+    }
+
+</script>
+
+
+
+<script>
+    $(".wrapper_zoom").on("dblclick", function () {
+        $(this).toggleClass("open");
+
+
+    })
+
+    $(".wrapper_zoom:not(.open)").on("mousemove", function (e) {
+        var target = $(this);
+        var targetoffset = target.offset();
+
+        var blockwidth = target.width();
+        var blockheight = target.outerHeight();
+
+        var x = Math.round((e.pageX - targetoffset.left) - blockwidth / 2);
+        var y = Math.round((e.pageY - targetoffset.top) - blockheight / 2);
+
+        target.css({ "transform": 'translate(-50%, -50%) perspective(1000px) rotateY(' + x * 0.075 + 'deg)' + 'rotateX(' + y * 0.075 + 'deg) scale(1.1)' });
+    })
+
+    $(".wrapper_zoom:not(.open)").on("mouseleave", function (e) {
+        $(this).css({ "transform": 'translate(-50%, -50%) perspective(1000px) rotateY(0deg)' + 'rotateX(0deg) scale(.9)' });
+    })
+
+</script>
+
 
 }

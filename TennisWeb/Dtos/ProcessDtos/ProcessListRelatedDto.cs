@@ -1,5 +1,4 @@
 using Dtos.ProcessResponseDtos;
-using Dtos.SessionParameterDtos;
 using Dtos.StreamDtos;
 
 namespace Dtos.ProcessDtos {
