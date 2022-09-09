@@ -34,9 +34,9 @@
                 <h5 class="modal-title" id="detailModalLabel">ID</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div  class="modal-body">
 
-                <div class="mb-3">
+                <div class="mb-3" id ="modal_scroll_disabled">
                     <section>
                         <div class="wrapper_zoom">
                             <div id="court_image" style="">
@@ -44,26 +44,37 @@
                                 <div class="title">
                                     <span id="court_name" style="color: white;"></span> Puan
                                 </div>
-                                <canvas id="canvas" class="image-container" width="600" height="600"></canvas>
+                                <canvas id="canvas" class="image-container" ></canvas>
 
                             </div>
                         </div>
                     </section>
 
                 </div>
+
                 <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Recipient:</label>
-                    <input type="text" class="form-control" id="recipient-name">
+                    <label for="court_description" class="col-form-label">Açıklama:</label>
+                    <textarea class="form-control" id="court_description"></textarea>
                 </div>
+
                 <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Message:</label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    <label for="court_sourceName" class="col-form-label">Kaynak Adı:</label>
+                    <textarea class="form-control" id="court_sourceName"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="court_sourceUrl" class="col-form-label">Kaynak Url:</label>
+                    <textarea class="form-control" id="court_sourceUrl"></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="court_isVideo" class="col-form-label">Video mu?:</label>
+                    <textarea class="form-control" id="court_isVideo"></textarea>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>

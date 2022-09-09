@@ -139,12 +139,28 @@
         var court_name = detailModal.querySelector("#court_name")
         court_name.innerHTML = data["processResponse"]["score"]
 
+        var court_description = detailModal.querySelector("#court_description")
+        court_description.innerHTML = data["processResponse"]["description"]
+
+        var court_sourceName = detailModal.querySelector("#court_sourceName")
+        court_sourceName.innerHTML = data["stream"]["name"]
+
+        var court_sourceUrl = detailModal.querySelector("#court_sourceUrl")
+        court_sourceUrl.innerHTML = data["stream"]["source"]
+
+        var court_isVideo = detailModal.querySelector("#court_isVideo")
+        if (data["stream"]["is_video"]) {
+            court_isVideo.innerHTML = "Videodan Alındı."
+        } else {
+            court_isVideo.innerHTML = "Kameradan Alındı."
+        }
+
         var base64img = "data:image/png;base64, " + data["processResponse"]["canvas"]
 
         @* var image = detailModal.querySelector("#court_image")
-        image.style = "background-image:url('data:image/png;base64, " + data["processResponse"]["canvas"] + "');" *@
+                image.style = "background-image:url('data:image/png;base64, " + data["processResponse"]["canvas"] + "');" *@
 
-        myCanvas = new canvas();
+            myCanvas = new canvas();
         myCanvas.construct(base64img);
 
     });
@@ -164,9 +180,9 @@
             mousePosition: { x: null, y: null },
             imagePosition: { x: 100, y: 100 },
             mouseButtonDown: false,
-            construct (base64img) {
+            construct(base64img) {
                 this.canvas = document.getElementById('canvas');
-                
+
                 this.image = new Image();
                 this.image.src = base64img;
 
@@ -174,7 +190,7 @@
                 this.addHandlers();
                 this.start();
             },
-            addHandlers () {
+            addHandlers() {
                 this.canvas.addEventListener('mousedown', this.mouseDown, false);
                 this.canvas.addEventListener('touchstart', this.mouseDown, false);
                 window.addEventListener('mousemove', this.mouseMove, false);
@@ -183,20 +199,20 @@
                 window.addEventListener('touchend', this.mouseUp, false);
                 this.canvas.addEventListener('wheel', this.scroll, false);
             },
-            scroll (e) {
+            scroll(e) {
                 if (e.wheelDelta > 0) { myCanvas.zoomIn(); }
                 if (e.wheelDelta < 0) { myCanvas.zoomOut(); }
                 return false;
             },
-            zoomIn () {
+            zoomIn() {
                 if (this.zoomLevel < this.maxZoom)
                     this.zoomLevel++;
             },
-            zoomOut () {
+            zoomOut() {
                 if (this.zoomLevel > this.minZoom)
                     this.zoomLevel--;
             },
-            mouseDown (e) {
+            mouseDown(e) {
                 coords = myCanvas.getCoordinates(e);
                 myCanvas.mouseButtonDown = true;
                 myCanvas.mousePosition = coords;
@@ -309,8 +325,6 @@
 <script>
     $(".wrapper_zoom").on("dblclick", function () {
         $(this).toggleClass("open");
-
-
     })
 
     $(".wrapper_zoom:not(.open)").on("mousemove", function (e) {
@@ -329,6 +343,22 @@
     $(".wrapper_zoom:not(.open)").on("mouseleave", function (e) {
         $(this).css({ "transform": 'translate(-50%, -50%) perspective(1000px) rotateY(0deg)' + 'rotateX(0deg) scale(.9)' });
     })
+
+</script>
+
+<script>
+
+    var modal_scroll_disabled = document.getElementById("modal_scroll_disabled");
+    var disable_scroll = document.getElementById("detailModal");
+    
+    modal_scroll_disabled.onmouseover = function () {
+        document.body.style.overflowY = "hidden";
+        disable_scroll.style.overflowY = "hidden";
+    };
+    modal_scroll_disabled.onmouseout = function () {
+        document.body.style.overflowY = "auto";
+        disable_scroll.style.overflowY = "auto";
+    };
 
 </script>
 

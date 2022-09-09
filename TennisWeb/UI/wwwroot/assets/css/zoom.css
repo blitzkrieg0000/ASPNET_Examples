@@ -29,8 +29,8 @@ section{
   }
   
   .wrapper_zoom.open .image-container{
-    height: 100vh;
-    border-radius: 0;
+    height: 100%;
+    border-radius: 1;
   }
   
   .image-container{
