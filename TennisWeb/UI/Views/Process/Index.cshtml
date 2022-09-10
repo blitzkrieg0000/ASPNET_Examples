@@ -16,6 +16,7 @@
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/css/zoom.css">
 @* <link rel="stylesheet" href="~/node_modules/@@fancyapps/ui/dist/fancybox.css" type="text/css" media="screen" /> *@
 
 <style>
@@ -35,13 +36,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Process Ekleme</h5>
+                <h5 class="modal-title">Atış Ekleme</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item"><a href="#basic-justified-tab1" class="nav-link active" data-toggle="tab">Normal
-                        Process Ekle</a></li>
+                        Atış Ekle</a></li>
                 <li class="nav-item"><a href="#basic-justified-tab2" class="nav-link" data-toggle="tab">Özelleştir</a>
                 </li>
 
@@ -61,7 +62,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-primary">Process Ekle<i class="icon-paperplane ml-2"></i></button>
+                                    <button type="submit" class="btn btn-primary">Atış Ekle<i class="icon-paperplane ml-2"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -96,7 +97,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link" data-dismiss="modal">Kapat</button>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-primary">Process Ekle<i class="icon-paperplane ml-2"></i></button>
+                                    <button type="submit" class="btn btn-primary">Atış Ekle<i class="icon-paperplane ml-2"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -110,7 +111,7 @@
 <div>
     <td>
         <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">
-            Process Ekle <i class="icon-play3 ml-2"></i>
+            Atış Ekle <i class="icon-play3 ml-2"></i>
         </button>
     </td>
 
@@ -138,9 +139,13 @@
         var modalTitle = detailModal.querySelector('.modal-title')
         modalTitle.textContent = 'Details: ' + data["process"]["id"]
 
-        @* var court_name = detailModal.querySelector("#court_name")
-        court_name.innerHTML = data["processResponse"]["score"] *@
-
+        var court_score = detailModal.querySelector("#court_score")
+        if(data["processResponse"]["score"]!=null){
+            court_score.innerHTML = "Puan: " + data["processResponse"]["score"]
+        }else{
+            court_score.innerHTML = "Puan: " + "Hesaplanamadı."
+        }
+        
         var court_description = detailModal.querySelector("#court_description")
         court_description.innerHTML = data["processResponse"]["description"]
 
@@ -165,9 +170,6 @@
 
         var image = detailModal.querySelector("#court_image")
         image.style = "background-image:url('"+ imgbase64 +"');"
-
-
-
 
     });
 </script>
@@ -210,7 +212,7 @@
 </script>
 
 <!--Scroll Block-->
-<script>
+@* <script>
     var modal_scroll_disabled = document.getElementById("modal_scroll_disabled");
     var disable_scroll = document.getElementById("detailModal");
 
@@ -222,6 +224,6 @@
         document.body.style.overflowY = "auto";
         disable_scroll.style.overflowY = "auto";
     };
-</script>
+</script> *@
 
 }
