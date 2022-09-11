@@ -8,6 +8,7 @@ using DataAccess.UnitOfWork;
 using Dtos.StreamDtos;
 using Microsoft.AspNetCore.Http;
 using Entities.Concrete;
+using System.Text.RegularExpressions;
 
 namespace Business.Services {
     public class StreamService : IStreamService {
@@ -46,6 +47,11 @@ namespace Business.Services {
                 baseName = Guid.NewGuid().ToString();
             }
             baseName = baseName.Replace(" ", "_").Replace(":", "-").Replace("/", "-");
+
+            string pattern = "\\W+";
+            string replacement = "";
+            Regex rgx = new(pattern);
+            baseName = rgx.Replace(baseName, replacement);
 
             if (dto.Source == null) {
                 if (formFile.ContentType != "video/mp4") {
