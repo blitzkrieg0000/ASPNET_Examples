@@ -21,7 +21,8 @@ namespace UI.ViewComponents {
 
             SelectList data = null;
             if (tableName == "Stream") {
-                var results = await _genericService.GetAll<StreamListDto, Stream>();
+                //var results = await _genericService.GetAll<StreamListDto, Stream>();
+                var results = await _genericService.GetListByFilter<StreamListDto, Stream>(x=>x.IsVideo != true);
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
             } else if (tableName == "Player") {
                 var results = await _genericService.GetAll<PlayerListDto, Player>();

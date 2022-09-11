@@ -34,9 +34,6 @@
                 <label>Cinsiyet: </label>
                 <div class="row">
                     <div class="col-1 form-check">
-
-                        @* <input asp-for="GenderId" type="radio" value="@item.Value" /> *@
-
                         @Html.Label("Male","Erkek")
                         @Html.RadioButtonFor(model=> model.GenderId, (long)1, new { @id="Male", @checked="checked"})
                     </div>

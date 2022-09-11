@@ -36,43 +36,47 @@ namespace Business.Services {
 
         public async Task<IResponse<StreamCreateDto>> Create(IFormFile formFile, StreamCreateDto dto) {
 
-            if (formFile == null) {
+            if (formFile == null && dto.Source == null) {
                 return new Response<StreamCreateDto>(ResponseType.ValidationError, dto);
             }
 
-            if (formFile.ContentType != "video/mp4") {
-                return new Response<StreamCreateDto>(ResponseType.ValidationError, "Lütfen mp4 formatında video yükleyiniz.");
-            }
-
+            //İsim Kontrolü
             string baseName = dto.Name;
             if (dto.Name == null) {
                 baseName = Guid.NewGuid().ToString();
             }
             baseName = baseName.Replace(" ", "_").Replace(":", "-").Replace("/", "-");
 
-            string SAVE_PATH = "/srv/nfs/mydata/docker-tennis";
-            string SAVE_FOLDER_PREFIX = "assets";
-            SAVE_PATH = System.IO.Path.Combine(SAVE_PATH, SAVE_FOLDER_PREFIX);
+            if (dto.Source == null) {
+                if (formFile.ContentType != "video/mp4") {
+                    return new Response<StreamCreateDto>(ResponseType.ValidationError, "Lütfen mp4 formatında video yükleyiniz.");
+                }
 
-            var newName = baseName + System.IO.Path.GetExtension(formFile.FileName);
-            var path = System.IO.Path.Combine(SAVE_PATH, newName);
-            var stream = new System.IO.FileStream(path, System.IO.FileMode.Create);
-            await formFile.CopyToAsync(stream);
+                string SAVE_PATH = "/srv/nfs/mydata/docker-tennis";
+                string SAVE_FOLDER_NAME = "assets";
+                SAVE_PATH = System.IO.Path.Combine(SAVE_PATH, SAVE_FOLDER_NAME);
 
-            //* Set
-            dto.Source = "/assets/" + newName;
+                var newName = baseName + System.IO.Path.GetExtension(formFile.FileName);
+                var path = System.IO.Path.Combine(SAVE_PATH, newName);
+                var stream = new System.IO.FileStream(path, System.IO.FileMode.Create);
+                await formFile.CopyToAsync(stream);
+
+                //Path
+                dto.Source = "/assets/" + newName;
+
+                //TODO HASH KONTROLÜ YAPILABİLİR
+                // var hash = "";
+                // using (var md5 = System.Security.Cryptography.MD5.Create()) {
+
+                //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
+                //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
+                //     }
+                // }
+                // System.Console.WriteLine(hash);
+
+            }
+
             dto.SaveDate = DateTime.Now;
-
-            //TODO HASH KONTROLÜ YAPILABİLİR
-            // var hash = "";
-            // using (var md5 = System.Security.Cryptography.MD5.Create()) {
-
-            //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
-            //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
-            //     }
-            // }
-            // System.Console.WriteLine(hash);
-
             await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
             await _unitOfWork.SaveChanges();
             return new Response<StreamCreateDto>(ResponseType.Success, dto, "Yükleme Başarılı");

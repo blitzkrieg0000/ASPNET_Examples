@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
@@ -27,6 +28,17 @@ namespace Business.Services {
 
             var data = _mapper.Map<List<DtoT>>(
                 await _unitOfWork.GetRepository<RepositoryT>().GetAll()
+            );
+            return new Response<List<DtoT>>(ResponseType.Success, data);
+        }
+
+
+        public async Task<Response<List<DtoT>>> GetListByFilter<DtoT, RepositoryT>(Expression<Func<RepositoryT, bool>> filter)
+        where DtoT : IDto
+        where RepositoryT : BaseEntity{
+            var raw = await _unitOfWork.GetRepository<RepositoryT>().GetListByFilter(filter, asNoTracking: false);
+            var data = _mapper.Map<List<DtoT>>(
+                raw
             );
             return new Response<List<DtoT>>(ResponseType.Success, data);
         }

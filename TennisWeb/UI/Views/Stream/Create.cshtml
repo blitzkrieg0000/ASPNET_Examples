@@ -27,12 +27,30 @@
         <form asp-action="Create" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
-                <label>Video Adı:</label>
+                <label>Stream/Video Adı:</label>
                 <input asp-for="@Model.Name" class="form-control" placeholder="Video Adı">
             </div>
 
-
             <div class="form-group">
+                <label>Stream/Video: </label>
+                <div class="row">
+                    <div class="col-4 form-check">
+                        @Html.Label("Stream","Stream(Akış, Kamera): ")
+                        @Html.RadioButtonFor(model=> model.IsVideo, false, new { @id="Stream", @checked="checked", @onchange = "selectedInfo(false);"})
+                    </div>
+                    <div class="col-4 form-check">
+                        @Html.Label("Video","Video: ")
+                        @Html.RadioButtonFor(model=> model.IsVideo, true, new { @id="Video", @checked="checked", @onchange = "selectedInfo(true);"})
+                    </div>
+                </div>
+            </div>
+
+            <div id="adUrl"  class="form-group">
+                <label>URL:</label>
+                <input asp-for="@Model.Source" class="form-control" placeholder="Stream URL">
+            </div>
+
+            <div id="adFile" style="display:none" class="form-group">
                 <label>Dosya:</label>
                 <div class="input-group custom-file-button">
                     <label class="input-group-text" for="inputGroupFile">Dosya Seçiniz:</label>
@@ -51,4 +69,18 @@
 @section Scripts{
 <script src="~/limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="~/limitless/global_assets/js/demo_pages/form_layouts.js"></script>
+
+<script>
+    function selectedInfo(val){
+        file = document.getElementById("adFile")
+        url = document.getElementById("adUrl")
+        if (val){
+            file.style.display = 'block';
+            url.style.display = 'none';
+        }else{
+            file.style.display = 'none';
+            url.style.display = 'block';
+        }
+    }
+</script>
 }
