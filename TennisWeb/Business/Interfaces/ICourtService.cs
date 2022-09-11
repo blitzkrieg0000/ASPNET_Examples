@@ -5,9 +5,10 @@ using Dtos.CourtDtos;
 
 namespace Business.Interfaces {
     public interface ICourtService {
-        Task<Response<CourtListDto>> GetById(long? id);
-        Task<Response<List<CourtListDto>>> GetAll();
-        Task<Response<List<CourtListRelatedDto>>> GetAllRelated();
+        Task<IResponse<CourtListDto>> GetById(long? id);
+        Task<IResponse<List<CourtListDto>>> GetAll();
+        Task<IResponse<List<CourtListRelatedDto>>> GetAllRelated();
         Task<IResponse<CourtCreateDto>> Create(CourtCreateDto dto);
+        Task<IResponse> Remove(long? id);
     }
 }

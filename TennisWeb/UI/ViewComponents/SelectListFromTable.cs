@@ -7,6 +7,7 @@ using Dtos.StreamDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Entities.Concrete;
+using Dtos.CourtTypeDtos;
 
 namespace UI.ViewComponents {
     public class SelectListFromTable : ViewComponent {
@@ -30,6 +31,9 @@ namespace UI.ViewComponents {
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
             } else if (tableName == "AosType") {
                 var results = await _genericService.GetAll<AosTypeListDto, AosType>();
+                data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
+            } else if (tableName == "CourtType"){
+                var results = await _genericService.GetAll<CourtTypeListDto, CourtType>();
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
             }
 

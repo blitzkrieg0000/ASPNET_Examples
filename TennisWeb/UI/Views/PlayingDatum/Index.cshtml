@@ -16,82 +16,79 @@
 </style>
 }
 
-<body class="radial-gradient">
 
-    <!-- Scrollable datatable -->
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Playing Datum</h5>
-        </div>
 
-        <table class="table datatable-scroll-y " width="100%">
-            <thead>
+<!-- Scrollable datatable -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Playing Datum</h5>
+    </div>
+
+    <table class="table datatable-scroll-y " width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Puan</th>
+                <th>Oyuncu</th>
+                <th>AOS Türü</th>
+                <th>Saha</th>
+                <th>Kayıt Tarihi</th>
+                <th>İşlemler</th>
+                <th>Diğer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>Id</th>
-                    <th>Puan</th>
-                    <th>Oyuncu</th>
-                    <th>AOS Türü</th>
-                    <th>Saha</th>
-                    <th>Kayıt Tarihi</th>
-                    <th>İşlemler</th>
-                    <th>Diğer</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Score</td>
-                        <td>
-                            @item.PlayerName
-                            @* <getPlayerInfo player-id="@item.PlayerId"></getPlayerInfo> *@
-                        </td>
-                        <td>
-                            @item.AosTypeName
-                            @* <getAosTypeInfo aos-type-id="@item.AosTypeId"></getAosTypeInfo> *@
-                        </td>
-                        <td>
-                            @item.CourtName
-                            @* <getCourtInfo court-id="@item.CourtId"></getCourtInfo> *@
-                        </td>
+                    <td>@item.Id</td>
+                    <td>@item.Score</td>
+                    <td>
+                        @item.PlayerName
+                        @* <getPlayerInfo player-id="@item.PlayerId"></getPlayerInfo> *@
+                    </td>
+                    <td>
+                        @item.AosTypeName
+                        @* <getAosTypeInfo aos-type-id="@item.AosTypeId"></getAosTypeInfo> *@
+                    </td>
+                    <td>
+                        @item.CourtName
+                        @* <getCourtInfo court-id="@item.CourtId"></getCourtInfo> *@
+                    </td>
 
-                        <td>@item.SaveDate</td>
-                        <td>
-                            <a asp-action="Remove" asp-controller="PlayingDatum" asp-route-id="@item.Id"
-                            class="btn btn-danger btn-sm">Sil</a>
-                            <a asp-action="Detail" asp-controller="PlayingDatum" asp-route-id="@item.Id"
-                            class="btn btn-success btn-sm">Detay</a>
-                        </td>
+                    <td>@item.SaveDate</td>
+                    <td>
+                        <a asp-action="Remove" asp-controller="PlayingDatum" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        <a asp-action="Detail" asp-controller="PlayingDatum" asp-route-id="@item.Id" class="btn btn-success btn-sm">Detay</a>
+                    </td>
 
-                        <td class="text-center">
-                            <div class="list-icons">
-                                <div class="dropdown">
+                    <td class="text-center">
+                        <div class="list-icons">
+                            <div class="dropdown">
 
-                                    <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                        <i class="icon-menu9"></i>
-                                    </a>
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
 
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-menu dropdown-menu-right">
 
-                                        <a class="btn btn-danger btn-sm dropdown-item">Yakında...</a>
+                                    <a class="btn btn-danger btn-sm dropdown-item">Yakında...</a>
 
-                                    </div>
                                 </div>
                             </div>
-                        </td>
+                        </div>
+                    </td>
 
 
 
-                    </tr>
-                }
+                </tr>
+            }
 
-            </tbody>
-        </table>
-    </div>
-    <!-- /scrollable datatable -->
+        </tbody>
+    </table>
+</div>
+<!-- /scrollable datatable -->
 
-</body>
 
 @section Scripts{
 <script src="~/limitless/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>

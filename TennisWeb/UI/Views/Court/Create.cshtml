@@ -1,4 +1,4 @@
-@model PlayerCreateDto
+@model CourtCreateDto
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,43 +19,20 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title">Oyuncu Ekle</h5>
+        <h5 class="card-title">Saha Ekle</h5>
     </div>
 
     <div class="card-body">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
-                <label>Oyuncu Adı: </label>
+                <label>Saha Adı: </label>
                 <input asp-for="@Model.Name" class="form-control" placeholder="Ad">
             </div>
 
             <div class="form-group">
-                <label>Cinsiyet: </label>
-                <div class="row">
-                    <div class="col-1 form-check">
-
-                        @* <input asp-for="GenderId" type="radio" value="@item.Value" /> *@
-
-                        @Html.Label("Male","Erkek")
-                        @Html.RadioButtonFor(model=> model.GenderId, (long)1, new { @id="Male", @checked="checked"})
-                    </div>
-                    <div class="col-1 form-check">
-                        @Html.Label("Female","Kadın")
-                        @Html.RadioButtonFor(model=> model.GenderId, (long)2, new { @id = "Female", @checked="checked"})
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Doğum Tarihi:</label>
-                <div class="input-group">
-                    <span class="input-group-prepend">
-                        <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                    </span>
-                    <input asp-for="@Model.Birthday" type="text" class="form-control daterange-single"
-                        value="@DateTime.Now">
-                </div>
+                <label>Saha Tipi: </label>
+                @(await Component.InvokeAsync("SelectListFromTable", new{tableName="CourtType"} ))
             </div>
 
             <div class="text-right">

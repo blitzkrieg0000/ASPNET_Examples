@@ -58,7 +58,6 @@ namespace Business.Services {
 
                 return new Response(ResponseType.Success);
             }
-
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 

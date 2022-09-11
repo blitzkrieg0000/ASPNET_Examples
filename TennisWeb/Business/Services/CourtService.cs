@@ -19,25 +19,23 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<List<CourtListDto>>> GetAll() {
+        public async Task<IResponse<List<CourtListDto>>> GetAll() {
             var data = _mapper.Map<List<CourtListDto>>(
                 await _unitOfWork.GetRepository<Court>().GetAll()
             );
             return new Response<List<CourtListDto>>(ResponseType.Success, data);
         }
 
-
-        public async Task<Response<List<CourtListRelatedDto>>> GetAllRelated() {
+        public async Task<IResponse<List<CourtListRelatedDto>>> GetAllRelated() {
 
             var query = _unitOfWork.GetRepository<Court>().GetQuery();
-            var data = await query.Include(x=>x.CourtType)
+            var data = await query.Include(x => x.CourtType)
             .ProjectTo<CourtListRelatedDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
             return new Response<List<CourtListRelatedDto>>(ResponseType.Success, data);
         }
 
-
-        public async Task<Response<CourtListDto>> GetById(long? id) {
+        public async Task<IResponse<CourtListDto>> GetById(long? id) {
             var data = _mapper.Map<CourtListDto>(
                 await _unitOfWork.GetRepository<Court>().GetByFilter(x => x.Id == id, asNoTracking: false)
             );
@@ -48,6 +46,17 @@ namespace Business.Services {
             await _unitOfWork.GetRepository<Court>().Create(_mapper.Map<Court>(dto));
             await _unitOfWork.SaveChanges();
             return new Response<CourtCreateDto>(ResponseType.Success, "Yeni Court Eklendi.");
+        }
+
+        public async Task<IResponse> Remove(long? id) {
+            var removedEntity = await _unitOfWork.GetRepository<Court>().GetByFilter(x => x.Id == id);
+            if (removedEntity != null) {
+                _unitOfWork.GetRepository<Court>().Remove(removedEntity);
+                await _unitOfWork.SaveChanges();
+
+                return new Response(ResponseType.Success);
+            }
+            return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
     }

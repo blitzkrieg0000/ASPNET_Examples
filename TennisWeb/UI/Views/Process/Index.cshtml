@@ -15,8 +15,8 @@
 
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.css" />
 <link rel="stylesheet" type="text/css" href="~/assets/css/zoom.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.css" />
 @* <link rel="stylesheet" href="~/node_modules/@@fancyapps/ui/dist/fancybox.css" type="text/css" media="screen" /> *@
 
 <style>
@@ -140,12 +140,12 @@
         modalTitle.textContent = 'Details: ' + data["process"]["id"]
 
         var court_score = detailModal.querySelector("#court_score")
-        if(data["processResponse"]["score"]!=null){
+        if (data["processResponse"]["score"] != null) {
             court_score.innerHTML = "Puan: " + data["processResponse"]["score"]
-        }else{
+        } else {
             court_score.innerHTML = "Puan: " + "Hesaplanamadı."
         }
-        
+
         var court_description = detailModal.querySelector("#court_description")
         court_description.innerHTML = data["processResponse"]["description"]
 
@@ -166,10 +166,10 @@
         @* var court_image = detailModal.querySelector("#court_image") *@
         var court_image_gallery = detailModal.querySelector("#court_image_gallery")
         @* court_image.src = imgbase64 *@
-        court_image_gallery.setAttribute('data-src', imgbase64);
+            court_image_gallery.setAttribute('data-src', imgbase64);
 
         var image = detailModal.querySelector("#court_image")
-        image.style = "background-image:url('"+ imgbase64 +"');"
+        image.style = "background-image:url('" + imgbase64 + "');"
 
     });
 </script>
@@ -202,13 +202,13 @@
         infinite: false,
         Image: {
             Panzoom: {
-            zoomFriction: 0.7,
-            maxScale: function () {
-                return 5;
-      },
-    },
-  },
-});
+                zoomFriction: 0.7,
+                maxScale: function () {
+                    return 5;
+                },
+            },
+        },
+    });
 </script>
 
 <!--Scroll Block-->
@@ -217,13 +217,13 @@
     var disable_scroll = document.getElementById("detailModal");
 
     modal_scroll_disabled.onmouseover = function () {
-        document.body.style.overflowY = "hidden";
-        disable_scroll.style.overflowY = "hidden";
+    document.body.style.overflowY = "hidden";
+    disable_scroll.style.overflowY = "hidden";
     };
     modal_scroll_disabled.onmouseout = function () {
-        document.body.style.overflowY = "auto";
-        disable_scroll.style.overflowY = "auto";
+    document.body.style.overflowY = "auto";
+    disable_scroll.style.overflowY = "auto";
     };
-</script> *@
+    </script> *@
 
 }

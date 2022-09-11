@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -8,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
-        type="text/css">
+    <!-- General -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Limitless -->
     <link href="~/limitless/global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="~/limitless/assets/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Other -->
     @RenderSection("Links", false)
 
 </head>
@@ -238,8 +241,7 @@
 
                             <li class="media">
                                 <div class="mr-3 position-relative">
-                                    <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36"
-                                        class="rounded-circle" alt="">
+                                    <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                                 </div>
 
                                 <div class="media-body">
@@ -265,9 +267,7 @@
             </li>
 
             <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
-                <a href="#"
-                    class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100"
-                    data-toggle="dropdown">
+                <a href="#" class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100" data-toggle="dropdown">
                     <img src="~/assets/image/TennisPlaceholder.jpg" class="rounded-pill" height="34" alt="">
                     <span class="d-none d-lg-inline-block ml-2">BlitzKrieg</span>
                 </a>
@@ -322,13 +322,11 @@
                             </div>
 
                             <div class="ml-3 align-self-center">
-                                <button type="button"
-                                    class="btn btn-outline-light text-body border-transparent btn-icon rounded-pill btn-sm sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
+                                <button type="button" class="btn btn-outline-light text-body border-transparent btn-icon rounded-pill btn-sm sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
                                     <i class="icon-transmission"></i>
                                 </button>
 
-                                <button type="button"
-                                    class="btn btn-outline-light text-body border-transparent btn-icon rounded-pill btn-sm sidebar-mobile-main-toggle d-lg-none">
+                                <button type="button" class="btn btn-outline-light text-body border-transparent btn-icon rounded-pill btn-sm sidebar-mobile-main-toggle d-lg-none">
                                     <i class="icon-cross2"></i>
                                 </button>
                             </div>
@@ -343,8 +341,7 @@
 
                         <!-- Main -->
                         <li class="nav-item-header">
-                            <div class="text-uppercase font-size-xs line-height-xs">AOS MENÜ</div> <i class="icon-menu"
-                                title="Main"></i>
+                            <div class="text-uppercase font-size-xs line-height-xs">AOS MENÜ</div> <i class="icon-menu" title="Main"></i>
                         </li>
 
                         <li class="nav-item">
@@ -432,7 +429,6 @@
         </div>
         <!-- /main sidebar -->
 
-
         <!-- Main content -->
         <div class="content-wrapper">
 
@@ -465,8 +461,8 @@
 
                 <!-- Content area -->
 
-                <div class="content pt-0">
-                    <div class="container-fluid p-3">
+                <div class="content">
+                    <div class="container-fluid p-2">
 
                         @RenderBody()
 
@@ -514,6 +510,7 @@
     </div>
     <!-- /page content -->
 
+    <!-- Limitless -->
     <script src="~/limitless/global_assets/js/main/jquery.min.js"></script>
     <script src="~/limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
     <script src="~/limitless/assets/js/app.js"></script>
@@ -522,8 +519,9 @@
     <script src="~/limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
     <script src="~/limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
     <script src="~/limitless/global_assets/js/demo_pages/dashboard.js"></script>
-    @RenderSection("Scripts", false)
 
+    <!-- Other -->
+    @RenderSection("Scripts", false)
 </body>
 
 </html>
