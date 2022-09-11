@@ -3,8 +3,12 @@ using AutoMapper;
 using Business.Interfaces;
 using Business.Mappings.AutoMapper;
 using Business.Services;
+using Business.ValidationRules;
 using DataAccess.UnitOfWork;
+using Dtos.PlayerDtos;
+using Dtos.StreamDtos;
 using Entities.Concrete;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,6 +39,12 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<IProcessParameterService, ProcessParameterService>();
             services.AddScoped<IProcessResponseService, ProcessResponseService>();
             services.AddScoped<ITennisService, TennisService>();
+
+            
+
+            //Validators
+            services.AddTransient<IValidator<StreamCreateDto>, StreamCreateDtoValidator>();
+            services.AddTransient<IValidator<PlayerCreateDto>, PlayerCreateDtoValidator>();
 
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {

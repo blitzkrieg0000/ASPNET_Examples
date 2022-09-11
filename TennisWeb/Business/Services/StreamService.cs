@@ -9,6 +9,8 @@ using Dtos.StreamDtos;
 using Microsoft.AspNetCore.Http;
 using Entities.Concrete;
 using System.Text.RegularExpressions;
+using FluentValidation;
+using Business.Extensions;
 
 namespace Business.Services {
     public class StreamService : IStreamService {
@@ -16,9 +18,12 @@ namespace Business.Services {
 
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public StreamService(IUnitOfWork unitOfWork, IMapper mapper) {
+        private readonly IValidator<StreamCreateDto> _streamCreateDtoValidator;
+
+        public StreamService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<StreamCreateDto> streamCreateDtoValidator) {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _streamCreateDtoValidator = streamCreateDtoValidator;
         }
 
         public async Task<Response<List<StreamListDto>>> GetAll() {
@@ -37,55 +42,58 @@ namespace Business.Services {
 
         public async Task<IResponse<StreamCreateDto>> Create(IFormFile formFile, StreamCreateDto dto) {
 
-            if (formFile == null && dto.Source == null) {
-                return new Response<StreamCreateDto>(ResponseType.ValidationError, dto);
-            }
-
-            //İsim Kontrolü
-            string baseName = dto.Name;
-            if (dto.Name == null) {
-                baseName = Guid.NewGuid().ToString();
-            }
-            baseName = baseName.Replace(" ", "_").Replace(":", "-").Replace("/", "-");
-
-            string pattern = "\\W+";
-            string replacement = "";
-            Regex rgx = new(pattern);
-            baseName = rgx.Replace(baseName, replacement);
-
-            if (dto.Source == null) {
-                if (formFile.ContentType != "video/mp4") {
-                    return new Response<StreamCreateDto>(ResponseType.ValidationError, "Lütfen mp4 formatında video yükleyiniz.");
+            var validationResult = _streamCreateDtoValidator.Validate(dto);
+            if (validationResult.IsValid){
+                if (formFile == null && dto.Source == null) {
+                    return new Response<StreamCreateDto>(ResponseType.ValidationError, dto);
                 }
 
-                string SAVE_PATH = "/srv/nfs/mydata/docker-tennis";
-                string SAVE_FOLDER_NAME = "assets";
-                SAVE_PATH = System.IO.Path.Combine(SAVE_PATH, SAVE_FOLDER_NAME);
+                //İsim Kontrolü
+                string baseName = dto.Name;
+                if (dto.Name == null) {
+                    baseName = Guid.NewGuid().ToString();
+                }
+                Regex rgx = new("\\W+");
+                baseName = rgx.Replace(baseName, "");
+                dto.Name = baseName;
 
-                var newName = baseName + System.IO.Path.GetExtension(formFile.FileName);
-                var path = System.IO.Path.Combine(SAVE_PATH, newName);
-                var stream = new System.IO.FileStream(path, System.IO.FileMode.Create);
-                await formFile.CopyToAsync(stream);
+                if (dto.Source == null) {
+                    if (formFile.ContentType != "video/mp4") {
+                        return new Response<StreamCreateDto>(ResponseType.ValidationError, "Lütfen mp4 formatında video yükleyiniz.");
+                    }
 
-                //Path
-                dto.Source = "/assets/" + newName;
+                    string SAVE_PATH = "/srv/nfs/mydata/docker-tennis";
+                    string SAVE_FOLDER_NAME = "assets";
+                    SAVE_PATH = System.IO.Path.Combine(SAVE_PATH, SAVE_FOLDER_NAME);
 
-                //TODO HASH KONTROLÜ YAPILABİLİR
-                // var hash = "";
-                // using (var md5 = System.Security.Cryptography.MD5.Create()) {
+                    var newName = baseName + System.IO.Path.GetExtension(formFile.FileName);
+                    var path = System.IO.Path.Combine(SAVE_PATH, newName);
+                    var stream = new System.IO.FileStream(path, System.IO.FileMode.Create);
+                    await formFile.CopyToAsync(stream);
 
-                //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
-                //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
-                //     }
-                // }
-                // System.Console.WriteLine(hash);
+                    //Path
+                    dto.Source = "/assets/" + newName;
 
+                    //TODO HASH KONTROLÜ YAPILABİLİR
+                    // var hash = "";
+                    // using (var md5 = System.Security.Cryptography.MD5.Create()) {
+
+                    //     using (var streamReader = new StreamReader(formFile.OpenReadStream())) {
+                    //         hash = BitConverter.ToString(md5.ComputeHash(streamReader.BaseStream)).Replace("-", "");
+                    //     }
+                    // }
+                    // System.Console.WriteLine(hash);
+
+                }
+
+                dto.SaveDate = DateTime.Now;
+                await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
+                await _unitOfWork.SaveChanges();
+                return new Response<StreamCreateDto>(ResponseType.Success, dto, "Yükleme Başarılı");
+            }else{
+                return new Response<StreamCreateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
             }
 
-            dto.SaveDate = DateTime.Now;
-            await _unitOfWork.GetRepository<Stream>().Create(_mapper.Map<Stream>(dto));
-            await _unitOfWork.SaveChanges();
-            return new Response<StreamCreateDto>(ResponseType.Success, dto, "Yükleme Başarılı");
         }
 
         public async Task<IResponse<StreamListDto>> Update(StreamListDto dto) {

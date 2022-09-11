@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Business.Extensions;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.PlayerDtos;
 using Entities.Concrete;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services {
@@ -14,10 +16,11 @@ namespace Business.Services {
 
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-
-        public PlayerService(IMapper mapper, IUnitOfWork unitOfWork) {
+        private readonly IValidator<PlayerCreateDto> _playerCreateDtoValidator;
+        public PlayerService(IMapper mapper, IUnitOfWork unitOfWork, IValidator<PlayerCreateDto> playerCreateDtoValidator) {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _playerCreateDtoValidator = playerCreateDtoValidator;
         }
 
         public async Task<Response<List<PlayerListDto>>> GetAll() {
@@ -44,9 +47,13 @@ namespace Business.Services {
         }
 
         public async Task<IResponse<PlayerCreateDto>> Create(PlayerCreateDto dto) {
-            await _unitOfWork.GetRepository<Player>().Create(_mapper.Map<Player>(dto));
-            await _unitOfWork.SaveChanges();
-
+            var validationResult = _playerCreateDtoValidator.Validate(dto);
+            if (validationResult.IsValid) {
+                await _unitOfWork.GetRepository<Player>().Create(_mapper.Map<Player>(dto));
+                await _unitOfWork.SaveChanges();
+            } else {
+                return new Response<PlayerCreateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
+            }
             return new Response<PlayerCreateDto>(ResponseType.Success, "Yeni Oyuncu Eklendi.");
         }
 
