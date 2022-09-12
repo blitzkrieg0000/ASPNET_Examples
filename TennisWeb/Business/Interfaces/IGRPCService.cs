@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using Common.ResponseObjects;
-using Dtos.CourtDtos;
-using Dtos.GRPCData;
-using Dtos.TennisDtos;
+
 
 namespace Business.Interfaces {
     public interface IGRPCService {
+        Task<Response> StartProducer(long id);
+        Task<Response> StopProducer(long id);
         // Task<Response<DetectCourtLinesDto>> DetectCourtLines(DetectCourtLinesRequestModel model);
         // Task<Response<StartGameObservationDto>> StartGameObservation(GenerateProcessModel model);
     }

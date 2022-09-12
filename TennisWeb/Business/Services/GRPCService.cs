@@ -3,9 +3,7 @@ using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
-using Dtos.CourtDtos;
-using Dtos.GRPCData;
-using Dtos.TennisDtos;
+using Entities.Concrete;
 using Grpc.Net.Client;
 
 namespace Business.Services {
@@ -18,6 +16,34 @@ namespace Business.Services {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<Response> StartProducer(long id){
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+            var client = new MainServer.MainServerClient(channel);
+            var requestData = new StartProcessRequestData() { ProcessId = id };
+    
+            var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id);
+            if (process_entity.IsCompleted == false){
+                return new Response(ResponseType.Success, "İşlem Daha Tamamlanmadı.");
+            }
+            var process_entity_changed = process_entity;
+            process_entity_changed.IsCompleted = false;
+            _unitOfWork.GetRepository<Process>().Update(process_entity_changed, process_entity);
+            var reply = await client.StartProcessAsync(requestData);
+            return new Response(ResponseType.Success, reply.Message);
+        }
+
+        public async Task<Response> StopProducer(long id){
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+            var client = new MainServer.MainServerClient(channel);
+            var requestData = new StopProcessRequestData() { ProcessId = id };
+            var reply = await client.StopProcessAsync(requestData);
+            if(reply.Flag){
+                return new Response(ResponseType.Success);
+            }
+            return new Response(ResponseType.Success, reply.Message);
+        }
+
 
         // public async Task<Response<DetectCourtLinesDto>> DetectCourtLines(DetectCourtLinesRequestModel model) {
         //     using var channel = GrpcChannel.ForAddress("http://localhost:50011");

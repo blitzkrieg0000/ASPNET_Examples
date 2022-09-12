@@ -24,5 +24,6 @@ namespace UI.Controllers {
             var response = await _tennisService.Create(model);
             return RedirectToAction("Index", "Process", new{@id = model.SessionId});
         }
+
     }
 }

@@ -1,0 +1,27 @@
+syntax = "proto3";
+package main;
+option csharp_namespace = "Business.Services";
+
+// Service
+service MainServer {
+  rpc StartProcess(StartProcessRequestData) returns (StartProcessResponseData) {}
+  rpc StopProcess(StopProcessRequestData) returns (StopProcessResponseData) {}
+}
+
+//Request
+message StartProcessRequestData{
+  double ProcessId=1;
+}
+message StopProcessRequestData{
+  double ProcessId=1;
+}
+
+//Response
+message StartProcessResponseData{
+  string Message=1;
+  string Data=2;
+}
+message StopProcessResponseData{
+  string Message=1;
+  bool flag=2;
+}
