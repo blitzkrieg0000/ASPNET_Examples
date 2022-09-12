@@ -6,6 +6,7 @@ using Business.Services;
 using Business.ValidationRules;
 using DataAccess.UnitOfWork;
 using Dtos.PlayerDtos;
+using Dtos.SessionDtos;
 using Dtos.StreamDtos;
 using Entities.Concrete;
 using FluentValidation;
@@ -40,11 +41,12 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<IProcessResponseService, ProcessResponseService>();
             services.AddScoped<ITennisService, TennisService>();
 
-            
+
 
             //Validators
             services.AddTransient<IValidator<StreamCreateDto>, StreamCreateDtoValidator>();
             services.AddTransient<IValidator<PlayerCreateDto>, PlayerCreateDtoValidator>();
+            services.AddTransient<IValidator<SessionCreateDto>, SessionCreateDtoValidator>();
 
             //! AUTOMAPPER CONFIGURATIONS
             var configuration = new MapperConfiguration(opt => {

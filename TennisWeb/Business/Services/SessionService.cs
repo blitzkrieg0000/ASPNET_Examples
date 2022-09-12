@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Business.Extensions;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
 using Dtos.SessionDtos;
 using Entities.Concrete;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services {
@@ -13,10 +15,11 @@ namespace Business.Services {
 
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-
-        public SessionService(IMapper mapper, IUnitOfWork unitOfWork) {
+        private readonly IValidator<SessionCreateDto> _sessionCreateDtoValidator;
+        public SessionService(IMapper mapper, IUnitOfWork unitOfWork, IValidator<SessionCreateDto> sessionCreateDtoValidator) {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _sessionCreateDtoValidator = sessionCreateDtoValidator;
         }
 
         public async Task<Response<List<SessionListDto>>> GetAll() {
@@ -27,10 +30,17 @@ namespace Business.Services {
         }
 
         public async Task<IResponse<SessionCreateDto>> Create(SessionCreateDto dto) {
-            //TODO Mapping i gözden geçir
             var data = _mapper.Map<Session>(dto);
-            await _unitOfWork.GetRepository<Session>().Create(data);
-            await _unitOfWork.SaveChanges();
+            var validationResult = _sessionCreateDtoValidator.Validate(dto);
+
+            if (validationResult.IsValid) {
+                await _unitOfWork.GetRepository<Session>().Create(data);
+                await _unitOfWork.SaveChanges();
+
+            } else {
+                return new Response<SessionCreateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
+            }
+
             return new Response<SessionCreateDto>(ResponseType.Success, "Yeni Session Eklendi.");
         }
 

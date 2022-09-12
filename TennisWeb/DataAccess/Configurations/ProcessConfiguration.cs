@@ -13,7 +13,7 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.IsCompleted)
                 .HasColumnName("is_completed")
-                .HasDefaultValueSql("false");
+                .HasDefaultValueSql("true");
 
             builder.Property(e => e.IsDeleted)
                 .HasColumnName("is_deleted")

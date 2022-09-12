@@ -25,12 +25,12 @@
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            
+
             <div class="modal-header">
                 <h5 class="modal-title" id="detailModalLabel">ID</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
+
             <div class="modal-body">
 
                 <div class="mb-3" id="modal_scroll_disabled">
@@ -97,8 +97,12 @@
                 </div>
 
                 <div class="bottom">
-                    <a asp-action="StartProcess" asp-controller="Process" asp-route-id="@item.Process.Id" class="btn btn-success btn-sm">Başlat</a>
-                    <a asp-action="StopProcess" asp-controller="Process" asp-route-id="@item.Process.Id" class="btn btn-danger btn-sm">Durdur</a>
+                    @if (!item.Stream.IsVideo)
+                    {
+                        <a asp-action="StartProcess" asp-controller="Process" asp-route-id="@item.Process.Id" class="btn btn-success btn-sm">Başlat</a>
+                        <a asp-action="StopProcess" asp-controller="Process" asp-route-id="@item.Process.Id" class="btn btn-danger btn-sm">Durdur</a>
+                    }
+
                 </div>
 
                 <div class="bottom">
