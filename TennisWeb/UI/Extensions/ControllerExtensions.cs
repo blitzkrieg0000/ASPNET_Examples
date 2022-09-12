@@ -31,6 +31,15 @@ namespace UI.Extensions {
             return controller.RedirectToAction(actionName);
         }
 
+        public static IActionResult ResponseRedirectToAction(this Controller controller, IResponse response, string actionName, object x) {
+            controller.TempData["ResponseMessage"] = response.Message;
+
+            if (response.ResponseType == ResponseType.NotFound) {
+                return controller.NotFound();
+            }
+            return controller.RedirectToAction(actionName, x);
+        }
+
         public static IActionResult ResponseView<T>(this Controller controller, IResponse<T> response) {
             controller.TempData["ResponseMessage"] = response.Message;
 

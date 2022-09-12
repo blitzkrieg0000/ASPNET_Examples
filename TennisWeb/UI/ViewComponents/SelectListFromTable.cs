@@ -21,9 +21,11 @@ namespace UI.ViewComponents {
 
             SelectList data = null;
             if (tableName == "Stream") {
-                //var results = await _genericService.GetAll<StreamListDto, Stream>();
-                var results = await _genericService.GetListByFilter<StreamListDto, Stream>(x=>x.IsVideo != true);
+                var results = await _genericService.GetListByFilter<StreamListDto, Stream>(x => x.IsVideo != true);
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
+            } else if (tableName == "AllStream") {
+                var results = await _genericService.GetAll<StreamListDto, Stream>();
+                data = new SelectList(results.Data, "Id", "Name", "Stream" + "Id");
             } else if (tableName == "Player") {
                 var results = await _genericService.GetAll<PlayerListDto, Player>();
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
@@ -33,7 +35,7 @@ namespace UI.ViewComponents {
             } else if (tableName == "AosType") {
                 var results = await _genericService.GetAll<AosTypeListDto, AosType>();
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
-            } else if (tableName == "CourtType"){
+            } else if (tableName == "CourtType") {
                 var results = await _genericService.GetAll<CourtTypeListDto, CourtType>();
                 data = new SelectList(results.Data, "Id", "Name", tableName + "Id");
             }

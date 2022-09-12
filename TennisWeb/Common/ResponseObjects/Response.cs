@@ -11,7 +11,6 @@ namespace Common.ResponseObjects {
         public Response(ResponseType responseType, string message) : this(responseType) {
             Message = message;
         }
-        
     }
 
     public enum ResponseType {

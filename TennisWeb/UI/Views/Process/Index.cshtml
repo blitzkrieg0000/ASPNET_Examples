@@ -79,8 +79,7 @@
 
                                         <div class="form-group">
                                             <label>Video/Stream Seçiniz:</label>
-                                            @(await Component.InvokeAsync("SelectListFromTable",
-                                            new{tableName="Stream"} ))
+                                            @(await Component.InvokeAsync("SelectListFromTable", new{tableName="AllStream"} ))
                                         </div>
 
                                         <div class="form-group">

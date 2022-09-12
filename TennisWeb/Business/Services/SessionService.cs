@@ -36,11 +36,9 @@ namespace Business.Services {
             if (validationResult.IsValid) {
                 await _unitOfWork.GetRepository<Session>().Create(data);
                 await _unitOfWork.SaveChanges();
-
             } else {
                 return new Response<SessionCreateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidationError());
             }
-
             return new Response<SessionCreateDto>(ResponseType.Success, "Yeni Session Eklendi.");
         }
 

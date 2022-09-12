@@ -72,8 +72,15 @@ namespace Business.Services {
 
 
         public async Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto) {
-
+            
+            var stream_id_video = await _unitOfWork.GetRepository<Stream>().GetByFilter(x=>x.Id == dto.StreamId, asNoTracking:true);
             var data = _mapper.Map<Process>(dto);
+
+            if (stream_id_video !=null){
+                if (stream_id_video.IsVideo){
+                    data.IsCompleted = false;
+                }
+            }
 
             if (dto.Override == 0) {
                 data.ProcessParameter = new ProcessParameter();
