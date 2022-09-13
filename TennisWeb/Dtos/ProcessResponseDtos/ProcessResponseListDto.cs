@@ -9,6 +9,7 @@ namespace Dtos.ProcessResponseDtos {
         public string BallFallArray { get; set; }
         public string PlayerPositionArray { get; set; }
         public long? Score { get; set; }
+        public string KafkaTopicName { get; set; }
         public DateTime? SaveDate { get; set; }
         public bool? IsDeleted { get; set; }
     }

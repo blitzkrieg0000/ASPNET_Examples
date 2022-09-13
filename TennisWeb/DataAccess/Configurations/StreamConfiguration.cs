@@ -27,8 +27,6 @@ namespace DataAccess.Configurations {
 
             builder.Property(e => e.IsVideo).HasColumnName("is_video");
 
-            builder.Property(e => e.KafkaTopicName).HasColumnName("kafka_topic_name");
-
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasColumnName("name");

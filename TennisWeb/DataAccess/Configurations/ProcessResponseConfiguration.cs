@@ -30,6 +30,8 @@ namespace DataAccess.Configurations {
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.Property(e => e.Score).HasColumnName("score");
+            
+            builder.Property(e => e.KafkaTopicName).HasColumnName("kafka_topic_name");
 
             builder.HasOne(d => d.IdNavigation)
                 .WithOne(p => p.ProcessResponse)

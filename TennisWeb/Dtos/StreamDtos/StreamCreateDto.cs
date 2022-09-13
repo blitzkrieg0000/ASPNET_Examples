@@ -6,7 +6,6 @@ namespace Dtos.StreamDtos {
         public string Name { get; set; }
         public string Source { get; set; }
         public string CourtLineArray { get; set; }
-        public string KafkaTopicName { get; set; }
         public DateTime SaveDate { get; set; }
         public bool? IsActivated { get; set; }
         public bool? IsDeleted { get; set; }

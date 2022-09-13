@@ -38,6 +38,7 @@ namespace UI.Controllers {
         }
 
 
+        //gRPC
         public async Task<IActionResult> StartProcess(long id, long sessionId) {
             var response = await _grpcService.StartProducer(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
