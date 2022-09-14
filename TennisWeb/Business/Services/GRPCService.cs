@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
+using Dtos.GRPCData;
 using Entities.Concrete;
+using Grpc.Core;
 using Grpc.Net.Client;
 
 namespace Business.Services {
@@ -17,13 +20,13 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response> StartProducer(long id){
+        public async Task<Response> StartProducer(long id) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new MainServer.MainServerClient(channel);
             var requestData = new StartProcessRequestData() { ProcessId = id };
-    
+
             var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id);
-            if (process_entity.IsCompleted == false){
+            if (process_entity.IsCompleted == false) {
                 return new Response(ResponseType.Success, "İşlem Daha Tamamlanmadı.");
             }
             var process_entity_changed = process_entity;
@@ -33,15 +36,31 @@ namespace Business.Services {
             return new Response(ResponseType.Success, reply.Message);
         }
 
-        public async Task<Response> StopProducer(long id){
+        public async Task<Response> StopProducer(long id) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new MainServer.MainServerClient(channel);
             var requestData = new StopProcessRequestData() { ProcessId = id };
             var reply = await client.StopProcessAsync(requestData);
-            if(reply.Flag){
+            if (reply.Flag) {
                 return new Response(ResponseType.Success);
             }
             return new Response(ResponseType.Success, reply.Message);
+        }
+
+        public async IAsyncEnumerable<Base64FrameModel> GetStreamingFrame(long id) {
+            using var channel = GrpcChannel.ForAddress("http://localhost:50011");
+            var client = new MainServer.MainServerClient(channel);
+            var requestData = new GetStreamingFrameRequestData() { ProcessId = id };
+            using var reply = client.GetStreamingFrame(requestData);
+
+
+            await foreach (var response in reply.ResponseStream.ReadAllAsync()) {
+                var data = new Base64FrameModel() {
+                    Frame = response.Frame
+                };
+                yield return data;
+            }
+
         }
 
 

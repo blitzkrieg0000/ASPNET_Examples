@@ -6,7 +6,9 @@ option csharp_namespace = "Business.Services";
 service MainServer {
   rpc StartProcess(StartProcessRequestData) returns (StartProcessResponseData) {}
   rpc StopProcess(StopProcessRequestData) returns (StopProcessResponseData) {}
+  rpc GetStreamingFrame(GetStreamingFrameRequestData) returns (stream GetStreamingFrameResponseData) {}
 }
+
 
 //Request
 message StartProcessRequestData{
@@ -15,13 +17,21 @@ message StartProcessRequestData{
 message StopProcessRequestData{
   double ProcessId=1;
 }
+message GetStreamingFrameRequestData{
+  double ProcessId=1;
+}
+
 
 //Response
 message StartProcessResponseData{
   string Message=1;
   string Data=2;
+  string Frame=3;
 }
 message StopProcessResponseData{
   string Message=1;
   bool flag=2;
+}
+message GetStreamingFrameResponseData{
+  string Frame=1;
 }

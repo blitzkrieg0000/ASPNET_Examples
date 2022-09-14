@@ -6,6 +6,8 @@ using UI.Extensions;
 using UI.Models;
 
 namespace UI.Controllers {
+
+
     public class ProcessController : Controller {
 
         private readonly IProcessService _processService;
@@ -37,7 +39,6 @@ namespace UI.Controllers {
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
 
-
         //gRPC
         public async Task<IActionResult> StartProcess(long id, long sessionId) {
             var response = await _grpcService.StartProducer(id);
@@ -47,6 +48,6 @@ namespace UI.Controllers {
             var response = await _grpcService.StopProducer(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
-
+        
     }
 }
