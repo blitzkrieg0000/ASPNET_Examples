@@ -1,4 +1,6 @@
 using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Data;
 using WebApi.Interfaces;
@@ -21,7 +24,19 @@ namespace WebApi {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            //services.AddAuthentication().AddJwtBearer();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => {
+                opt.RequireHttpsMetadata = false;
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
+                    ValidIssuer = "http://localhost",
+                    ValidAudience = "http://localhost",
+                    // ValidateAudience = true,
+                    // ValidIssuers = true;
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("blitzkriegblitz.")),
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                };
+            });
             services.AddDbContext<ProductContext>(opt => {
                 opt.UseNpgsql(Configuration.GetConnectionString("Local"));
                 opt.LogTo(Console.WriteLine, LogLevel.Information);
@@ -57,6 +72,7 @@ namespace WebApi {
             app.UseRouting();
             app.UseCors("WebApiPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

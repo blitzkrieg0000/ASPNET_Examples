@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,14 @@ namespace WebApi.Controllers {
             _productRepository = productRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll() {
             var result = await _productRepository.GetAllAsync();
             return Ok(result);
         }
 
+        [Authorize(Roles="Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id) {
             var data = await _productRepository.GetByIdAsync(id);
