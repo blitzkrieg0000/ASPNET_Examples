@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -64,14 +62,13 @@ namespace WebApi.Controllers {
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload(IFormFile formFile) {
+        public async Task<IActionResult> Upload([FromForm] IFormFile formFile) {
 
             var newName = Guid.NewGuid() + "." + Path.GetExtension(formFile.FileName);
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", newName);
             var stream = new FileStream(path, FileMode.Create);
             await formFile.CopyToAsync(stream);
             return Created("", formFile);
-
         }
 
         [HttpGet("[action]")]

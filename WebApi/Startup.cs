@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +21,7 @@ namespace WebApi {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            //services.AddAuthentication().AddJwtBearer();
             services.AddDbContext<ProductContext>(opt => {
                 opt.UseNpgsql(Configuration.GetConnectionString("Local"));
                 opt.LogTo(Console.WriteLine, LogLevel.Information);
@@ -34,12 +31,15 @@ namespace WebApi {
             services.AddScoped<IDummyRepository, DummyRepository>();
 
             services.AddCors(cors => {
-                cors.AddPolicy("WebApiPolicy", opt=>{
+                cors.AddPolicy("WebApiPolicy", opt => {
                     opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); //.WithOrigins("*")
                 });
             });
 
-            services.AddControllers();
+            //Bir loop hatasını ignore etmek için ayrı bir paket
+            services.AddControllers().AddNewtonsoftJson(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });

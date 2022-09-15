@@ -164,9 +164,11 @@
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
 
 	//API
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />
-
-
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />	 		//ServerSide
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />                          		//ClientSide
+	
+	//JWT
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />   //ServerSide
 ```
 
 ## SCAFFOLD 
