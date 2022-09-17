@@ -10,17 +10,10 @@ namespace UI.Controllers {
     public class ProcessController : Controller {
 
         private readonly IProcessService _processService;
-        private readonly IGRPCService _grpcService;
-        public ProcessController(IProcessService processService, IGRPCService grpcService) {
-            _processService = processService;
-            _grpcService = grpcService;
-        }
 
-        //TODO Tüm Processleri Listele
-        // [HttpGet]
-        // public IActionResult Index() {
-        //     return View(new SessionIdDto() { SessionId = id });
-        // }
+        public ProcessController(IProcessService processService) {
+            _processService = processService;
+        }
 
         [HttpGet]
         public IActionResult Index(long id) {
@@ -38,16 +31,5 @@ namespace UI.Controllers {
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
 
-        //gRPC
-        public async Task<IActionResult> StartProcess(long id, long sessionId) {
-            var response = await _grpcService.StartProducer(id);
-            return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
-        }
-        
-        public async Task<IActionResult> StopProcess(long id, long sessionId) {
-            var response = await _grpcService.StopProducer(id);
-            return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
-        }
-        
     }
 }
