@@ -33,19 +33,22 @@ namespace SignalR.Hubs {
 
         public async Task StartProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
-
+            
+            await Clients.All.SendAsync("InfoMessage", user, $"{data.Id} numaralı process işleme alındı.");
+            
             var response = await _grpcService.StartProducer(data.Id);
+            await Clients.All.SendAsync("InfoMessage", user, response.Message);
 
             IAsyncEnumerable<Base64FrameModel> iterator = _grpcService.GetStreamingFrame(data.Id);
             await foreach (var item in iterator) {
                 await Clients.All.SendAsync("ReceiveFrame", user, new { id = data.Id, frame = item.Frame });
             }
-
         }
 
         public async Task StopProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
             var response = await _grpcService.StopProducer(data.Id);
+            await Clients.All.SendAsync("InfoMessage", user, response.Message);
         }
 
     }

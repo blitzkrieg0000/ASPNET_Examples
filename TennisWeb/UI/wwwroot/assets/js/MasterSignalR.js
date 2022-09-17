@@ -1,18 +1,7 @@
 "use strict";
 
-
-//! Bağlantı Kur
+//! Bağlantı kur
 var connection = new signalR.HubConnectionBuilder().withUrl("/MasterHub").build();
-
-
-//! Gelen mesaj varsa:
-connection.on("ReceiveFrame", function (user, obj) {
-    var canvas = document.getElementById(`receiveFrame_${obj.id}`);
-    canvas.src = "data:image/png;base64, " + obj.frame
-    var canvas = document.getElementById(`receiveFrame_bg_${obj.id}`);
-    canvas.src = "data:image/png;base64, " + obj.frame
-});
-
 
 //! Bağlantı sağlandığında
 connection.start().then(function () {
@@ -21,8 +10,19 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
+//! Gelen mesaj varsa:
+connection.on("ReceiveFrame", function (user, obj) {
+    var canvas = document.getElementById(`receiveFrame_${obj.id}`);
+    canvas.src = "data:image/png;base64, " + obj.frame
+    var canvas = document.getElementById(`receiveFrame_bg_${obj.id}`);
+    canvas.src = "data:image/png;base64, " + obj.frame
+});
+connection.on("InfoMessage", function (user, msg) {
+    var element = document.getElementById('infoMessage');
+    element.innerHTML = msg;
+});
 
-//!Tuşa basıldığında:
+//! Tuşa basıldığında:
 var elements = document.getElementsByClassName("startButton");
 for (var i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener("click", function (event) {
