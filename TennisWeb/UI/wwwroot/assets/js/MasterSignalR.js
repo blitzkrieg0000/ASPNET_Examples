@@ -5,8 +5,8 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/MasterHub").build(
 
 //! Gelen mesaj varsa:
 connection.on("ReceiveFrame", function (user, message) {
-    var message = document.getElementById("deliverFrame");
-    message.src = "data:image/png;base64, " + message
+    var canvas = document.getElementById("receiveFrame");
+    canvas.src = "data:image/png;base64, " + message
 });
 
 //! Bağlantı sağlandığında

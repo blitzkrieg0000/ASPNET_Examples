@@ -38,7 +38,6 @@ namespace SignalR.Hubs {
                 await Clients.All.SendAsync("ReceiveFrame", user, item.Frame);
             }
 
-            await Clients.All.SendAsync("ReceiveFrame", user, "Görüntü Yok");
         }
 
     }
