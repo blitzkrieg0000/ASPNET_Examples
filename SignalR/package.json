@@ -11,7 +11,6 @@
   "devDependencies": {
     "bootstrap": "5.2.0",
     "jquery": "3.6.0",
-    "@microsoft/signalr":"5.0.17",
-    "@fancyapps/ui": "4.0.31"
+    "@microsoft/signalr":"5.0.17"
   }
 }

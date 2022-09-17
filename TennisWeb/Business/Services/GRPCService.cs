@@ -48,18 +48,30 @@ namespace Business.Services {
         }
 
         public async IAsyncEnumerable<Base64FrameModel> GetStreamingFrame(long id) {
+            //SetClient
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");
             var client = new MainServer.MainServerClient(channel);
+
+            //Request
             var requestData = new GetStreamingFrameRequestData() { ProcessId = id };
-            using var reply = client.GetStreamingFrame(requestData);
+            using AsyncServerStreamingCall<GetStreamingFrameResponseData> response = client.GetStreamingFrame(requestData);
 
-
-            await foreach (var response in reply.ResponseStream.ReadAllAsync()) {
+            var ResponseCall = response.ResponseStream.ReadAllAsync();
+            await foreach (var res in ResponseCall) {
                 var data = new Base64FrameModel() {
-                    Frame = response.Frame
+                    Frame = res.Frame
                 };
                 yield return data;
             }
+
+            //while yöntemi ile akış
+            // while (await response.ResponseStream.MoveNext()) {
+            //     var res = response.ResponseStream.Current;
+            //     var data = new Base64FrameModel() {
+            //         Frame = res.Frame
+            //     };
+            //     yield return data;
+            // }
 
         }
 
@@ -123,7 +135,6 @@ namespace Business.Services {
         //     return new Response<StartGameObservationDto>(ResponseType.Success, data);
 
         // }
-
 
 
     }

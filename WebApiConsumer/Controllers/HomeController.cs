@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -62,7 +61,6 @@ namespace WebApiConsumer.Controllers {
                 return View(null);
             }
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Update(ProductResponseModel model) {

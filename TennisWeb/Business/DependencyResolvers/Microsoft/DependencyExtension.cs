@@ -42,7 +42,6 @@ namespace Business.DependencyResolvers.Microsoft {
             services.AddScoped<ITennisService, TennisService>();
 
 
-
             //Validators
             services.AddTransient<IValidator<StreamCreateDto>, StreamCreateDtoValidator>();
             services.AddTransient<IValidator<PlayerCreateDto>, PlayerCreateDtoValidator>();

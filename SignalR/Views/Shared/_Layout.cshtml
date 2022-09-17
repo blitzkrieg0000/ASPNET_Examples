@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <!-- General -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Other -->
+    @RenderSection("Links", false)
+
+</head>
+
+<body>
+
+    <!-- Content area -->
+    <div class="content">
+        <div class="container-fluid p-2">
+
+            @RenderBody()
+
+        </div>
+    </div>
+    <!-- /content area -->
+
+    <!-- General -->
+    <script src="~/limitless/global_assets/js/main/jquery.min.js"></script>
+    <script src="~/limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
+
+    <!-- Other -->
+    @RenderSection("Scripts", false)
+
+</body>
+
+</html>

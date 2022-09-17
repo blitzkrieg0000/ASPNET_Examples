@@ -7,7 +7,6 @@ using UI.Models;
 
 namespace UI.Controllers {
 
-
     public class ProcessController : Controller {
 
         private readonly IProcessService _processService;

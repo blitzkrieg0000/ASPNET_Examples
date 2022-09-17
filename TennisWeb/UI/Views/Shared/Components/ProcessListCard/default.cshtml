@@ -90,7 +90,12 @@
     @foreach (var item in Model)
     {
         <div class="card">
+            <input id="userInput" type="hidden" value="default">
 
+            @{
+                var processVal = JsonSerializer.Serialize<ProcessListDto>(item.Process).ToString();
+            }
+            <input id="dataInput" type="hidden" value="@processVal">
             <div class="card-content">
                 <div class="top">
                     <h4 class="name">@item.Process.Name</h4>
@@ -101,9 +106,9 @@
                     @if (!item.Stream.IsVideo)
                     {
                         <a asp-action="StartProcess" asp-controller="Process" asp-route-id="@item.Process.Id" asp-route-sessionId="@item.Process.SessionId" class="btn btn-success btn-sm">Başlat</a>
+                        <button class="btn btn-warning btn-sm" id="testButton"></button>
                         <a asp-action="StopProcess" asp-controller="Process" asp-route-id="@item.Process.Id" asp-route-sessionId="@item.Process.SessionId" class="btn btn-danger btn-sm">Durdur</a>
                     }
-
                 </div>
 
                 <div class="bottom">
@@ -127,36 +132,39 @@
                     {
                         <h4>Durum Bilinmiyor</h4>
                     }
-                     <a asp-action="Remove" asp-controller="Process" asp-route-id="@item.Process.Id" asp-route-sessionId="@item.Process.SessionId" class="btn btn-danger btn-sm">Sil</a>
+                    <a asp-action="Remove" asp-controller="Process" asp-route-id="@item.Process.Id" asp-route-sessionId="@item.Process.SessionId" class="btn btn-danger btn-sm">Sil</a>
                 </div>
 
             </div>
 
-            @{
+            @* @{
                 if (item.ProcessResponse.Canvas == null)
                 {
-                    <div class="card-bg">
-                        <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
-                    </div>
-                    <div class="shadow">
-                        <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
-                    </div>
+                <div class="card-bg">
+                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                </div>
+                <div class="shadow">
+                <img class="bg-img" src="https://cdn.stocksnap.io/img-thumbs/960w/SKI2T9YF2P.jpg" />
+                </div>
                 }
                 else
                 {
-                    <div class="card-bg">
-                        <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
-                    </div>
+                <div class="card-bg">
+                <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
+                </div>
 
-                    <div class="shadow">
-                        <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
-                    </div>
+                <div class="shadow">
+                <img class="bg-img" src="data:image/png;base64, @item.ProcessResponse.Canvas" />
+                </div>
                 }
+                } *@
 
-                
-
-            }
-
+            <div class="card-bg">
+                <img id="deliverFrame" class="bg-img" src="" />
+            </div>
+            <div class="shadow">
+                <img class="bg-img" src="" />
+            </div>
         </div>
     }
 
