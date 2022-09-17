@@ -135,7 +135,6 @@
         // Extract info from data-bs-* attributes
         var raw = button.getAttribute('data-bs-whatever')
         data = JSON.parse(raw)
-        console.log(raw)
 
         var modalTitle = detailModal.querySelector('.modal-title')
         modalTitle.textContent = 'Details: ' + data["process"]["id"]

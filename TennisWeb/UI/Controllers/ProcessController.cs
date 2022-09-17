@@ -43,6 +43,7 @@ namespace UI.Controllers {
             var response = await _grpcService.StartProducer(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
+        
         public async Task<IActionResult> StopProcess(long id, long sessionId) {
             var response = await _grpcService.StopProducer(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });

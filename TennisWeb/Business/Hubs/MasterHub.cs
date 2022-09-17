@@ -31,13 +31,21 @@ namespace SignalR.Hubs {
             return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task DeliverFrame(string user, string message) {
+        public async Task StartProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
+
+            var response = await _grpcService.StartProducer(data.Id);
+
             IAsyncEnumerable<Base64FrameModel> iterator = _grpcService.GetStreamingFrame(data.Id);
             await foreach (var item in iterator) {
-                await Clients.All.SendAsync("ReceiveFrame", user, item.Frame);
+                await Clients.All.SendAsync("ReceiveFrame", user, new { id = data.Id, frame = item.Frame });
             }
 
+        }
+
+        public async Task StopProcess(string user, string message) {
+            var data = JsonSerializer.Deserialize<ProcessListDto>(message);
+            var response = await _grpcService.StopProducer(data.Id);
         }
 
     }
