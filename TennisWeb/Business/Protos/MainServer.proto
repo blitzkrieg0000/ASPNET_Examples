@@ -2,13 +2,12 @@ syntax = "proto3";
 package main;
 option csharp_namespace = "Business.Services";
 
+
 // Service
 service MainServer {
-  rpc StartProcess(StartProcessRequestData) returns (StartProcessResponseData) {}
+  rpc StartProcess(StartProcessRequestData) returns (stream StartProcessResponseData) {}
   rpc StopProcess(StopProcessRequestData) returns (StopProcessResponseData) {}
-  rpc GetStreamingFrame(GetStreamingFrameRequestData) returns (stream GetStreamingFrameResponseData) {}
 }
-
 
 //Request
 message StartProcessRequestData{
@@ -17,10 +16,6 @@ message StartProcessRequestData{
 message StopProcessRequestData{
   double ProcessId=1;
 }
-message GetStreamingFrameRequestData{
-  double ProcessId=1;
-}
-
 
 //Response
 message StartProcessResponseData{
@@ -31,7 +26,4 @@ message StartProcessResponseData{
 message StopProcessResponseData{
   string Message=1;
   bool flag=2;
-}
-message GetStreamingFrameResponseData{
-  string Frame=1;
 }
