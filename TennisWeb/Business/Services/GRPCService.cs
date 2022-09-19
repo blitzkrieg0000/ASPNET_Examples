@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,11 +13,9 @@ using Grpc.Net.Client;
 namespace Business.Services {
     public class GRPCService : IGRPCService {
 
-        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public GRPCService(IMapper mapper, IUnitOfWork unitOfWork) {
-            _mapper = mapper;
+        public GRPCService(IUnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
         }
 
@@ -32,15 +31,17 @@ namespace Business.Services {
             var process_entity_changed = process_entity;
             process_entity_changed.IsCompleted = false;
             _unitOfWork.GetRepository<Process>().Update(process_entity_changed, process_entity);
-            
+
             using AsyncServerStreamingCall<StartProcessResponseData> response = client.StartProcess(requestData);
             var ResponseCall = response.ResponseStream.ReadAllAsync();
-            await foreach (var res in ResponseCall) {
-                var data = new Base64FrameModel() {
-                    Frame = res.Frame
-                };
-                yield return data;
-            }
+
+                await foreach (var res in ResponseCall) {
+                    var data = new Base64FrameModel() {
+                        Frame = res.Frame
+                    };
+                    yield return data;
+                }
+
 
             //! while yöntemi ile akış
             // while (await response.ResponseStream.MoveNext()) {
