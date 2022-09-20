@@ -10,6 +10,7 @@ using Dtos.SessionDtos;
 using Dtos.StreamDtos;
 using Entities.Concrete;
 using FluentValidation;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,10 @@ namespace Business.DependencyResolvers.Microsoft {
     public static class DependencyExtension {
 
         public static void AddDependencies(this IServiceCollection services) {
-
+            services.Configure<FormOptions>(x => {
+                x.MultipartBodyLengthLimit = 209715200;
+            });
+            services.AddSignalR();
             //! DEPENDENCY INJECTIONS
             //Context in OnConfiguring kısmını dependency injection aracılığıyla yapıyoruz.
             services.AddDbContext<TennisContext>(opt => {
