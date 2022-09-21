@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebProjesi.Controllers {
@@ -19,10 +16,11 @@ namespace WebProjesi.Controllers {
                 HttpOnly = true, //document.cookie ile javascriptten cookie çekmeyi kapatırsın.
                 SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict //Strict: Sadece aynı site bu cookie yi kullanabilir. Lax: SubDomainler de bu cookieyi kullanabilir.
             });
+
         }
 
-        private string GetCookie(){
-            string cookieValue=String.Empty;
+        private string GetCookie() {
+            string cookieValue = String.Empty;
             HttpContext.Request.Cookies.TryGetValue("Test", out cookieValue);
             return cookieValue;
         }

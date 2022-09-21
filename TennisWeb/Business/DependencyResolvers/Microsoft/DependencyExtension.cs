@@ -22,7 +22,8 @@ namespace Business.DependencyResolvers.Microsoft {
             services.Configure<FormOptions>(x => {
                 x.MultipartBodyLengthLimit = 209715200;
             });
-            services.AddSignalR();
+            
+            services.AddSignalR(options => options.MaximumParallelInvocationsPerClient = 10);
             //! DEPENDENCY INJECTIONS
             //Context in OnConfiguring kısmını dependency injection aracılığıyla yapıyoruz.
             services.AddDbContext<TennisContext>(opt => {

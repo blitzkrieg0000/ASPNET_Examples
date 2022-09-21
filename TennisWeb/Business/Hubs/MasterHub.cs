@@ -37,7 +37,6 @@ namespace SignalR.Hubs {
             await Clients.All.SendAsync("InfoMessage", user, $"{data.Id} numaralı process işleme alındı.");
 
             IAsyncEnumerable<Base64FrameModel> iterator = _grpcService.StartProducer(data.Id);
-
             await foreach (var item in iterator) {
                 await Clients.All.SendAsync("ReceiveFrame", user, new { id = data.Id, frame = item.Frame });
             }
@@ -48,6 +47,10 @@ namespace SignalR.Hubs {
             var response = await _grpcService.StopProducer(data.Id);
             await Clients.All.SendAsync("InfoMessage", user, response.Message);
         }
+
+
+
+
 
     }
 }

@@ -13,6 +13,7 @@
             background-image: radial-gradient(farthest-corner at 40px 40px, #f35 0%, #43e 100%);
             z-index: 0;
         }
+
         .card {
             border-radius: 20px !important;
         }
@@ -238,7 +239,7 @@
             <li class="nav-item nav-item-dropdown-lg dropdown">
                 <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                     <i class="icon-bubbles4"></i>
-                    <span class="badge badge-warning badge-pill ml-auto ml-lg-0">2</span>
+                    <span id="messageCounter" class="badge badge-warning badge-pill ml-auto ml-lg-0">0</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
@@ -247,32 +248,33 @@
                         <a href="#" class="text-body"><i class="icon-compose"></i></a>
                     </div>
 
-                    <div class="dropdown-content-body dropdown-scrollable">
-                        <ul class="media-list">
+                    <div  class="dropdown-content-body dropdown-scrollable">
+                        <ul id="infoMessageList" class="media-list">
 
-                            <li class="media">
+                            @* <li class="media">
                                 <div class="mr-3 position-relative">
                                     <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                                 </div>
 
                                 <div class="media-body">
+
                                     <div class="media-title">
                                         <a href="#">
-                                            <span class="font-weight-semibold">James Alexander</span>
-                                            <span class="text-muted float-right font-size-sm">04:58</span>
+                                            <span class="font-weight-semibold">Bildirimler</span>
+                                            <span class="text-muted float-right font-size-sm">...</span>
                                         </a>
                                     </div>
 
-                                    <span class="text-muted">who knows, maybe that would be the best thing for
-                                        me...</span>
+                                    <span class="text-muted">...</span>
+
                                 </div>
-                            </li>
+                            </li> *@
 
                         </ul>
                     </div>
 
                     <div class="dropdown-content-footer border-top-0 p-0">
-                        <a href="#" class="btn btn-light btn-block rounded-top-0">View more</a>
+                        <a href="#" class="btn btn-light btn-block rounded-top-0" onclick="removeAllMessages()">Temizle</a>
                     </div>
                 </div>
             </li>

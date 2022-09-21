@@ -12,6 +12,7 @@ using Dtos.ProcessDtos;
 using Dtos.ProcessResponseDtos;
 using Dtos.StreamDtos;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
@@ -51,7 +52,7 @@ namespace Business.Services {
             List<ProcessListRelatedDto> data = new();
 
             foreach (var item in raw) {
-                data.Add(new(){
+                data.Add(new() {
                     Process = _mapper.Map<ProcessListDto>(item.Process),
                     ProcessResponse = _mapper.Map<ProcessResponseListDto>(item.Process.ProcessResponse),
                     Stream = _mapper.Map<StreamListDto>(item.Stream)
@@ -72,12 +73,12 @@ namespace Business.Services {
 
 
         public async Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto) {
-            
-            var stream_id_video = await _unitOfWork.GetRepository<Stream>().GetByFilter(x=>x.Id == dto.StreamId, asNoTracking:true);
+
+            var stream_id_video = await _unitOfWork.GetRepository<Stream>().GetByFilter(x => x.Id == dto.StreamId, asNoTracking: true);
             var data = _mapper.Map<Process>(dto);
 
-            if (stream_id_video !=null){
-                if (stream_id_video.IsVideo){
+            if (stream_id_video != null) {
+                if (stream_id_video.IsVideo) {
                     data.IsCompleted = false;
                 }
             }
@@ -100,7 +101,11 @@ namespace Business.Services {
                 await _unitOfWork.SaveChanges();
                 return new Response(ResponseType.Success);
             }
+            
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
+
+
+
     }
 }

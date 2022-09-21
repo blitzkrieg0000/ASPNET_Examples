@@ -14,9 +14,10 @@ namespace Business.Services {
     public class GRPCService : IGRPCService {
 
         private readonly IUnitOfWork _unitOfWork;
-
-        public GRPCService(IUnitOfWork unitOfWork) {
+        private readonly IMapper _mapper;
+        public GRPCService(IUnitOfWork unitOfWork, IMapper mapper) {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async IAsyncEnumerable<Base64FrameModel> StartProducer(long id) {
@@ -24,16 +25,13 @@ namespace Business.Services {
             var client = new MainServer.MainServerClient(channel);
             var requestData = new StartProcessRequestData() { ProcessId = id };
 
-            var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id);
-            if (process_entity.IsCompleted == false) {
+            var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id, asNoTracking:true);
+            if (process_entity.IsCompleted == true) {
+                process_entity.IsCompleted = false;
+                await _unitOfWork.SaveChanges();
 
-            }
-            var process_entity_changed = process_entity;
-            process_entity_changed.IsCompleted = false;
-            _unitOfWork.GetRepository<Process>().Update(process_entity_changed, process_entity);
-
-            using AsyncServerStreamingCall<StartProcessResponseData> response = client.StartProcess(requestData);
-            var ResponseCall = response.ResponseStream.ReadAllAsync();
+                using AsyncServerStreamingCall<StartProcessResponseData> response = client.StartProcess(requestData);
+                var ResponseCall = response.ResponseStream.ReadAllAsync();
 
                 await foreach (var res in ResponseCall) {
                     var data = new Base64FrameModel() {
@@ -42,15 +40,16 @@ namespace Business.Services {
                     yield return data;
                 }
 
+                //! while yöntemi ile akış
+                // while (await response.ResponseStream.MoveNext()) {
+                //     var res = response.ResponseStream.Current;
+                //     var data = new Base64FrameModel() {
+                //         Frame = res.Frame
+                //     };
+                //     yield return data;
+                // }
 
-            //! while yöntemi ile akış
-            // while (await response.ResponseStream.MoveNext()) {
-            //     var res = response.ResponseStream.Current;
-            //     var data = new Base64FrameModel() {
-            //         Frame = res.Frame
-            //     };
-            //     yield return data;
-            // }
+            }
         }
 
         public async Task<Response> StopProducer(long id) {

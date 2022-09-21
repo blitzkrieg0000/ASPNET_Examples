@@ -30,7 +30,6 @@
                     @* <a class="hidden" data-fancybox="gallery" href=""></a> *@
                 </div>
 
-
                 <div class="mb-3">
                     <label for="court_description" class="col-form-label">Açıklama:</label>
                     <textarea class="form-control" id="court_description"></textarea>
@@ -88,8 +87,8 @@
                 <div class="bottom">
                     @if (!item.Stream.IsVideo)
                     {
-                        <a class="btn btn-success btn-sm startButton" data-input="@processVal" data-user="default">Başlat</a>
-                        <a class="btn btn-danger btn-sm stopButton" data-input="@processVal" data-user="default">Durdur</a>
+                        <a class='btn btn-success btn-sm startButton' style='@((bool)item.Process.IsCompleted ? "display : block" : "display : none")' data-input="@processVal" data-user="default">Başlat</a>
+                        <a class='btn btn-sm stopButton @(!(bool)item.Process.IsCompleted ? "btn-warning" : "btn-danger")' style='@(!(bool)item.Process.IsCompleted ? "display : block" : "display : none")' data-input="@processVal" data-user="default">Durdur</a>
                     }
                 </div>
 
