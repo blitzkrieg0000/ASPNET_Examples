@@ -99,6 +99,7 @@
         </div>
     </div>
 </div>
+<!-- /AddProcess_Modal -->
 
 <!-- AddProcess_Button -->
 <div>
@@ -111,6 +112,8 @@
     <!-- #SESSION PROCESSES -->
     @(await Component.InvokeAsync("ProcessListCard", new{sessionId=@Model.SessionId} ))
 </div>
+<!-- /AddProcess_Button -->
+
 
 @section Scripts{
 <!--Global-->
@@ -124,5 +127,4 @@
 <script src="~/assets/js/Process/DetailModal.js"></script>
 <script src="~/assets/js/Process/DetailCanvasEffect.js"></script>
 <script src="~/assets/js/Process/Fancybox.js"></script>
-
 }

@@ -18,21 +18,26 @@
             border-radius: 20px !important;
         }
     </style>
+    <!-- /Local -->
 
     <!-- General -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- /General -->
 
     <!-- Limitless -->
     <link href="~/limitless/global_assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="~/limitless/assets/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- /Limitless -->
 
     <!-- Other -->
     @RenderSection("Links", false)
+    <!-- /Other -->
 
 </head>
 
 <body>
+    
     <!-- Main navbar -->
     <div class="navbar navbar-expand-lg navbar-light navbar-static">
 
@@ -248,27 +253,27 @@
                         <a href="#" class="text-body"><i class="icon-compose"></i></a>
                     </div>
 
-                    <div  class="dropdown-content-body dropdown-scrollable">
+                    <div class="dropdown-content-body dropdown-scrollable">
                         <ul id="infoMessageList" class="media-list">
 
                             @* <li class="media">
                                 <div class="mr-3 position-relative">
-                                    <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                <img src="~/assets/image/TennisPlaceholder.jpg" width="36" height="36" class="rounded-circle" alt="">
                                 </div>
 
                                 <div class="media-body">
 
-                                    <div class="media-title">
-                                        <a href="#">
-                                            <span class="font-weight-semibold">Bildirimler</span>
-                                            <span class="text-muted float-right font-size-sm">...</span>
-                                        </a>
-                                    </div>
+                                <div class="media-title">
+                                <a href="#">
+                                <span class="font-weight-semibold">Bildirimler</span>
+                                <span class="text-muted float-right font-size-sm">...</span>
+                                </a>
+                                </div>
 
-                                    <span class="text-muted">...</span>
+                                <span class="text-muted">...</span>
 
                                 </div>
-                            </li> *@
+                                </li> *@
 
                         </ul>
                     </div>
@@ -308,7 +313,6 @@
         </ul>
     </div>
     <!-- /main navbar -->
-
 
     <!-- Page content -->
     <div class="page-content">
@@ -523,6 +527,7 @@
     <!-- General -->
     <script src="~/limitless/global_assets/js/main/jquery.min.js"></script>
     <script src="~/limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <!-- /General -->
 
     <!-- Limitless -->
     <script src="~/limitless/assets/js/app.js"></script>
@@ -531,9 +536,11 @@
     <script src="~/limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
     <script src="~/limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
     <script src="~/limitless/global_assets/js/demo_pages/dashboard.js"></script>
+    <!-- /Limitless -->
 
     <!-- Other -->
     @RenderSection("Scripts", false)
+    <!-- /Other -->
 
 </body>
 
