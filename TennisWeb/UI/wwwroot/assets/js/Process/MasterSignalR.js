@@ -35,18 +35,20 @@ function getMessageList() {
     return null;
 }
 
-
-
 function addMessage(msg) {
+    var data = {
+        message: msg,
+        date: new Date().toLocaleString()
+    }
     var value = getCookie("message");
     if (value != null) {
         var messageList = JSON.parse(value);
-        messageList.push(msg)
+        messageList.push(data)
         let stringMsg = JSON.stringify(messageList);
         setCookie("message", stringMsg, 30);
     } else {
         var messageList = []
-        messageList.push(msg)
+        messageList.push(data)
         let stringMsg = JSON.stringify(messageList);
         setCookie("message", stringMsg, 30);
     }
@@ -72,7 +74,7 @@ function refreshMessageList() {
     var messageList = getMessageList();
     var infoMessageList = document.getElementById('infoMessageList');
 
-    removeAllChildNodes(infoMessageList)
+    removeAllChildNodes(infoMessageList);
 
     if (infoMessageList != null) {
         counterElement.innerHTML = messageList.length;
@@ -83,7 +85,7 @@ function refreshMessageList() {
     }
 }
 
-function prepareInformationElement(msg, title = "System") {
+function prepareInformationElement(data, title = "System") {
     //Information Body
     var li_media = document.createElement("li");
     li_media.className = "media";
@@ -95,25 +97,24 @@ function prepareInformationElement(msg, title = "System") {
     div_media_title.className = "media-title";
     var span_title = document.createElement("span");
     span_title.className = "font-weight-semibold";
-    span_title.innerHTML = title
-    div_media_title.appendChild(span_title)
+    span_title.innerHTML = title;
+    div_media_title.appendChild(span_title);
     var span_date = document.createElement("span");
     span_date.className = "text-muted float-right font-size-sm";
 
     try {
-        span_date.innerHTML = new Date().toLocaleString();
+        span_date.innerHTML = data['date'];
     } catch {
 
     }
-
 
     div_media_title.appendChild(span_date)
     div_media_body.appendChild(div_media_title)
     var span_muted = document.createElement("span");
     span_muted.className = "text-muted";
-    span_muted.innerHTML = msg
-    div_media_body.appendChild(span_muted)
-    li_media.appendChild(div_media_body)
+    span_muted.innerHTML = data['message'];
+    div_media_body.appendChild(span_muted);
+    li_media.appendChild(div_media_body);
 
     return li_media
 }
@@ -147,8 +148,8 @@ connection.on("ReceiveFrame", function (user, obj) {
 });
 
 connection.on("InfoMessage", function (user, msg) {
-    var element = document.getElementById('infoMessage');
-    element.innerHTML = msg;
+    // var element = document.getElementById('infoMessage');
+    // element.innerHTML = msg;
 
     addMessage(msg.toString());
     refreshMessageList();

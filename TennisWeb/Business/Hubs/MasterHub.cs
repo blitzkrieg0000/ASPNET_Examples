@@ -19,17 +19,20 @@ namespace SignalR.Hubs {
             _grpcService = grpcService;
         }
 
+
         public override Task OnConnectedAsync() {
             Console.WriteLine("New Connection: " + Context.ConnectionId);
             Clients.All.SendAsync("NewConnection:", "New connection is detected.", Context.ConnectionId);
             return base.OnConnectedAsync();
         }
 
+
         public override Task OnDisconnectedAsync(System.Exception exception) {
             System.Console.WriteLine("Closed Connection: " + Context.ConnectionId);
             Clients.All.SendAsync("ClosedConnection", "Connection is closed.", Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
+
 
         public async Task StartProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
@@ -42,14 +45,12 @@ namespace SignalR.Hubs {
             }
         }
 
+
         public async Task StopProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
             var response = await _grpcService.StopProducer(data.Id);
             await Clients.All.SendAsync("InfoMessage", user, response.Message);
         }
-
-
-
 
 
     }
