@@ -25,5 +25,12 @@ namespace UI.Controllers {
             return RedirectToAction("Index", "Process", new{@id = model.SessionId});
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CalculateTotalScore(long sessionId){
+            var response = await _tennisService.CalculateTotalScore(sessionId);
+            return RedirectToAction("Index", "PlayingDatum");
+        }
+
+
     }
 }

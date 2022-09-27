@@ -16,10 +16,12 @@ namespace UI.Controllers {
             _processService = processService;
         }
 
+
         [HttpGet]
         public IActionResult Index(long id) {
             return View(new SessionIdDto() { SessionId = id });
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(ProcessCreateDto model) {
@@ -27,18 +29,10 @@ namespace UI.Controllers {
             return RedirectToAction("Index", "Process", new { @id = model.SessionId });
         }
 
+
         public async Task<IActionResult> Remove(long id, long sessionId) {
             var response = await _processService.Remove(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CalculateTotalScore(long sessionId){
-            var response = await _processService.CalculateTotalScore(sessionId);
-
-            
-            return RedirectToAction("Index", "Process", new { @id = sessionId });
-
         }
 
     }

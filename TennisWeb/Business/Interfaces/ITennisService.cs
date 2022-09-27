@@ -5,5 +5,6 @@ using Dtos.GRPCData;
 namespace Business.Interfaces {
     public interface ITennisService {
         Task<IResponse<GenerateProcessModel>> Create(GenerateProcessModel dto);
+        Task<IResponse> CalculateTotalScore(long sessionId);
     }
 }

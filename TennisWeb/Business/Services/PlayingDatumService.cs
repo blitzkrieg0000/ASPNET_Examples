@@ -23,12 +23,14 @@ namespace Business.Services {
             _mapper = mapper;
         }
 
+
         public async Task<Response<List<PlayingDatumListDto>>> GetAll() {
             var data = _mapper.Map<List<PlayingDatumListDto>>(
                 await _unitOfWork.GetRepository<PlayingDatum>().GetAll()
             );
             return new Response<List<PlayingDatumListDto>>(ResponseType.Success, data);
         }
+
 
         public async Task<Response<PlayingDatumListDto>> GetById(long id) {
             var data = _mapper.Map<PlayingDatumListDto>(
@@ -46,9 +48,10 @@ namespace Business.Services {
             .Include(x => x.Court)
             .Include(x => x.Stream).ProjectTo<PlayingDatumRelatedListDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-            
+
             return new Response<List<PlayingDatumRelatedListDto>>(ResponseType.Success, data);
         }
+
 
         public async Task<IResponse> Remove(long id) {
             var removedEntity = await _unitOfWork.GetRepository<PlayingDatum>().GetByFilter(x => x.Id == id);
@@ -61,6 +64,16 @@ namespace Business.Services {
 
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
+
+
+        public async Task<IResponse<PlayingDatumCreateDto>> Create(PlayingDatumCreateDto dto) {
+            
+            await _unitOfWork.GetRepository<PlayingDatum>().Create(_mapper.Map<PlayingDatum>(dto));
+            await _unitOfWork.SaveChanges();
+
+            return new Response<PlayingDatumCreateDto>(ResponseType.Success, dto, "Yeni Oynanış Sonucu");
+        }
+
 
     }
 }

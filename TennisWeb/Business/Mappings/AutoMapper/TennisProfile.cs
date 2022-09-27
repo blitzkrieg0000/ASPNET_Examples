@@ -46,13 +46,18 @@ namespace Business.Mappings.AutoMapper {
                     CourtId = src.CourtId,
                     Limit = src.Limit,
                     Force = src.Force
-            }));
+                }));
 
             CreateMap<ProcessCreateDto, Process>().ForMember(dst => dst.ProcessParameter,
                 opt => opt.MapFrom(src => new ProcessParameter() {
                     StreamId = src.StreamId,
                     Limit = src.Limit
-            })).ForMember(dst => dst.ProcessResponse, opt => opt.MapFrom(src => new ProcessResponse()));
+                })).ForMember(dst => dst.ProcessResponse, opt => opt.MapFrom(src => new ProcessResponse()));
+
+            CreateMap<SessionParameter, PlayingDatum>();
+            CreateMap<SessionParameter, PlayingDatumCreateDto>().ReverseMap();
+            CreateMap<PlayingDatumCreateDto, PlayingDatum>().ReverseMap();
+
         }
     }
 }

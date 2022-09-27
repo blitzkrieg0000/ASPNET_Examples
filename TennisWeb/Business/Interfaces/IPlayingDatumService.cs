@@ -9,5 +9,6 @@ namespace Business.Interfaces {
         Task<Response<PlayingDatumListDto>> GetById(long id);
         Task<Response<List<PlayingDatumRelatedListDto>>> GetAllRelated();
         Task<IResponse> Remove(long id);
+        Task<IResponse<PlayingDatumCreateDto>> Create(PlayingDatumCreateDto dto);
     }
 }

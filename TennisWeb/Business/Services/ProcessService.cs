@@ -24,12 +24,14 @@ namespace Business.Services {
             _unitOfWork = unitOfWork;
         }
 
+
         public async Task<Response<List<ProcessListDto>>> GetAll() {
             var data = _mapper.Map<List<ProcessListDto>>(
                 await _unitOfWork.GetRepository<Process>().GetAll()
             );
             return new Response<List<ProcessListDto>>(ResponseType.Success, data);
         }
+
 
         public async Task<Response<List<ProcessListRelatedDto>>> GetAllRelated(long id) {
             var query = _unitOfWork.GetRepository<Process>().GetQuery();
@@ -98,19 +100,8 @@ namespace Business.Services {
                 await _unitOfWork.SaveChanges();
                 return new Response(ResponseType.Success);
             }
-            
-            return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
-        }
 
-        public async Task<IResponse<long>> CalculateTotalScore(long id){
-            var query =  _unitOfWork.GetRepository<Process>().GetQuery().AsNoTracking();
-            var data = (long) await query
-                .Where(x=>x.SessionId == id)
-                .Include(x=>x.ProcessResponse)
-                .Select(x=>x.ProcessResponse.Score)
-                .SumAsync();
-                
-            return new Response<long>(ResponseType.Success, data);
+            return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
     }
