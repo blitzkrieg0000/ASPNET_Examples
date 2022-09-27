@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+
 using System.Threading.Tasks;
-using AutoMapper;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
@@ -14,10 +14,8 @@ namespace Business.Services {
     public class GRPCService : IGRPCService {
 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public GRPCService(IUnitOfWork unitOfWork, IMapper mapper) {
+        public GRPCService(IUnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async IAsyncEnumerable<Base64FrameModel> StartProducer(long id) {
@@ -25,7 +23,7 @@ namespace Business.Services {
             var client = new MainServer.MainServerClient(channel);
             var requestData = new StartProcessRequestData() { ProcessId = id };
 
-            var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id, asNoTracking:true);
+            var process_entity = await _unitOfWork.GetRepository<Process>().GetByFilter(x => x.Id == id, asNoTracking: true);
             if (process_entity.IsCompleted == true) {
                 process_entity.IsCompleted = false;
                 await _unitOfWork.SaveChanges();
@@ -33,11 +31,25 @@ namespace Business.Services {
                 using AsyncServerStreamingCall<StartProcessResponseData> response = client.StartProcess(requestData);
                 var ResponseCall = response.ResponseStream.ReadAllAsync();
 
+                System.Diagnostics.Stopwatch stopwatch = new();
+                var sayac = 0;
+                var toplam = 0.0;
                 await foreach (var res in ResponseCall) {
                     var data = new Base64FrameModel() {
                         Frame = res.Frame
                     };
+
+
+                    sayac++;
+                    stopwatch.Stop();
+                    toplam += stopwatch.Elapsed.TotalSeconds;
+                    Console.WriteLine(toplam / sayac);
+                    stopwatch.Reset();
+
                     yield return data;
+
+                    stopwatch.Start();
+
                 }
 
                 //! while yöntemi ile akış
@@ -51,6 +63,7 @@ namespace Business.Services {
 
             }
         }
+
 
         public async Task<Response> StopProducer(long id) {
             using var channel = GrpcChannel.ForAddress("http://localhost:50011");

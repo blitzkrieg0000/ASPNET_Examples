@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Business.Interfaces;
 using Common.ResponseObjects;
 using DataAccess.UnitOfWork;
@@ -12,9 +11,7 @@ using Dtos.ProcessDtos;
 using Dtos.ProcessResponseDtos;
 using Dtos.StreamDtos;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Business.Services {
     public class ProcessService : IProcessService {
@@ -104,7 +101,6 @@ namespace Business.Services {
             
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
-
 
 
     }

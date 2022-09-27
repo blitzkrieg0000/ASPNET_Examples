@@ -200,7 +200,7 @@ for (var i = 0, len = elements.length; i < len; i++) {
         });
 
         event.preventDefault();
-
+        location.reload();
     });
 }
 

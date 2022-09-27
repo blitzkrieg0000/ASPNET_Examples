@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Dtos.GRPCData;
-using Dtos.HubDtos;
 using Dtos.ProcessDtos;
 using Microsoft.AspNetCore.SignalR;
 
@@ -33,7 +31,6 @@ namespace SignalR.Hubs {
             return base.OnDisconnectedAsync(exception);
         }
 
-
         public async Task StartProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
 
@@ -45,13 +42,11 @@ namespace SignalR.Hubs {
             }
         }
 
-
         public async Task StopProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
             var response = await _grpcService.StopProducer(data.Id);
             await Clients.All.SendAsync("InfoMessage", user, response.Message);
         }
-
 
     }
 }
