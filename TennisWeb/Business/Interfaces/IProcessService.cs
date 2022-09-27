@@ -13,5 +13,6 @@ namespace Business.Interfaces {
         Task<IResponse<ProcessCreateDto>> Create(ProcessCreateDto dto);
         Task<Response<List<ProcessListDto>>> GetListByFilter(Expression<Func<Process, bool>> filter);
         Task<IResponse> Remove(long id);
+        Task<IResponse<long>> CalculateTotalScore(long id);
     }
 }

@@ -102,6 +102,16 @@ namespace Business.Services {
             return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
         }
 
+        public async Task<IResponse<long>> CalculateTotalScore(long id){
+            var query =  _unitOfWork.GetRepository<Process>().GetQuery().AsNoTracking();
+            var data = (long) await query
+                .Where(x=>x.SessionId == id)
+                .Include(x=>x.ProcessResponse)
+                .Select(x=>x.ProcessResponse.Score)
+                .SumAsync();
+                
+            return new Response<long>(ResponseType.Success, data);
+        }
 
     }
 }

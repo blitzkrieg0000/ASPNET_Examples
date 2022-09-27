@@ -8,13 +8,13 @@
     if (TempData["ResponseMessage"] != null)
     {
 
-        <div class="bg-primary text-white text-center lead">
-            @TempData["ResponseMessage"]
-        </div>
+    <div class="bg-primary text-white text-center lead">
+    @TempData["ResponseMessage"]
+    </div>
     }
-}
+    }
 
-<div id="infoMessage" class="bg-primary text-white text-center lead">...</div> *@
+    <div id="infoMessage" class="bg-primary text-white text-center lead">...</div> *@
 
 @section Links{
 <link rel="stylesheet" type="text/css" href="~/assets/css/ProcessCard.css" />
@@ -101,18 +101,30 @@
 </div>
 <!-- /AddProcess_Modal -->
 
-<!-- AddProcess_Button -->
+
 <div>
+    <!-- AddProcess_Button -->
     <td>
         <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_form_vertical">
             Atış Ekle <i class="icon-play3 ml-2"></i>
         </button>
     </td>
+    <!-- /AddProcess_Button -->
+
+    <!--  -->
+    <td>
+        <a type="button" class="btn btn-danger" asp-controller="Process" asp-action="CalculateTotalScore" asp-route-sessionId="@Model.SessionId">
+            Sonuç Hesapla <i class="icon-play3 ml-2"></i>
+        </a>
+    </td>
+    <!-- / -->
+
 
     <!-- #SESSION PROCESSES -->
     @(await Component.InvokeAsync("ProcessListCard", new{sessionId=@Model.SessionId} ))
 </div>
-<!-- /AddProcess_Button -->
+
+
 
 
 @section Scripts{
@@ -122,7 +134,8 @@
 <script src="~/node_modules/@@microsoft/signalr/dist/browser/signalr.js"></script>
 
 <!--Others-->
-<script src="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <!--TODO: Fancybox CDN yerine NPM kullanılacak-->
+<script src="https://cdn.jsdelivr.net/npm/@@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<!--TODO: Fancybox CDN yerine NPM kullanılacak-->
 <script src="~/assets/js/Process/MasterSignalR.js"></script>
 <script src="~/assets/js/Process/DetailModal.js"></script>
 <script src="~/assets/js/Process/DetailCanvasEffect.js"></script>

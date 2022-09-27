@@ -32,5 +32,14 @@ namespace UI.Controllers {
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CalculateTotalScore(long sessionId){
+            var response = await _processService.CalculateTotalScore(sessionId);
+
+            
+            return RedirectToAction("Index", "Process", new { @id = sessionId });
+
+        }
+
     }
 }
