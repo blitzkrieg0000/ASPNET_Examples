@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Dtos.ProcessDtos;
@@ -34,6 +33,7 @@ namespace UI.Controllers {
             var response = await _processService.Remove(id);
             return this.ResponseRedirectToAction(response, "Index", new { id = sessionId });
         }
+
 
     }
 }

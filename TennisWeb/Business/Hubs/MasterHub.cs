@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Business.Interfaces;
@@ -12,7 +11,6 @@ namespace SignalR.Hubs {
     public class MasterHub : Hub {
 
         private readonly IGRPCService _grpcService;
-
         public MasterHub(IGRPCService grpcService) {
             _grpcService = grpcService;
         }
@@ -31,6 +29,7 @@ namespace SignalR.Hubs {
             return base.OnDisconnectedAsync(exception);
         }
 
+
         public async Task StartProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
 
@@ -42,11 +41,13 @@ namespace SignalR.Hubs {
             }
         }
 
+
         public async Task StopProcess(string user, string message) {
             var data = JsonSerializer.Deserialize<ProcessListDto>(message);
             var response = await _grpcService.StopProducer(data.Id);
             await Clients.All.SendAsync("InfoMessage", user, response.Message);
         }
+
 
     }
 }
