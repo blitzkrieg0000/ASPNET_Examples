@@ -4,19 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using CQRS.CQRS.Commands;
 using CQRS.Data;
+using MediatR;
 
 namespace CQRS.CQRS.Handlers {
-    public class RemoveStudentCommandHandler {
+    public class RemoveStudentCommandHandler : IRequestHandler<RemoveStudentCommand> {
         private readonly MainContext _context;
 
         public RemoveStudentCommandHandler(MainContext context) {
             _context = context;
         }
 
-        public void Handle(RemoveStudentCommand command) {
-            var deletedEntity = _context.Students.Find(command.Id);
+        public async Task<Unit> Handle(RemoveStudentCommand request, CancellationToken cancellationToken) {
+            var deletedEntity = await _context.Students.FindAsync(request.Id);
             _context.Students.Remove(deletedEntity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Unit.Value;
         }
     }
 }

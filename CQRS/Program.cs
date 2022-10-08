@@ -1,6 +1,7 @@
 using CQRS.Data;
 using CQRS.CQRS.Handlers;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddNewtonsoftJson(opt => {
@@ -9,10 +10,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt => {
 builder.Services.AddDbContext<MainContext>(opt => {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("Local"));
 });
-builder.Services.AddScoped<GetStudentByIdQueryHandler>();
-builder.Services.AddScoped<GetStudentsQueryHandler>();
-builder.Services.AddScoped<CreateStudentCommandHandler>();
-builder.Services.AddScoped<RemoveStudentCommandHandler>();
+builder.Services.AddMediatR(typeof(Program));
 
 var app = builder.Build();
 app.MapControllers();
