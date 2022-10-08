@@ -15,7 +15,7 @@ namespace CQRS.CQRS.Handlers {
         }
 
         public async Task<Unit> Handle(RemoveStudentCommand request, CancellationToken cancellationToken) {
-            var deletedEntity = await _context.Students.FindAsync(request.Id);
+            var deletedEntity = await _context.Students.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
             _context.Students.Remove(deletedEntity);
             await _context.SaveChangesAsync();
             return Unit.Value;

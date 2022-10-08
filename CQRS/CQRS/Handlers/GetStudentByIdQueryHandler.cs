@@ -13,7 +13,7 @@ namespace CQRS.CQRS.Handlers {
         }
 
         public async Task<GetStudentByIdQueryResult> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken) {
-            var student = await _context.Set<Student>().FindAsync(request.Id);
+            var student = await _context.Set<Student>().FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
 
             return new GetStudentByIdQueryResult() {
                 Age = student.Age,
@@ -22,15 +22,6 @@ namespace CQRS.CQRS.Handlers {
             };
         }
 
-        // public GetStudentByIdQueryResult Handle(GetStudentByIdQuery query) {
-        //     var student = _context.Set<Student>().Find(query.Id);
-
-        //     return new GetStudentByIdQueryResult() {
-        //         Age = student.Age,
-        //         Name = student.Name,
-        //         Surname = student.Surname
-        //     };
-        // }
     }
 
 }

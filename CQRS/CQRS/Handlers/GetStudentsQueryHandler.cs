@@ -19,7 +19,7 @@ namespace CQRS.CQRS.Handlers {
                 Surname = x.Surname
             })
             .AsNoTracking()
-            .ToListAsync();
+            .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

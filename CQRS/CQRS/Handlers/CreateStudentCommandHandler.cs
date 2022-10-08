@@ -10,14 +10,13 @@ namespace CQRS.CQRS.Handlers {
             _context = context;
         }
 
-
         public async Task<Unit> Handle(CreateStudentCommand request, CancellationToken cancellationToken) {
-            _context.Students.AddRange(new Student() {
+            await _context.Students.AddAsync(new Student() {
                 Age = request.Age,
                 Name = request.Name,
                 Surname = request.Surname
-            });
-            await _context.SaveChangesAsync();
+            }, cancellationToken:cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken:cancellationToken);
             return Unit.Value;
         }
     }

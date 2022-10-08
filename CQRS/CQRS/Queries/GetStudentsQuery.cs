@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CQRS.CQRS.Results;
 using MediatR;
 

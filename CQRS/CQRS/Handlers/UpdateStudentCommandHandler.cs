@@ -15,7 +15,7 @@ namespace CQRS.CQRS.Handlers {
         }
 
         public async Task<Unit> Handle(UpdateStudentCommand request, CancellationToken cancellationToken) {
-            var updatedStudent = await _context.Students.FindAsync(request.Id);
+            var updatedStudent = await _context.Students.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
             updatedStudent.Age = request.Age;
             updatedStudent.Name = request.Name;
             updatedStudent.Surname = request.Surname;

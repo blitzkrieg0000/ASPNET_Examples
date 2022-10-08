@@ -1,5 +1,4 @@
 using CQRS.Data;
-using CQRS.CQRS.Handlers;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
