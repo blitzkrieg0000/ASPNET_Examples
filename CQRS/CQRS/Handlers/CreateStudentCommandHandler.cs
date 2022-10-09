@@ -15,8 +15,8 @@ namespace CQRS.CQRS.Handlers {
                 Age = request.Age,
                 Name = request.Name,
                 Surname = request.Surname
-            }, cancellationToken:cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken:cancellationToken);
+            }, cancellationToken: cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken: cancellationToken);
             return Unit.Value;
         }
     }
