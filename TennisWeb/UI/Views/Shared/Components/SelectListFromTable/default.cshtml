@@ -1,6 +1,0 @@
-@model SelectList
-
-@if (Model != null)
-{
-    <select class="form-select" asp-items="@Model" name="@Model.SelectedValue.ToString()"></select>
-}
