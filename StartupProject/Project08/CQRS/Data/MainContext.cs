@@ -9,7 +9,7 @@ namespace CQRS.Data {
         }
 
         public DbSet<Student> Students => this.Set<Student>();
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Student>().HasData(new Student[]{
                new Student(){ Name="Burakhan", Age=300,Surname="Şamlı", Id=1},

@@ -1,6 +1,7 @@
 using MediatR;
 
 namespace CQRS.CQRS.Commands {
+
     public class RemoveStudentCommand : IRequest{
         public int Id { get; set; }
 
@@ -8,4 +9,5 @@ namespace CQRS.CQRS.Commands {
             Id = id;
         }
     }
+    
 }

@@ -1,0 +1,52 @@
+@model UserLoginModel
+@{
+    Layout=null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Giriş Sayfası</title>
+</head>
+<body>
+    <div class="container">
+        <form action="w-75 m-5 p-3" asp-action="Login" asp-controller="Account" method="post">
+            <div class="mb-3">
+                <label for="@Model.Username" class="form-label"></label>
+                <input class="form-control" type="text" asp-for="@Model.Username">
+                <span asp-validation-for="@Model.Username" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.Password" class="form-label"></label>
+                <input class="form-control" type="text" asp-for="@Model.Password">
+                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

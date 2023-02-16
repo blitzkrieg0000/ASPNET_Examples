@@ -1,0 +1,36 @@
+@using System.Text.Json
+@model CreateProductModel
+@{
+    Layout="_Layout";
+}
+<div>
+    <form class="w-75 m-5 p-3" method="post" asp-action="Create" asp-controller="Category">
+        @{
+            TempData["Categories"] = JsonSerializer.Serialize(Model.Categories);
+        }
+        <div class="mb-3">
+            <label for="@Model.Name">Ürün Adi Giriniz</label>
+            <input type="text" asp-for="@Model.Name" class="form-control">
+            <span class="text-danger" asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="mb-3">
+            <label for="@Model.Price">Ürün Fiyati Giriniz</label>
+            <input type="text" asp-for="@Model.Price" class="form-control">
+            <span class="text-danger" asp-validation-for="@Model.Price"></span>
+        </div>
+        <div class="mb-3">
+            <label for="@Model.Stock">Ürün Stock Giriniz</label>
+            <input type="text" asp-for="@Model.Stock" class="form-control">
+            <span class="text-danger" asp-validation-for="@Model.Stock"></span>
+        </div>
+        <div class="mb-3">
+            <label for="@Model.CategoryId">Kategori Giriniz</label>
+            <select class="form-select" asp-items="@Model.Categories" asp-for="@Model.CategoryId">
+                <option selected>Kategori Seçiniz</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Ekle</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+@model List<CategoryListModel>
+@{
+    Layout="_Layout";
+}   
+<h2>Kategori Listesi</h2>
+<div class="text-end">
+    <a asp-action="Create" asp-controller="Category">Yeni Kategori Oluştur</a>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Kategori Adı</th>
+      <th scope="col">İşlemler</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var category in Model)
+    {
+    <tr>
+      <th scope="row">@category.Id</th>
+      <td>@category.Definition</td>
+      <td>
+        <a class="btn btn-danger" asp-action="Remove" asp-controller="Category" asp-route-id="@category.Id">Sil</a>
+        <a class="btn btn-warning" asp-action="Update" asp-controller="Category" asp-route-id="@category.Id">Sil</a>
+      </td>
+    </tr>    
+    }
+    
+  </tbody>
+</table>

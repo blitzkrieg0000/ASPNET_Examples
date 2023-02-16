@@ -60,7 +60,6 @@ namespace WebApi {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
-            services.
 
         }
 

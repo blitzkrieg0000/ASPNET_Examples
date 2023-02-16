@@ -1,0 +1,16 @@
+@model CreateCategoryModel
+@{
+    Layout="_Layout";
+}
+<div>
+    <form class="w-75 m-5 p-3" method="post" asp-action="Create" asp-controller="Category">
+        <div class="mb-3">
+            <label for="@Model.Definition">Kategori Adı Giriniz</label>
+            <input type="text" asp-for="@Model.Definition" class="form-control">
+            <span class="text-danger" asp-validation-for="@Model.Definition"></span>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Ekle</button>
+        </div>
+    </form>
+</div>

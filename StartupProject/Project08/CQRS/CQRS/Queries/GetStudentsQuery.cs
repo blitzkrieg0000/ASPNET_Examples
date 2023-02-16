@@ -4,5 +4,7 @@ using MediatR;
 namespace CQRS.CQRS.Queries {
     public class GetStudentsQuery : IRequest<IEnumerable<GetStudentsQueryResult>> {
 
+
+        
     }
 }

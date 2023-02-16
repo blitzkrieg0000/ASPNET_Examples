@@ -1,0 +1,17 @@
+@model CategoryListModel
+@{
+    Layout="_Layout";
+}
+<div>
+    <form class="w-75 m-5 p-3" method="post" asp-action="Update" asp-controller="Category">
+        <input type="hidden" asp-for="@Model.Id">
+        <div class="mb-3">
+            <label for="@Model.Definition">Kategori Adı</label>
+            <span class="text-danger" asp-validation-for="@Model.Definition"></span>
+            <input type="text" asp-for="@Model.Definition" class="form-control">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Güncelle</button>
+        </div>
+    </form>
+</div>

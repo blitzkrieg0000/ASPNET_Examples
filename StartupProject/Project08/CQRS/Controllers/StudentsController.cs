@@ -1,5 +1,4 @@
 using CQRS.CQRS.Commands;
-using CQRS.CQRS.Handlers;
 using CQRS.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +14,13 @@ namespace CQRS.Controllers {
             _mediator = mediator;
         }
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudent(int id) {
             var result = await _mediator.Send(new GetStudentByIdQuery(id));
             return Ok(result);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllStudent() {
