@@ -38,6 +38,7 @@ namespace Business.Services {
 			}
 		}
 
+
 		public async Task<Response<List<WorkListDto>>> GetAll() {
 
 			var data = _mapper.Map<List<WorkListDto>>(
@@ -46,6 +47,7 @@ namespace Business.Services {
 
 			return new Response<List<WorkListDto>>(ResponseType.Success, data);
 		}
+
 
 		public async Task<IResponse<IDto>> GetById<IDto>(int id) {
 
@@ -59,6 +61,7 @@ namespace Business.Services {
 			return new Response<IDto>(ResponseType.Success, data);
 		}
 
+
 		public async Task<IResponse> Remove(int id) {
 			var removedEntity = await _unitOfWork.GetRepository<Work>().GetByFilter(x => x.Id == id);
 
@@ -69,6 +72,7 @@ namespace Business.Services {
 			}
 			return new Response(ResponseType.NotFound, $"{id} ye ait veri bulunamadı!");
 		}
+
 
 		public async Task<IResponse<WorkUpdateDto>> Update(WorkUpdateDto dto) {
 			var validationResult = _updateDtoValidator.Validate(dto);
