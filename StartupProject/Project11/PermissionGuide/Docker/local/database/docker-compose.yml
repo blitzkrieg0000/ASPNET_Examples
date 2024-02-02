@@ -1,0 +1,26 @@
+# Use postgres/example user/password credentials
+version: "3.8"
+
+services:
+    postgresql:
+        image: postgres:latest
+        restart: always
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: test
+        networks:
+            - postgresql-net
+        ports:
+            - 5432:5432
+        volumes:
+            - ./postgresql-data:/var/lib/postgresql/data
+
+
+volumes:
+    postgresql-data:
+
+
+networks:
+    postgresql-net:
+        driver: bridge
