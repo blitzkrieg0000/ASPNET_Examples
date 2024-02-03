@@ -11,6 +11,15 @@
         "NewLinesForBracesInAccessors": false,
         "NewLineForElse": false,
         "NewLineForCatch": false,
-        "NewLineForFinally": false
+        "NewLineForFinally": false,
+        "SpaceBetweenEmptySquareBrackets": false,
+        "SpaceBeforeOpenSquareBracket": false,
+        "SpaceBetweenEmptyMethodCallParentheses": false,
+        "SpaceAfterMethodCallName": false,
+        "SpaceBetweenEmptyMethodDeclarationParentheses": false,
+        "SpacingAfterMethodDeclarationName": false
+    },
+    "RoslynExtensionsOptions": {
+        "enableAnalyzersSupport": true
     }
 }
