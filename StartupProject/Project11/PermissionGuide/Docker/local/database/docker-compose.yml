@@ -1,26 +1,26 @@
-# Use postgres/example user/password credentials
 version: "3.8"
 
 services:
-    postgresql:
+    permission_guide-postgresql:
         image: postgres:latest
+        container_name: permission_guide-postgresql
         restart: always
         environment:
             POSTGRES_USER: test
             POSTGRES_PASSWORD: test
             POSTGRES_DB: test
         networks:
-            - postgresql-net
+            - permission_guide-postgresql-net
         ports:
-            - 5432:5432
+            - 65432:5432
         volumes:
-            - ./postgresql-data:/var/lib/postgresql/data
+            - permission_guide-postgresql-data:/var/lib/postgresql/data
 
 
 volumes:
-    postgresql-data:
+    permission_guide-postgresql-data:
 
 
 networks:
-    postgresql-net:
+    permission_guide-postgresql-net:
         driver: bridge
