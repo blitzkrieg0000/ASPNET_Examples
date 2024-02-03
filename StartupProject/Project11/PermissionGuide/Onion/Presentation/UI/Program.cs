@@ -169,7 +169,7 @@ internal class Program {
 		    */
 		    opt.RequireHttpsMetadata = false; //true
 		    opt.TokenValidationParameters = new() {
-		        ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha512 },
+		        ValidAlgorithms = [SecurityAlgorithms.HmacSha512],
 		        ValidateAudience = true,
 		        ValidateIssuer = true,
 		        ValidateLifetime = true,
@@ -278,7 +278,7 @@ internal class Program {
 		builder.Services.AddResponseCompression(options => {
 			options.EnableForHttps = true;
 			options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-				new[] { "image/svg+xml", "image/png", "image/jpeg", "application/javascript", "text/css" }
+				["image/svg+xml", "image/png", "image/jpeg", "application/javascript", "text/css"]
 			);
 		});
 		#endregion

@@ -11,7 +11,7 @@ public class ValidName : ActionFilterAttribute {
         var name = dictionary.Value;
 
         if (name != null) {
-            if ("root" == ((string)name).ToLower()) {
+            if ("root".Equals((string)name, StringComparison.CurrentCultureIgnoreCase)) {
                 context.Result = new RedirectResult("/Home/Index");
             }
         }
