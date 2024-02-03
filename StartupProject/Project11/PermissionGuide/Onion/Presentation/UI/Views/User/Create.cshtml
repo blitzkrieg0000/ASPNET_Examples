@@ -1,0 +1,124 @@
+@model UserSignUpDto
+
+@{
+	Layout = "_AdminLayout";
+	ViewBag.Title = "Kullanıcı Ekle";
+}
+
+
+@section Head{
+	<title>Kullanıcı Ekle</title>
+}
+
+@* <!-- BEGIN LOADER -->
+<div id="load_screen">
+<div class="loader">
+<div class="loader-content">
+<div class="spinner-grow align-self-center"></div>
+</div>
+</div>
+</div>
+<!-- END LOADER --> *@
+
+
+<div class="auth-container d-flex">
+
+	<div class="container mx-auto align-self-center">
+
+		<div class="row">
+
+			<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+				<div class="card mt-3 mb-3">
+					<div class="card-body">
+
+						<div class="row">
+							<div class="col-md-12 mb-3">
+
+								<h2>Kullanıcı Kaydı</h2>
+								<p>Kullanıcının bilgilerini giriniz.</p>
+
+							</div>
+							<form asp-action="Create" asp-controller="User" method="post" autocomplete="off">
+								<div class="col-md-12">
+									<div class="mb-3">
+										<label class="form-label">Kullanıcı Adı
+											<span class="text-danger">*</span>
+											<span asp-validation-for="@Model.Username" class="text-danger"></span>
+										</label>
+										<input asp-for="@Model.Username" class="form-control add-billing-address-input">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="mb-3">
+										<label class="form-label">Eposta
+											<span class="text-danger">*</span>
+											<span asp-validation-for="@Model.Email" class="text-danger"></span>
+										</label>
+										<input asp-for="@Model.Email" type="email" class="form-control">
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="mb-3">
+										<label class="form-label">Parola
+											<span class="text-danger">*</span>
+											<span asp-validation-for="@Model.Password" class="text-danger"></span>
+										</label>
+
+										@await Component.InvokeAsync("HashedPasswordInput", new {@name = nameof(Model.Password)})
+
+									</div>
+								</div>
+
+
+								<div class="col-12">
+									<div class="mb-4">
+										<button type="submit" class="btn btn-secondary w-100">Kullanıcı Ekle</button>
+									</div>
+									<div>
+										<div asp-validation-summary="All" class="text-danger"></div>
+									</div>
+								</div>
+
+							</form>
+
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+@section Script{
+	@* HASH PASSWORD *@
+	<script src="~/node_modules/js-sha3/build/sha3.min.js"></script>
+	<script src="~/asset/js/HashModule.js"></script>
+
+	@* Validation *@
+	<script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+	<script>
+        ChangeBreadcrumb({
+            primaryName : "Kullanıcılar",
+            primaryLink : "/User/List",
+            secondaryName : "Kullanıcı Ekle"
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+

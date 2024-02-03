@@ -1,0 +1,76 @@
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Head{
+    <link href="~/cork/src/assets/css/light/components/media_object.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/components/media_object.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+}
+
+
+<RolePermission role=@RoleDefaults.SuperUser Permission=@EndpointDefaults.Identifier.Redis.Delete>
+    <div class="row">
+    @{
+            await Html.RenderPartialAsync("~/Views/Shared/PartialViews/_CustomModal.cshtml", new ViewDataDictionary(ViewData){
+        {"modal_id", "redisClear"},
+        {"modal_title", "Kritik Uyarı"},
+        {"modal_body", "Server ön belleği(cache) temizlenecektir. İşleme devam edilsin mi?"},
+        {"approve_button", "Temizle"},
+        {"deny_button", "İptal"}
+        });
+    }
+    </div>
+    <div class="row">
+        <div class="col-xxl-6 col-xl-12 col-lg-12 col-md-12 col-sm-6 mx-auto">
+            <div class="card">
+                <img src="~/asset/image/redis.png" class="card-img-top  mt-3 ml-3 mx-3" alt="redis" style="width: 10%;">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Redis Cache</h5>
+                    <p class="card-text">Son değişiklikleri kullanıcılara direkt olarak yansıtmak için ön belleği temizleyin.</p>
+                    <strong>Aktif kullanıcıların işleri sekteye uğrayabilir.</strong>
+                    <hr />
+                    <a class="btn btn-danger mt-3" asp-controller="RedisCache" asp-action="RedisUserPermissionUpdate" data-bs-toggle="modal" data-bs-target="#redisClear">Server ön belleğini temizle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</RolePermission>
+
+
+
+@section Script{
+    @* Modal: RedisClear *@
+    <script>
+        // Event Listener : "show.bs.modal"
+        const actionModal = document.getElementById('redisClear');
+        actionModal.addEventListener('show.bs.modal', event => {
+            //! Modal'ı tetikleyen button'u al
+            const button = event.relatedTarget;
+
+            //! Modal'ın butonunu güncelle
+            const approveButton = actionModal.querySelector('#approveButton');
+            approveButton.removeChild(approveButton.firstChild);
+            var cloneButton = button.cloneNode(true);
+            cloneButton.setAttribute("id", "approveButton")
+            cloneButton.removeAttribute("data-bs-target");
+            cloneButton.removeAttribute("data-bs-toggle");
+            if (!cloneButton.hasAttribute("href")) {
+                cloneButton.type = "post";
+            }
+            approveButton.replaceWith(cloneButton);
+        });
+    </script>
+
+
+    @* BreadCrumb *@
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "Ana Sayfa",
+            primaryLink: "/Admin/Index",
+            secondaryName: "Ayarlar"
+        });
+    </script>
+}

@@ -1,0 +1,53 @@
+@model RoleCreateDto
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Rol Ekle";
+}
+
+@section Head{
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+}
+
+<form id="defaultForm" asp-controller="Role" asp-action="Create" method="post" class="row g-3" autocomplete="off">
+    <div class="row">
+        @{
+            await Html.RenderPartialAsync("~/Views/Shared/PartialViews/_CustomModal.cshtml", new ViewDataDictionary(ViewData){
+        {"modal_id", "actionModal"},
+        {"modal_title", "Uyarı"},
+        {"modal_body", "Eklemek istediğinize emin misiniz?"},
+        {"approve_button", "Ekle"},
+        {"deny_button", "İptal"}
+        });
+        }
+    </div>
+
+    @* <input type="hidden" name="Secret" asp-for=@TempData["Secret"]> *@
+
+    <div class="col-md-12">
+        <label class="form-label">Rol İsmi
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.Name" class="form-control">
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#actionModal">Ekle</button>
+    </div>
+
+</form>
+
+
+@section Script{
+    <script src="~/asset/js/CustomModal.js"></script>
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "Rol Listesi",
+            primaryLink: "/Role/List",
+            secondaryName: "Rol Ekle"
+        });
+    </script>
+}

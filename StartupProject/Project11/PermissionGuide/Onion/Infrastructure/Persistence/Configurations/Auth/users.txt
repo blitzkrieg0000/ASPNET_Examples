@@ -1,0 +1,62 @@
+		builder.HasData(new ApplicationUser {
+			Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+			Username = "root",
+			Name = "root",
+			NormalizedName = "ROOT",
+			Password = "f3f5e898ed41cd8e0b3785bc5bba537deffe3889e525b30e72f947a27c2d2caf986f73663a308e97ba6f24323ce2929e6afe4b86204d93617c16000dd574a8e5",
+			TwoFactorEnabled = true,
+			Email = "burakhansamli0.0.0.0@gmail.com",
+			EmailApproved = true,
+			PhoneNumberApproved = true,
+			IsPersistent = true,
+			Active = true
+		},
+		new ApplicationUser {
+			Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+			Username = "admin",
+			Name = "admin",
+			NormalizedName = "ADMIN",
+			Password = "99ec526fe3e3f956acb4712b6bca88d918a3eb6d3e0a17634667e2775aad07ec1f8f84f8bbbf227eb5e0574177b13c8c30cc71b2d8e9bda722c023a81b754601",
+			TwoFactorEnabled = true,
+			EmailApproved = true,
+			PhoneNumberApproved = true,
+			IsPersistent = true,
+			Active = true
+		});
+
+
+
+		builder.HasData(new ApplicationRole() {
+			Id = RoleDefaults.SuperUser.Id,
+			Name = "SuperUser",
+			IsPersistent = true,
+			Active = true
+		}, new ApplicationRole() {
+			Id = RoleDefaults.Admin.Id,
+			Name = "Admin",
+			IsPersistent = true,
+			Active = true
+		},
+		new ApplicationRole() {
+			Id = RoleDefaults.Member.Id,
+			Name = "Member",
+			IsPersistent = true,
+			Active = true
+		});
+
+
+
+		builder.HasData(new ApplicationUserRole() {
+			Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+			RoleId = RoleDefaults.SuperUser.Id,
+			UserId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+			IsPersistent = true,
+			Active = true
+		},
+		new ApplicationUserRole() {
+			Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+			RoleId = RoleDefaults.Admin.Id,
+			UserId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+			IsPersistent = true,
+			Active = true
+		});

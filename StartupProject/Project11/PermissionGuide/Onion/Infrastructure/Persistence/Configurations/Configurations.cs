@@ -7,9 +7,10 @@ static class Configuration {
     public static string ConnectionString {
         get {
             ConfigurationManager configurationManager = new();
+            configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/UI"));
+            
             try {
-                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/UI"));
-                //TODO IsDevelopment ı kontrol ederek ayarlanacak
+                //? "appsettings.Development.json" CI/CD esnasında silinmelidir ki hassas veriler sunucuda dahi tutulmasın.
                 configurationManager.AddJsonFile("appsettings.Development.json");
             } catch {
                 configurationManager.AddJsonFile("appsettings.Production.json");

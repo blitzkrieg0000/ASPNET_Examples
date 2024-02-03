@@ -1,0 +1,330 @@
+@model UserUpdateDto
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Kullanıcı Güncelle";
+}
+
+@section Head{
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/asset/css/PhotoUploadInput.css" rel="stylesheet" type="text/css" />
+
+    @* Tagify *@
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/src/tagify/tagify.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/tagify/custom-tagify.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/tagify/custom-tagify.css">
+}
+
+@*! Role Edit Modal *@
+<div id="editUserRoles" class="modal modal-xl animated zoomInUp custo-zoomInUp" role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Rolleri Düzenleme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                @* <p class="modal-text"> Kullanıcı Rollerini Ekleyin veya Çıkarın </p> *@
+                <div class="row">
+                    <label class="form-label">Atamak istediğiniz kullanıcı rollerini seçiniz.</label>
+                    @await Component.InvokeAsync("UserRoleEditor", Model.Id)
+                </div>
+            </div>
+            <div class="modal-footer md-button">
+                <a class="btn btn-light-dark" data-bs-dismiss="modal">İptal</a>
+                <button type="submit" form="roleEditForm" class="btn btn-secondary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form id="defaultForm" asp-controller="User" asp-action="Update" method="post" enctype="multipart/form-data" class="row g-3" autocomplete="off">
+    @*! Action Button Modal *@
+    <div class="row">
+        @{
+            await Html.RenderPartialAsync("~/Views/Shared/PartialViews/_CustomModal.cshtml", new ViewDataDictionary(ViewData)
+        {
+        { "modal_id", "actionModal"},
+        { "modal_title", "Uyarı"},
+        { "modal_body", "Güncellemek istediğinize emin misiniz?"},
+        { "approve_button", "Güncelle"},
+        { "deny_button", "İptal"}
+        });
+        }
+    </div>
+    <input type="hidden" name="Secret" asp-for=@ViewData["Secret"]>
+
+    <div class="col-md-4">
+        <div class="pic-holder">
+            <img id="profilePic" class="pic" src="~/@Model.Image">
+            @Html.HiddenFor(x=>x.Image)
+            <Input class="uploadProfileInput" type="file" asp-for="@Model.Files" id="Files" accept="image/*" style="opacity: 0;" />
+            <label for="Files" class="upload-file-block">
+                <div class="text-center">
+                    <div class="mb-2">
+                        <div class="icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                            </svg><span class="icon-name"> Profil Resmi</span>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Kullanıcı adı
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.Username" class="form-control">
+    </div>
+
+    <div class="col-md-10">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editUserRoles" data-bs-carry="submit">Kullanıcı Rollerini Yönet</button>
+    </div>
+
+    <div class="col-md-5">
+        <label class="form-label">İsim
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.Name" class="form-control">
+    </div>
+
+    <div class="col-md-5">
+        <label class="form-label">Düzeltilmiş İsim
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.NormalizedName" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.NormalizedName" class="form-control">
+    </div>
+
+    <div class="col-md-10">
+        <label class="form-label">Email
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.Email" type="email" class="form-control">
+    </div>
+
+    <div class="col-md-10">
+        <label class="form-label">Telefon Numarası
+            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.PhoneNumber" class="form-control">
+    </div>
+
+    <div class="col-md-10">
+        <label class="form-label">Açıklama
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+        </label>
+        <input asp-for="@Model.Description" class="form-control">
+    </div>
+
+    <div class="col-md-10">
+        <label class="form-label">Hesap Kilitlenme Tarihi(UTC)</label>
+        <input asp-for="@Model.LockoutEndDateUtc" class="form-control">
+    </div>
+
+    @*! Gender *@
+    <div class="col-md-12">
+        <label class="form-check-label" for="gridCheck">Cinsiyet</label>
+        <div id="gridCheck" class="form-check mt-2">
+            <div class="form-check form-check-primary form-check-inline">
+                <input class="form-check-input" type="radio" id="form-check-radio-default" value="@GenderDefaults.Male" asp-for="@Model.Gender" />
+                <label class="form-check-label" for="form-check-radio-default">
+                    Erkek
+                </label>
+            </div>
+            <div class="form-check form-check-primary form-check-inline">
+                <input class="form-check-input" type="radio" id="form-check-radio-default" value="@GenderDefaults.Female" asp-for="@Model.Gender" />
+                <label class="form-check-label" for="form-check-radio-default">
+                    Kadın
+                </label>
+            </div>
+            <div class="form-check form-check-primary form-check-inline">
+                <input class="form-check-input" type="radio" id="form-check-radio-default" value="@GenderDefaults.Unspecified" asp-for="@Model.Gender" />
+                <label class="form-check-label" for="form-check-radio-default">
+                    Belirtilmedi
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-check-label" for="gridCheck">Email onaylandı mı?</label>
+        <div class="form-check mt-2  mx-1">
+            <input id="gridCheck" class="form-check-input" type="checkbox" asp-for="@Model.EmailApproved">
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-check-label" for="gridCheck">Telefon onaylandı mı?</label>
+        <div id="gridCheck" class="form-check mt-2  mx-1">
+            <input class="form-check-input" type="checkbox" asp-for="@Model.PhoneNumberApproved">
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="col-md-4">
+        <label class="form-check-label" for="gridCheck">Hesap kilitlenebilirliğini etkinleştir.</label>
+        <div id="gridCheck" class="form-check mt-2  mx-1">
+            <input class="form-check-input" type="checkbox" asp-for="@Model.LockoutEnabled">
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-check-label" for="gridCheck">Çift taraflı doğrulamayı etkinleştir.</label>
+        <div id="gridCheck" class="form-check mt-2  mx-1">
+            <input class="form-check-input" type="checkbox" asp-for="@Model.TwoFactorEnabled">
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="col-md-12">
+        <label class="form-check-label" for="gridCheck">Aktif mi?</label>
+        <div id="gridCheck" class="form-check mt-2  mx-1">
+            <input class="form-check-input" type="checkbox" asp-for="@Model.Active">
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#actionModal" data-bs-carry="submit">Güncelle</button>
+    </div>
+
+</form>
+
+
+@section Script{
+    <script src="~/asset/js/PhotoUploadInput.js"></script>
+    <script src="~/asset/js/CustomModal.js"></script>
+    <script src="~/cork/src/plugins/src/tagify/tagify.min.js"></script>
+
+
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "Kullanıcılar",
+            primaryLink: "/User/List",
+            secondaryName: "Kullanıcı Güncelle"
+        });
+    </script>
+
+
+    <script>
+        //TAGIFY
+        var inputElm = document.querySelector('input[name=userRoleTags]');
+
+        function tagTemplate(tagData) {
+            return `
+                    <tag title="${tagData.email}"
+                            contenteditable='false'
+                            spellcheck='false'
+                            tabIndex="-1"
+                            class="tagify__tag ${tagData.class ? tagData.class : ""}"
+                            ${this.getAttributes(tagData)}>
+                        <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
+                        <div>
+                            <div class='tagify__tag__avatar-wrap'>
+                                <img onerror="this.style.visibility='hidden'" src="${tagData.avatar}">
+                            </div>
+                            <span class='tagify__tag-text'>${tagData.name}</span>
+                        </div>
+                    </tag>
+                `
+        }
+
+        // Dropdown Önerisi Taslağı
+        function suggestionItemTemplate(tagData) {
+            return `
+                    <div ${this.getAttributes(tagData)}
+                        class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}'
+                        tabindex="0"
+                        role="option">
+                        ${tagData.avatar ? `
+                        <div class='tagify__dropdown__item__avatar-wrap'>
+                            <img onerror="this.style.visibility='hidden'" src="${tagData.avatar}">
+                        </div>` : ''
+                        }
+                        <strong>${tagData.name}</strong>
+                        <span>${tagData.description}</span>
+                    </div>
+                    `
+        }
+
+        // Mevcut rolleri json string olarak alır.
+        var existRolesElement = document.getElementById("existRoles");
+        var existRoles = JSON.parse(existRolesElement.value);
+
+        // Tagify Instance
+        var usrList = new Tagify(inputElm, {
+            tagTextProp: 'name', /// Bu özellikle metin olarak özel bir şablon kullanıldığından çok önemlidir. 
+            enforceWhitelist: true,
+            skipInvalid: true, // Geçici olarak geçersiz etiketler eklemeyin
+            dropdown: {
+                closeOnSelect: false,
+                enabled: 0,
+                classname: 'users-list',
+                searchKeys: ['name', 'value'] //Hangi değerlerden arama yapılacağını seçer.
+            },
+            templates: {
+                tag: tagTemplate,
+                dropdownItem: suggestionItemTemplate
+            },
+            whitelist: existRoles
+        })
+
+        usrList.on('dropdown:show dropdown:updated', onDropdownShow)
+        usrList.on('dropdown:select', onSelectSuggestion)
+
+        var addAllSuggestionsElm;
+
+        function onDropdownShow(e) {
+            var dropdownContentElm = e.detail.tagify.DOM.dropdown.content;
+
+            if (usrList.suggestedListItems.length > 1) {
+                addAllSuggestionsElm = getAddAllSuggestionsElm();
+
+                // insert "addAllSuggestionsElm" as the first element in the suggestions list
+                dropdownContentElm.insertBefore(addAllSuggestionsElm, dropdownContentElm.firstChild)
+            }
+        }
+
+        function onSelectSuggestion(e) {
+            if (e.detail.elm == addAllSuggestionsElm)
+                usrList.dropdown.selectAll();
+        }
+
+        // create a "add all" custom suggestion element every time the dropdown changes
+        function getAddAllSuggestionsElm() {
+            // suggestions items should be based on "dropdownItem" template
+            return usrList.parseTemplate('dropdownItem', [{
+                class: "addAll",
+                name: "Tümünü seç",
+                description: usrList.whitelist.reduce(function (remainingSuggestions, item) {
+                    return usrList.isTagDuplicate(item.value) ? remainingSuggestions : remainingSuggestions + 1
+                }, 0) + " Rol"
+            }]
+            )
+        }
+    </script>
+}
+

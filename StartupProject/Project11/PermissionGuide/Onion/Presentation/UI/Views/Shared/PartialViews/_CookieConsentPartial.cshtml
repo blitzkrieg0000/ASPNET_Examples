@@ -1,0 +1,29 @@
+@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = !consentFeature?.CanTrack ?? false;
+    var cookieString = consentFeature?.CreateConsentCookie();
+}
+
+@if (showBanner)
+{
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+    Daha iyi bir hizmet verebilmemiz için Gizlilik ve Çerez kullanım politikasını kabul edin. 
+    <a class="btn" asp-controller="Home" asp-action="Privacy">Daha fazlasını öğrenin.</a>
+
+    <button type="button" class="accept-policy close btn btn-primary" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+        <span aria-hidden="true">Kabul Et</span>
+    </button>
+
+</div>
+    <script>
+    (function () {
+        var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+        button.addEventListener("click", function (event) {
+            document.cookie = button.dataset.cookieString;
+            button.style.display = 'none';
+        }, false);
+    })();
+</script>
+}

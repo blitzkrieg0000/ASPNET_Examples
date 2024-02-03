@@ -1,0 +1,148 @@
+@model List<RoleDto>
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Rol Listesi";
+}
+
+@section Head {
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/src/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/custom_dt_custom.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/custom_dt_custom.css">
+
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/tabs.css" rel="stylesheet" type="text/css">
+}
+
+<div class="row">
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/PartialViews/_CustomModal.cshtml", new ViewDataDictionary(ViewData){
+    {"modal_id", "actionModal"},
+    {"modal_title", "Uyarı"},
+    {"modal_body", "Devam etmek istediğinize emin misiniz?"},
+    {"approve_button", "Onayla"},
+    {"deny_button", "İptal"}
+    });
+    }
+</div>
+
+<form asp-controller="UserRoleManagement" id="dataTableForm" method="post" autocomplete="off">
+    <div class="row layout-spacing">
+        <div class="col-lg-12">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-content widget-content-area">
+                    <table id="style-1" class="table style-1 dt-table-hover non-hover">
+                        <thead>
+                            <tr>
+                                <th>Rol Adı</th>
+                                <th>Oluşturma Tarihi</th>
+                                <th>Aktif mi?</th>
+                                <th class="text-center dt-no-sorting">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="UserRoleManagement" asp-action="AssignedRoleList" asp-route-id=@item.Id class="shadow-none badge @(item.IsPersistent ? "badge-secondary" : "badge-primary")">
+                                            @item.Name
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @item.CreatedTime
+                                    </td>
+                                    <td>
+                                        @if (@item.Active)
+                                        {
+                                            <span class='badge badge-success'>✓</span>
+                                        }
+                                        else
+                                        {
+                                            <span class='badge badge-danger'>x</span>
+                                        }
+                                    </td>
+                                    <td class="icon-content-container">
+                                        <div class="row flex-nowrap justify-content-center">
+                                            @* Remove Button *@
+                                            <a type="button" class="col-auto px-1 m-1 btn btn-outline-danger @(item.IsPersistent ? "disabled" : "")" asp-action="Remove" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#actionModal">
+                                                <div class="icon-container">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg><span class="icon-name"></span>
+                                                </div>
+                                            </a>
+
+                                            <a type="button" class="col-auto px-1 m-1 btn btn-outline-success" asp-controller="UserRoleManagement" asp-action="AssignedRoleList" asp-route-id=@item.Id>
+                                                <div class="icon-container">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+                                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="9" cy="7" r="4"></circle>
+                                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                                    </svg>
+                                                </div>
+                                            </a>
+
+                                            <a type="button" class="col-auto px-1 m-1 btn btn-outline" asp-controller="Endpoint" asp-action="AuthorizedEndpointList" asp-route-id="@item.Id">
+                                                <div class="icon-container">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                                    </svg>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Script{
+    <script src="~/cork/src/plugins/src/table/datatable/datatables.js"></script>
+    <script src="~/asset/js/DataTable.js"></script>
+    <script src="~/asset/js/CustomModal.js"></script>
+    <script>
+        //Create Butonu Ekle
+        var tableHeader = document.getElementsByClassName("dt--top-section");
+        var placeAt = tableHeader[0].getElementsByClassName("row");
+
+        var newButton = document.createElement("a");
+        newButton.setAttribute("class", "btn btn-success ");
+        newButton.draggable = false;
+        newButton.setAttribute("href", "/Role/Create");
+        newButton.innerText = "Rol Ekle";
+
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("class", "col-6 col-sm-6 d-flex justify-content-sm-start justify-content-center");
+        newDiv.appendChild(newButton);
+        placeAt[0].insertBefore(newDiv, placeAt[0].firstChild);
+    </script>
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "Rol Listesi",
+            primaryLink: "/Role/List",
+            secondaryName: ""
+        });
+    </script>
+}

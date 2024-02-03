@@ -1,0 +1,10 @@
+@model UserRoleEditorModel
+
+
+<form id="roleEditForm" asp-action="AssignRolesByRoleEditor" asp-controller="UserRoleManagement" asp-route-id="@Model.Id" method="post" autocomplete="off">
+    <input id="existRoles" value="@Model.ExistRolesJson" type="hidden" disabled>
+    <input name='userRoleTags' value='@Model.AssignedRoleIdsJson' />
+    @* <button class="btn btn-secondary mt-2" type="submit">Rolleri Güncelle</button> *@
+</form>
+
+@* #users-list-tags *@

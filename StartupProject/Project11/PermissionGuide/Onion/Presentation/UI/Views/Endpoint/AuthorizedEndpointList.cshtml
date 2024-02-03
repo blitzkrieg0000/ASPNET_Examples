@@ -1,0 +1,175 @@
+@model AuthorizedEndpointListViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Rol Listesi";
+}
+@functions {
+    bool HasEndpointCode(string code)
+    {
+        return Model.Endpoints.Any(x => x.Code == code);
+    }
+}
+
+@section Head {
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/src/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/custom_dt_custom.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/custom_dt_custom.css">
+
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/tabs.css" rel="stylesheet" type="text/css">
+
+    <link href="~/cork/src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+
+    <link href="~/cork/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="~/cork/src/assets/css/light/elements/alert.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/assets/css/dark/elements/alert.css">
+}
+
+<div class="row">
+    @{
+        await Html.RenderPartialAsync("~/Views/Shared/PartialViews/_CustomModal.cshtml", new ViewDataDictionary(ViewData){
+    {"modal_id", "actionModal"},
+    {"modal_title", "Uyarı"},
+    {"modal_body", "Devam etmek istediğinize emin misiniz?"},
+    {"approve_button", "Onayla"},
+    {"deny_button", "İptal"}
+    });
+    }
+</div>
+
+@* Alert *@
+<div class='alert alert-icon-left alert-light-warning alert-dismissible fade show mb-4' role='alert'>
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-alert-triangle'>
+        <path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'></path>
+        <line x1='12' y1='9' x2='12' y2='13'></line>
+        <line x1='12' y1='17' x2='12' y2='17'></line>
+    </svg>
+    <h5>
+        <b>
+            <RoleInfo id=@Model.Id />
+        </b> rolünün yetkilerini yönetiyorsunuz.
+    </h5>
+</div>
+
+<form asp-action="AuthorizedEndpointUpdate" class="p-3" autocomplete="off">
+    <div id="listGroupTabbedInterfaces" class="col-lg-12 layout-spacing">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        @* <h4></h4> *@
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                <div class="row">
+                    <div class="col">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            @* <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#firstDescription" role="tab" aria-controls="list-home">
+                            <b>Endpoint Listesi</b>
+                            </a> *@
+                            @foreach (var item in Model.Menus)
+                            {
+                                <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list" href="#_@item.Name.GetSha256Hash()" role="tab" aria-controls="list-home">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="purple" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-codesandbox">
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                    </svg>
+                                    @item.Name
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="tab-content" id="nav-tabContent">
+                            @* <div class="tab-pane fade show active" id="firstDescription" role="tabpanel" aria-labelledby="list-profile-list">
+                            <p>Role Yetkilerini Düzenleyin</p>
+                            </div> *@
+
+                            @foreach (var item in Model.Menus)
+                            {
+                                <div class="tab-pane fade mt-3" id="_@item.Name.GetSha256Hash()" role="tabpanel" aria-labelledby="list-profile-list">
+
+                                    @foreach (var action in item.Actions)
+                                    {
+                                        <div class="row">
+                                            <div class="col">
+                                                <p>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="orange" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap">
+                                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                                    </svg>
+                                                    @action.Definition
+                                                </p>
+                                            </div>
+                                            <div class="col"><input class="form-check-input me-1" type="checkbox" value="@action.Code" @(HasEndpointCode(action.Code) ? "checked='checked'" : "")></div>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="selectedCodes" name="codes" value="[]">
+    <input type="hidden" name="id" value="@Model.Id">
+    <button class="btn btn-success" type="submit">Güncelle</button>
+</form>
+
+
+@section Script{
+    <script src="~/cork/src/plugins/src/table/datatable/datatables.js"></script>
+    <script src="~/asset/js/DataTable.js"></script>
+    <script src="~/asset/js/CustomModal.js"></script>
+
+    <script>
+        var hinput = document.getElementById("selectedCodes");
+        var content = document.getElementById("nav-tabContent");
+        var checkboxes = content.getElementsByClassName("form-check-input me-1");
+
+        function updateSelectedCodesValue() {
+            var results = [];
+            for (var checkbox of checkboxes) {
+                if (checkbox.checked) {
+                    results.push(checkbox.value);
+                }
+            }
+            hinput.value = JSON.stringify(results);
+        }
+        updateSelectedCodesValue()
+
+        for (var cb of checkboxes) {
+            cb.addEventListener('change', function () {
+                updateSelectedCodesValue();
+            });
+        }
+    </script>
+
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "Rol Listesi",
+            primaryLink: "/Role/List",
+            secondaryName: "Endpoint Yönetimi"
+        });
+    </script>
+}
