@@ -43,7 +43,7 @@ internal class Program {
                 EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
                 ValidationAlgorithm = ValidationAlgorithm.HMACSHA512
             }).SetApplicationName(builder.Configuration["Project:ApplicationName"]!);
-			//  .PersistKeysToDbContext<DefaultContext>();
+			// .PersistKeysToDbContext<DefaultContext>();
         #endregion
 
 
