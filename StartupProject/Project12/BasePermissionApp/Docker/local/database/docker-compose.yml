@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+    base_permission_app-postgresql:
+        image: postgres:latest
+        container_name: base_permission_app-postgresql
+        restart: always
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: test
+        networks:
+            - base_permission_app-postgresql-net
+        ports:
+            - 65432:5432
+        volumes:
+            - base_permission_app-postgresql-data:/var/lib/postgresql/data
+
+
+
+    base_permission_app-redis:
+        image: redis:latest
+        container_name: base_permission_app-redis
+        hostname: redis
+        restart: always
+        networks:
+            - base_permission_app-postgresql-net
+        ports:
+            - "56379:6379"
+
+
+    base_permission_app-redis-commander:
+        image: rediscommander/redis-commander:latest
+        container_name: base_permission_app-redis-commander
+        hostname: redis-commander
+        restart: always
+        networks:
+            - base_permission_app-postgresql-net
+        environment:
+            - REDIS_HOSTS=redis
+        ports:
+            - "58081:8081"
+        
+
+volumes:
+    base_permission_app-postgresql-data:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: "./data-volume/sql"
+
+
+networks:
+    base_permission_app-postgresql-net:
+        driver: bridge

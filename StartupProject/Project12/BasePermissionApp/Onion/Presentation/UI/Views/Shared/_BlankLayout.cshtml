@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+
+<head>
+    @await RenderSectionAsync("Head", required: false)
+</head>
+
+
+<body>
+
+    @RenderBody()
+
+    @await RenderSectionAsync("Script", required: false)
+</body>
+
+
+</html>
