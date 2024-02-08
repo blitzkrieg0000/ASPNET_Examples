@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Persistence;
 using Application;
+using Infrastructure;
 using Microsoft.AspNetCore.ResponseCompression;
 using UI.Extensions;
 using Microsoft.AspNetCore.StaticFiles;
@@ -14,14 +15,14 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 
 
 internal class Program {
-    private static void Main(string[] args) {
+	private static void Main(string[] args) {
 
-        //! BUILDER----------------------------------------------------------------------------------------------------
-        var builder = WebApplication.CreateBuilder(args);
+		//! BUILDER----------------------------------------------------------------------------------------------------
+		var builder = WebApplication.CreateBuilder(args);
 
 		#region Builder
-        
-        #region Add Environment Variables 
+
+		#region Add Environment Variables 
 		/*
 			Uygulamayı publish ettiğimizde -sırasıyla- nerelerden ortam değişkeni okuyacağınızı belirlersiniz. 1-appsettings.json, 2-Ortam değişkenleri
 		*/
@@ -37,25 +38,25 @@ internal class Program {
 		#endregion
 
 
-        #region Data Protection Defaults
-        var dataProtector = builder.Services.AddDataProtection(opt => opt.ApplicationDiscriminator = "MasterDataProtection")
-            .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration {
-                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
-                ValidationAlgorithm = ValidationAlgorithm.HMACSHA512
-            }).SetApplicationName(builder.Configuration["Project:ApplicationName"]!);
-			// .PersistKeysToDbContext<DefaultContext>();
-        #endregion
+		#region Data Protection Defaults
+		var dataProtector = builder.Services.AddDataProtection(opt => opt.ApplicationDiscriminator = "MasterDataProtection")
+			.UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration {
+				EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+				ValidationAlgorithm = ValidationAlgorithm.HMACSHA512
+			}).SetApplicationName(builder.Configuration["Project:ApplicationName"]!);
+		// .PersistKeysToDbContext<DefaultContext>();
+		#endregion
 
 
 		#region Controller Settings
 		// Contollerlar ile Viewleri kullanmayı aktif ederiz ve AddControllersWithViews'in 2.overloadındaki option'lar ile Filter yapılanmalarını otomatik olarak tüm controller'ların önüne koymuş oluştururuz.
 		builder.Services
-        .AddControllersWithViews()                                                       // MVC
+		.AddControllersWithViews()                                                       // MVC
 		.ConfigureApiBehaviorOptions(opt => opt.SuppressModelStateInvalidFilter = true)  // Varsayılan olarak gelen istekteki obje, controllera düşmeden validation yapılır ve hata varsa geri döndürülür. Bunu davranışı bastırabiliririz.
 		.AddSessionStateTempDataProvider();     // Default olarak "CookieBasedTempDataProvider" aktiftir. Gerekli görülürse TempData'nın Session'larda tutulması için çevrilebilir. Özellikle cookie tutulmasını onaylamayan kullanıcılar giriş yaptığından oturum cookie'si tutamıyorsak işimize yarar.
-        // .AddCookieTempDataProvider(opt => {  // Yukarıdaki yorum satırında bahsedilen Default davranış budur.  
-        //     opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-        // });
+												// .AddCookieTempDataProvider(opt => {  // Yukarıdaki yorum satırında bahsedilen Default davranış budur.  
+												//     opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+												// });
 		#endregion
 
 
@@ -89,23 +90,23 @@ internal class Program {
 		#region Authentication Settings
 		// Authentication (COOKIE)
 		builder.Services.AddAuthentication(opt => {
-		    opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 		})
 		.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt => {
-		    /*
+			/*
 		        !=> MVC Web girişleri için authentication yönetimi
 		    */
-		    opt.Cookie.Name = "BasePermissionAppAuthCookie";
-		    opt.Cookie.IsEssential = true;
-		    opt.Cookie.HttpOnly = true;
-		    opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-		    opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-		    opt.ExpireTimeSpan = TimeSpan.FromSeconds(double.Parse(builder.Configuration["AuthCookie:ExpireTimeSeconds"]!));
-		    opt.LoginPath = new PathString("/Auth/SignIn");
-		    opt.LogoutPath = new PathString("/Auth/LogOut");
-		    opt.AccessDeniedPath = new PathString("/Auth/AccessDenied");
+			opt.Cookie.Name = "BasePermissionAppAuthCookie";
+			opt.Cookie.IsEssential = true;
+			opt.Cookie.HttpOnly = true;
+			opt.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+			opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+			opt.ExpireTimeSpan = TimeSpan.FromSeconds(double.Parse(builder.Configuration["AuthCookie:ExpireTimeSeconds"]!));
+			opt.LoginPath = new PathString("/Auth/SignIn");
+			opt.LogoutPath = new PathString("/Auth/LogOut");
+			opt.AccessDeniedPath = new PathString("/Auth/AccessDenied");
 		});
-        #endregion
+		#endregion
 
 
 		#region CORS Settings
@@ -132,12 +133,13 @@ internal class Program {
 		// Diğer katmanlardaki extension classlardan çağırılıyor. Sadece düzeni sağlamak amacıyla buraya yazılacak bilgiler diğer katmanlarda yazılıyor.
 		builder.Services.AddApplicationServices();
 		builder.Services.AddPersistenceServices(builder.Configuration);
+		builder.Services.AddInfrastructureServices();
 		#endregion
 
 
-        #region ContextAccessor
-        builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-        #endregion
+		#region ContextAccessor
+		builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+		#endregion
 
 
 		#region Compression
@@ -150,23 +152,23 @@ internal class Program {
 		});
 		#endregion
 
-        ////Builder
-        #endregion
+		////Builder
+		#endregion
 
 
-        //! APPLICATION------------------------------------------------------------------------------------------------
-        var app = builder.Build();
-        #region Application
+		//! APPLICATION------------------------------------------------------------------------------------------------
+		var app = builder.Build();
+		#region Application
 
 		// Dinamik olarak http responseları sıkıştırmak için middleware ekler.
 		app.UseResponseCompression();
 
-        // Configure the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment()) {
-            app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-        }
+		// Configure the HTTP request pipeline.
+		if (!app.Environment.IsDevelopment()) {
+			app.UseExceptionHandler("/Error");
+			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+			app.UseHsts();
+		}
 
 		//Exception Handler
 		app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?code={0}");
@@ -175,11 +177,11 @@ internal class Program {
 		app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 		// Https'yi zorunlu kıl
-        app.UseHttpsRedirection();
+		app.UseHttpsRedirection();
 
 		#region Static Files
 		var contextTypeProvider = new FileExtensionContentTypeProvider();
-		
+
 		// wwwroot klasörünü erişime açar.
 		app.UseStaticFiles(new StaticFileOptions() {
 			ContentTypeProvider = contextTypeProvider
@@ -200,7 +202,7 @@ internal class Program {
 		// GDPR - KVKK (Çerezleri kabul ediyor musunuz ? CookiePolicy.cshtml => "Hassas verilerinizi çerezlerde tutmuyoruz vs.")
 		app.UseCookiePolicy();
 
-        app.UseRouting();
+		app.UseRouting();
 
 		// CORS : Bilinmeyen/Saldırgan sitelerden gelen isteklerin reddi için
 		app.UseCors(PolicyDefaults.DefaultPolicyName);
@@ -209,7 +211,7 @@ internal class Program {
 		app.UseSession();
 
 		// Kimlik doğrulama protokollerini etkinleştirir.
-        app.UseAuthorization();
+		app.UseAuthorization();
 
 		// Yetkilendirme protokollerini etkinleştirir.
 		app.UseAuthorization();
@@ -221,8 +223,8 @@ internal class Program {
 			defaults: new { Controller = "Home", Action = "Index" }
 		);
 
-        #endregion
+		#endregion
 
-        app.Run();
-    }
+		app.Run();
+	}
 }

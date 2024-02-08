@@ -1,7 +1,9 @@
 using Application.Dtos.Auth;
+using Application.Interfaces.Service.Auth;
+using Application.Interfaces.Service.Hash;
+using Common.ResponseObjects;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UI.Extensions;
 
@@ -9,8 +11,9 @@ namespace UI.Controllers.Web.Admin;
 
 
 [AutoValidateAntiforgeryToken]
-public class AuthController : Controller {
-
+public class AuthController(IHashService hashService, ICustomAuthService customAuthService) : Controller {
+    private readonly IHashService _hashService = hashService;
+    private readonly ICustomAuthService _customAuthService = customAuthService;
 
     [HttpGet]
     public IActionResult SignIn() {
@@ -21,10 +24,17 @@ public class AuthController : Controller {
 
     [HttpPost]
     public async Task<IActionResult> SignIn(UserSignInDto model) {
-        // if (ModelState.IsValid) {
-        //     var response = await _mediator.Send(new SignInCommandRequest(model)); //Endpoint authorization için bu assembly'nin tipini de gönderdik.
-        //     return this.ResponseRedirectToActionForValidation(response, "SignIn", "Auth", model);
-        // }
+        if (ModelState.IsValid) {
+
+            model.Password = _hashService.GetHashSha3_512(model.Password);
+            
+            var response = await _customAuthService.SignInAsync(model);
+
+            if(response.ResponseType==ResponseType.Success){
+                RedirectToAction("SignIn", "Auth");
+            }
+
+        }
         return View(model);
     }
 
