@@ -27,11 +27,11 @@ public class AuthController(IHashService hashService, ICustomAuthService customA
         if (ModelState.IsValid) {
 
             model.Password = _hashService.GetHashSha3_512(model.Password);
-            
+
             var response = await _customAuthService.SignInAsync(model);
 
-            if(response.ResponseType==ResponseType.Success){
-                RedirectToAction("SignIn", "Auth");
+            if (response.ResponseType == ResponseType.Success) {
+                return RedirectToAction("SignIn", "Auth");
             }
 
         }
