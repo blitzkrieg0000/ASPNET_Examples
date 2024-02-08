@@ -214,7 +214,7 @@ internal class Program {
 		// Yetkilendirme protokollerini etkinleştirir.
 		app.UseAuthorization();
 
-		// Gelen istekleri verilen Route pattern doğrultusunda Controller'a yonlendirir.
+		// Gelen istekleri verilen Route pattern doğrultusunda Controller'a yönlendirir.
 		app.MapControllerRoute(
 			name: "default",
 			pattern: "{Controller}/{Action}/{id?}",
