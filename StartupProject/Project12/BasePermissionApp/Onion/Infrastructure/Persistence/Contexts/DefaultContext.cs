@@ -13,6 +13,7 @@ public class DefaultContext : DbContext {
     public DbSet<ApplicationUserRole> ApplicationUserRole => this.Set<ApplicationUserRole>();
     public DbSet<ApplicationUserClaim> ApplicationUserClaim => this.Set<ApplicationUserClaim>();
     public DbSet<ApplicationUserLogin> ApplicationUserLogin => this.Set<ApplicationUserLogin>();
+    public DbSet<ApplicationRoleMenu> ApplicationRoleMenu => this.Set<ApplicationRoleMenu>();
 
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) {

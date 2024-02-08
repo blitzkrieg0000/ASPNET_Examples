@@ -12,7 +12,7 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20240207230610_mig01")]
+    [Migration("20240208094851_mig01")]
     partial class mig01
     {
         /// <inheritdoc />
@@ -25,6 +25,36 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.Auth.ApplicationMenu", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DeletedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPersistent")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationMenu");
+                });
 
             modelBuilder.Entity("Domain.Entities.Auth.ApplicationRole", b =>
                 {
@@ -70,7 +100,7 @@ namespace Persistence.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 496, DateTimeKind.Utc).AddTicks(9408),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 710, DateTimeKind.Utc).AddTicks(8477),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -80,7 +110,7 @@ namespace Persistence.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 496, DateTimeKind.Utc).AddTicks(9430),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 710, DateTimeKind.Utc).AddTicks(8499),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -90,12 +120,60 @@ namespace Persistence.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 496, DateTimeKind.Utc).AddTicks(9443),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 710, DateTimeKind.Utc).AddTicks(8513),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Member"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Auth.ApplicationRoleMenu", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasColumnName("active")
+                        .HasDefaultValueSql("true");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_time")
+                        .HasDefaultValueSql("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC'::text)");
+
+                    b.Property<DateTime>("DeletedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_time");
+
+                    b.Property<bool>("IsPersistent")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_persistent");
+
+                    b.Property<Guid>("MenuId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("menu_id");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("modified_time");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("role_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "MenuId" }, "IX_ApplicationRoleMenu_menu_id");
+
+                    b.HasIndex(new[] { "RoleId" }, "IX_ApplicationRoleMenu_role_id");
+
+                    b.ToTable("ApplicationRoleMenu", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Auth.ApplicationUser", b =>
@@ -210,7 +288,7 @@ namespace Persistence.Migrations
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             AccessFailedCount = 0L,
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(6089),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(715),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "burakhansamli0.0.0.0@gmail.com",
                             EmailApproved = true,
@@ -222,7 +300,7 @@ namespace Persistence.Migrations
                             NormalizedName = "ROOT",
                             Password = "f3f5e898ed41cd8e0b3785bc5bba537deffe3889e525b30e72f947a27c2d2caf986f73663a308e97ba6f24323ce2929e6afe4b86204d93617c16000dd574a8e5",
                             PhoneNumberApproved = true,
-                            SecurityStampDate = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(6066),
+                            SecurityStampDate = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(691),
                             TwoFactorEnabled = true,
                             Username = "root"
                         },
@@ -231,7 +309,7 @@ namespace Persistence.Migrations
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             AccessFailedCount = 0L,
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(6139),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(817),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailApproved = true,
                             IsPersistent = true,
@@ -242,7 +320,7 @@ namespace Persistence.Migrations
                             NormalizedName = "ADMIN",
                             Password = "99ec526fe3e3f956acb4712b6bca88d918a3eb6d3e0a17634667e2775aad07ec1f8f84f8bbbf227eb5e0574177b13c8c30cc71b2d8e9bda722c023a81b754601",
                             PhoneNumberApproved = true,
-                            SecurityStampDate = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(6127),
+                            SecurityStampDate = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(804),
                             TwoFactorEnabled = true,
                             Username = "admin"
                         });
@@ -300,11 +378,11 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cfb94f63-4436-4668-83eb-bab186020cbd"),
+                            Id = new Guid("6734ae9a-d0a9-40e7-9fcd-4d08c092d97d"),
                             Active = true,
                             ClaimType = "ProfilePhoto",
                             ClaimValue = "asset/image/user.png",
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(2302),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 711, DateTimeKind.Utc).AddTicks(6903),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -312,11 +390,11 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dfbd781d-ad8c-42dd-a6c9-fb9a71c1b8ac"),
+                            Id = new Guid("a5d51d22-d786-4178-9cab-731cd03ffd02"),
                             Active = true,
                             ClaimType = "ProfilePhoto",
                             ClaimValue = "asset/image/user.png",
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 497, DateTimeKind.Utc).AddTicks(2330),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 711, DateTimeKind.Utc).AddTicks(6930),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -424,9 +502,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2912cbfc-ac43-4f5c-bee7-be017289b9c2"),
+                            Id = new Guid("91446eab-8998-4729-8733-2cfa319f47df"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 498, DateTimeKind.Utc).AddTicks(2849),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(8031),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -435,15 +513,34 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9fdbeedc-027b-40d6-b4ab-ccf244da160c"),
+                            Id = new Guid("56291db2-e8a6-4581-9f6a-8b8576457875"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 7, 23, 6, 10, 498, DateTimeKind.Utc).AddTicks(2876),
+                            CreatedTime = new DateTime(2024, 2, 8, 9, 48, 50, 712, DateTimeKind.Utc).AddTicks(8058),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
                             UserId = new Guid("00000000-0000-0000-0000-000000000002")
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Auth.ApplicationRoleMenu", b =>
+                {
+                    b.HasOne("Domain.Entities.Auth.ApplicationMenu", "Menu")
+                        .WithMany("ApplicationRoleMenus")
+                        .HasForeignKey("MenuId")
+                        .IsRequired()
+                        .HasConstraintName("applicationrolemenu_fk_2");
+
+                    b.HasOne("Domain.Entities.Auth.ApplicationRole", "Role")
+                        .WithMany("ApplicationRoleMenus")
+                        .HasForeignKey("RoleId")
+                        .IsRequired()
+                        .HasConstraintName("applicationrolemenu_fk_1");
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Domain.Entities.Auth.ApplicationUserClaim", b =>
@@ -488,8 +585,15 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Auth.ApplicationMenu", b =>
+                {
+                    b.Navigation("ApplicationRoleMenus");
+                });
+
             modelBuilder.Entity("Domain.Entities.Auth.ApplicationRole", b =>
                 {
+                    b.Navigation("ApplicationRoleMenus");
+
                     b.Navigation("ApplicationUserRoles");
                 });
 
