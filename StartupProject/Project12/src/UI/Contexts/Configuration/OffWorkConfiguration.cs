@@ -7,9 +7,7 @@ namespace UI.Contexts.Configuration;
 
 public class OffWorkConfiguration : IEntityTypeConfiguration<OffWork> {
     public void Configure(EntityTypeBuilder<OffWork> builder) {
-
-
-        builder.ToTable("off_work");
+        builder.ToTable("OffWork");
 
         builder.HasKey(x => x.Id);
 

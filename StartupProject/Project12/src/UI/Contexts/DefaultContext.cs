@@ -1,19 +1,23 @@
 using System.Reflection;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UI.Entity;
 using UI.Entity.Concrete.Employee;
 using UI.Entity.Concrete.Work;
 
-namespace Persistence.Contexts;
+namespace UI.Contexts;
 
 
-public class DefaultContext(DbContextOptions<DefaultContext> options) : DbContext(options) {
+public class DefaultContext(DbContextOptions<DefaultContext> options) : DbContext(options), IDataProtectionKeyContext {
 
     //! Auth
     public DbSet<Employee> Employee => this.Set<Employee>();
     public DbSet<EmployeeType> EmployeeType => this.Set<EmployeeType>();
     public DbSet<OffWork> OffWork => this.Set<OffWork>();
 
+    //!Data Protection Keys
+    public DbSet<DataProtectionKey> DataProtectionKeys => this.Set<DataProtectionKey>();
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.HasAnnotation("Relational:Collation", "en_US.utf8");
         //? Bilgi: "newsequentialid()" : Postgresql fonksiyonudur ve Guid değer üretir. Tablolara manuel ekleme yapılacaksa, Id sütununa default value olarak bu fonksiyon verilebilir. EFCore zaten hallediyor.

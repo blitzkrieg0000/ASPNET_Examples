@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -51,7 +52,21 @@ namespace UI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "employee_type",
+                name: "DataProtectionKeys",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FriendlyName = table.Column<string>(type: "text", nullable: true),
+                    Xml = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DataProtectionKeys", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeType",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -64,7 +79,7 @@ namespace UI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_employee_type", x => x.id);
+                    table.PrimaryKey("PK_EmployeeType", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,15 +135,15 @@ namespace UI.Migrations
                         principalTable: "ApplicationUser",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_Employee_employee_type_employee_type_id",
+                        name: "FK_Employee_EmployeeType_employee_type_id",
                         column: x => x.employee_type_id,
-                        principalTable: "employee_type",
+                        principalTable: "EmployeeType",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "off_work",
+                name: "OffWork",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -145,9 +160,9 @@ namespace UI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_off_work", x => x.id);
+                    table.PrimaryKey("PK_OffWork", x => x.id);
                     table.ForeignKey(
-                        name: "FK_off_work_Employee_EmployeeId",
+                        name: "FK_OffWork_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "id",
@@ -159,9 +174,9 @@ namespace UI.Migrations
                 columns: new[] { "id", "active", "created_time", "deleted_time", "is_persistent", "modified_time", "name" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(697), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SuperUser" },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(716), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(729), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Member" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), true, new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9504), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SuperUser" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), true, new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9523), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Admin" },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), true, new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9536), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Member" }
                 });
 
             migrationBuilder.InsertData(
@@ -169,8 +184,8 @@ namespace UI.Migrations
                 columns: new[] { "id", "active", "created_time", "deleted_time", "email", "is_persistent", "modified_time", "password", "phone_number", "user_name" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(3425), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "burakhansamli0.0.0.0@gmail.com", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f3f5e898ed41cd8e0b3785bc5bba537deffe3889e525b30e72f947a27c2d2caf986f73663a308e97ba6f24323ce2929e6afe4b86204d93617c16000dd574a8e5", null, "root" },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(3444), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "99ec526fe3e3f956acb4712b6bca88d918a3eb6d3e0a17634667e2775aad07ec1f8f84f8bbbf227eb5e0574177b13c8c30cc71b2d8e9bda722c023a81b754601", null, "admin" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), true, new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(2190), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "burakhansamli0.0.0.0@gmail.com", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f3f5e898ed41cd8e0b3785bc5bba537deffe3889e525b30e72f947a27c2d2caf986f73663a308e97ba6f24323ce2929e6afe4b86204d93617c16000dd574a8e5", null, "root" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), true, new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(2208), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "99ec526fe3e3f956acb4712b6bca88d918a3eb6d3e0a17634667e2775aad07ec1f8f84f8bbbf227eb5e0574177b13c8c30cc71b2d8e9bda722c023a81b754601", null, "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -178,8 +193,8 @@ namespace UI.Migrations
                 columns: new[] { "id", "active", "created_time", "deleted_time", "is_persistent", "modified_time", "role_id", "user_id" },
                 values: new object[,]
                 {
-                    { new Guid("77a49529-9553-4533-854e-ac6c6ce7b251"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(9676), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-000000000001") },
-                    { new Guid("a50d92e1-4868-4b7c-baca-580757248ac8"), true, new DateTime(2024, 2, 9, 14, 26, 31, 427, DateTimeKind.Utc).AddTicks(9702), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000002"), new Guid("00000000-0000-0000-0000-000000000002") }
+                    { new Guid("2dc03c58-3ca9-4948-a652-af50c74060f3"), true, new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(8652), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-000000000001") },
+                    { new Guid("a77f3d4a-061b-458a-8d49-8dedd52e04fd"), true, new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(8679), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000002"), new Guid("00000000-0000-0000-0000-000000000002") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -198,8 +213,8 @@ namespace UI.Migrations
                 column: "employee_type_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_off_work_EmployeeId",
-                table: "off_work",
+                name: "IX_OffWork_EmployeeId",
+                table: "OffWork",
                 column: "EmployeeId");
         }
 
@@ -210,7 +225,10 @@ namespace UI.Migrations
                 name: "ApplicationUserRole");
 
             migrationBuilder.DropTable(
-                name: "off_work");
+                name: "DataProtectionKeys");
+
+            migrationBuilder.DropTable(
+                name: "OffWork");
 
             migrationBuilder.DropTable(
                 name: "ApplicationRole");
@@ -222,7 +240,7 @@ namespace UI.Migrations
                 name: "ApplicationUser");
 
             migrationBuilder.DropTable(
-                name: "employee_type");
+                name: "EmployeeType");
         }
     }
 }

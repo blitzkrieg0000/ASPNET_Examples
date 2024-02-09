@@ -8,7 +8,7 @@ namespace UI.Contexts.Configuration;
 public class EmployeeTypeConfiguration : IEntityTypeConfiguration<EmployeeType> {
     public void Configure(EntityTypeBuilder<EmployeeType> builder) {
 
-        builder.ToTable("employee_type");
+        builder.ToTable("EmployeeType");
 
         builder.HasKey(x => x.Id);
 

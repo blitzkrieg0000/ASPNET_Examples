@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Persistence.Contexts;
 using UI.Const.Auth;
+using UI.Contexts;
 using UI.Extension;
 
 
@@ -41,7 +41,8 @@ internal class Program {
             .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration {
                 EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
                 ValidationAlgorithm = ValidationAlgorithm.HMACSHA512
-            }).SetApplicationName("WebApp");
+            }).SetApplicationName("WebApp")
+            .PersistKeysToDbContext<DefaultContext>();
         #endregion
 
 
