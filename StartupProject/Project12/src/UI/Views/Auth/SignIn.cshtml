@@ -1,0 +1,191 @@
+@model UserSignInDto
+
+@{
+    Layout = "_BlankLayout";
+}
+
+@section Head{
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Giriş</title>
+    <link rel="icon" type="image/x-icon" href="~/cork/src/assets/img/favicon.ico" />
+    <link href="~/cork/layouts/modern-dark-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/layouts/modern-dark-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <script src="~/cork/layouts/modern-dark-menu/loader.js"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="~/cork/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/cork/layouts/modern-dark-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/authentication/auth-boxed.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/cork/layouts/modern-dark-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/authentication/auth-boxed.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <link href="~/node_modules/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css">
+    <link href="~/node_modules/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css">
+}
+
+
+<!-- BEGIN LOADER -->
+<div id="load_screen">
+    <div class="loader">
+        <div class="loader-content">
+            <div class="spinner-grow align-self-center"></div>
+        </div>
+    </div>
+</div>
+<!--  END LOADER -->
+
+<div class="auth-container d-flex">
+
+    <div class="container mx-auto align-self-center">
+
+        <div class="row">
+
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                <div class="card mt-3 mb-3">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+
+                                <h2>Giriş Yap</h2>
+                                <p>Giriş yapmak için gerekli alanları doldurunuz.</p>
+
+                            </div>
+                            <form asp-action="SignIn" asp-controller="Auth" method="post" autocomplete="off">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Kullanıcı Adı
+                                            <span class="text-danger">*</span>
+                                            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                        </label>
+                                        <input asp-for="@Model.Username" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <label class="form-label">Parola
+                                            <span class="text-danger">*</span>
+                                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                        </label>
+
+                                        @await Component.InvokeAsync("HashedPasswordInput", new {@name = nameof(Model.Password)})
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <div class="form-check form-check-primary form-check-inline">
+                                            <input class="form-check-input me-3" type="checkbox" id="form-check-default" asp-for="@Model.Remember">
+                                            <label class="form-check-label" for="form-check-default">
+                                                Beni Hatırla
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <button class="btn btn-secondary w-100" type="submit">GİRİŞ YAP</button>
+                                    </div>
+                                    <div>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            @* <div class="col-12 mb-4">
+                            <div class="">
+                            <div class="seperator">
+                            <hr>
+                            <div class="seperator-text"> <span>Or continue with</span></div>
+                            </div>
+                            </div>
+                            </div>
+
+                            <div class="col-sm-4 col-12">
+                            <div class="mb-4">
+                            <button class="btn btn-social-login w-100 ">
+                            <img src="~/cork/src/assets/img/google-gmail.svg" alt="" class="img-fluid">
+                            <span class="btn-text-inner">Google</span>
+                            </button>
+                            </div>
+                            </div>
+
+                            <div class="col-sm-4 col-12">
+                            <div class="mb-4">
+                            <button class="btn btn-social-login w-100">
+                            <img src="~/cork/src/assets/img/github-icon.svg" alt="" class="img-fluid">
+                            <span class="btn-text-inner">Github</span>
+                            </button>
+                            </div>
+                            </div>
+
+                            <div class="col-sm-4 col-12">
+                            <div class="mb-4">
+                            <button class="btn btn-social-login w-100">
+                            <img src="~/cork/src/assets/img/twitter.svg" alt="" class="img-fluid">
+                            <span class="btn-text-inner">Twitter</span>
+                            </button>
+                            </div>
+                            </div> *@
+
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <p class="mb-0"><a asp-action="ResetPassword" asp-controller="Auth" class="text-warning">Parolamı Unuttum</a></p>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <p class="mb-0">Hesabınız yok mu ?<a asp-action="SignUp" asp-controller="Auth" class="text-warning">Kaydol</a></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section Script{
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="~/cork/src/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    @* Hash *@
+    <script src="~/node_modules/js-sha3/build/sha3.min.js"></script>
+    <script src="~/asset/js/HashModule.js"></script>
+
+    @* Validation *@
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/node_modules/alertifyjs/build/alertify.min.js"></script>
+    <script>
+        alertify.set('notifier', 'position', 'top-right');
+    </script>
+    <script>
+        var message = '@ViewData["ResponseMessage"]';
+        if (message.length > 0) {
+            var notification = alertify.notify(message, 'message', 5, function () {
+            });
+        }
+    </script>
+}
+

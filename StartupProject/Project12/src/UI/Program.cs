@@ -207,16 +207,11 @@ internal class Program {
         // Enforce Https
         app.UseHttpsRedirection();
 
-        // Dışarıya açılan dosya tipinin hangi content ile gönderileceği belirlenir. (application/x-www-form-urlencoded, text/plain vs...)
-        var contextTypeProvider = new FileExtensionContentTypeProvider();
 
         // wwwroot klasörünü erişime açar.
+        var contextTypeProvider = new FileExtensionContentTypeProvider();
         app.UseStaticFiles(new StaticFileOptions() {
-            ContentTypeProvider = contextTypeProvider,
-            // OnPrepareResponse = ctx => { // Browser'a cache'i ne kadar tutacağını söyler. Statik dosyalar için önemlidir.
-            //     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
-            //     ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddDays(30).ToString("R", CultureInfo.InvariantCulture));
-            // }
+            ContentTypeProvider = contextTypeProvider
         });
 
         // node_modules klasörünü erişime açar.
