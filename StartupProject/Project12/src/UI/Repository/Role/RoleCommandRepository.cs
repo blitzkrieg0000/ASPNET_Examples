@@ -6,5 +6,4 @@ namespace UI.Repositories.Role;
 
 
 public class RoleCommandRepository(DefaultContext context) : CommandRepository<ApplicationRole>(context), IRoleCommandRepository {
-
 }

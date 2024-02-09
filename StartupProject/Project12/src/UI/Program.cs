@@ -114,8 +114,6 @@ internal class Program {
             opt.LogoutPath = new PathString("/Auth/LogOut");
             opt.AccessDeniedPath = new PathString("/Auth/AccessDenied");
         });
-
-
         #endregion
 
 
