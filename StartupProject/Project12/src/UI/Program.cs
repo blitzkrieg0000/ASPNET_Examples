@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.Reflection;
+using Infrastructure.Services.Hash;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
@@ -8,9 +10,20 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Persistence.Services.Auth;
+using UI.Abstraction.Repository;
+using UI.Abstraction.Repository.Role;
+using UI.Abstraction.Repository.User;
+using UI.Abstraction.Repository.UserRole;
+using UI.Abstraction.Service.Auth;
+using UI.Abstraction.Service.Hash;
 using UI.Const.Auth;
 using UI.Contexts;
 using UI.Extension;
+using UI.Repositories;
+using UI.Repositories.Role;
+using UI.Repositories.User;
+using UI.Repository.UserRole;
 
 
 internal class Program {
@@ -166,8 +179,33 @@ internal class Program {
         #endregion
 
 
+        #region AutoMapper
+        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        #endregion
+
+
         #region ContextAccessor
         builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+        #endregion
+
+        #region Service Registration
+        //! Respositories
+        builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
+        builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
+        builder.Services.AddScoped<IUserCommandRepository, UserCommandRepository>();
+        builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+        builder.Services.AddScoped<IRoleQueryRepository, RoleQueryRepository>();
+        builder.Services.AddScoped<IRoleCommandRepository, RoleCommandRepository>();
+        builder.Services.AddScoped<IUserRoleQueryRepository, UserRoleQueryRepository>();
+        builder.Services.AddScoped<IUserRoleCommandRepository, UserRoleCommandRepository>();
+
+        //! Internal Services
+        builder.Services.AddScoped<ICustomAuthService, CustomAuthService>();
+        builder.Services.AddScoped<IUserManagerService, UserManagerService>();
+        builder.Services.AddScoped<IRoleManagerService, RoleManagerService>();
+
+        //! External Services
+        builder.Services.AddScoped<IHashService, HashService>();
         #endregion
 
 
@@ -179,7 +217,6 @@ internal class Program {
             );
         });
         #endregion
-
 
         ////Builder
         #endregion
