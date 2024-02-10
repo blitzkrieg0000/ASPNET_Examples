@@ -12,18 +12,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Persistence.Services.Auth;
 using UI.Abstraction.Repository;
+using UI.Abstraction.Repository.Employee;
 using UI.Abstraction.Repository.Role;
 using UI.Abstraction.Repository.User;
 using UI.Abstraction.Repository.UserRole;
 using UI.Abstraction.Service.Auth;
+using UI.Abstraction.Service.Employee;
 using UI.Abstraction.Service.Hash;
+using UI.Abstraction.Service.Work;
 using UI.Const.Auth;
 using UI.Contexts;
 using UI.Extension;
 using UI.Repositories;
 using UI.Repositories.Role;
 using UI.Repositories.User;
+using UI.Repository.Employee;
 using UI.Repository.UserRole;
+using UI.Service.Employee;
+using UI.Service.Work;
 
 
 internal class Program {
@@ -198,11 +204,16 @@ internal class Program {
         builder.Services.AddScoped<IRoleCommandRepository, RoleCommandRepository>();
         builder.Services.AddScoped<IUserRoleQueryRepository, UserRoleQueryRepository>();
         builder.Services.AddScoped<IUserRoleCommandRepository, UserRoleCommandRepository>();
+        builder.Services.AddScoped<IEmployeeQueryRepository, EmployeeQueryRepository>();
+        builder.Services.AddScoped<IEmployeeCommandRepository, EmployeeCommandRepository>();
 
         //! Internal Services
         builder.Services.AddScoped<ICustomAuthService, CustomAuthService>();
         builder.Services.AddScoped<IUserManagerService, UserManagerService>();
         builder.Services.AddScoped<IRoleManagerService, RoleManagerService>();
+
+        builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+        builder.Services.AddScoped<IOffWorkService, OffWorkService>();
 
         //! External Services
         builder.Services.AddScoped<IHashService, HashService>();

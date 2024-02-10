@@ -185,7 +185,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="~/@User.GetCurrentUserPP()" class="rounded-circle">
+                                <img alt="avatar" src="~/asset/image/user.png" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -270,7 +270,7 @@
                 <div class="profile-info">
                     <div class="user-info">
                         <div class="profile-img">
-                            <img src="~/@User.GetCurrentUserPP()" alt="avatar">
+                            <img src="~/asset/image/user.png" alt="avatar">
                         </div>
                         <div class="profile-content">
                             <h6 class="">@User?.Identity?.Name</h6>
@@ -388,7 +388,7 @@
                                         <polyline points="2 17 12 22 22 17"></polyline>
                                         <polyline points="2 12 12 17 22 12"></polyline>
                                     </svg>
-                                    <span>Haber & Duyuru</span>
+                                    <span>Personel Yönetimi</span>
                                 </div>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
@@ -401,106 +401,18 @@
                             <ul class="collapse submenu list-unstyled" id="news" data-bs-parent="#accordionExample">
 
                                 <li>
-                                    <a asp-action="List" asp-controller="NewsAnnouncement"> Haber Listesi </a>
+                                    <a asp-action="List" asp-controller="Employee"> Personel Listesi </a>
                                 </li>
 
 
                                 <li>
-                                    <a asp-action="Create" asp-controller="NewsAnnouncement"> Haber Ekle </a>
-                                </li>
-
-
-                                <li>
-                                    <a asp-action="List" asp-controller="NewsAnnouncementCategory"> Kategori Listesi </a>
-                                </li>
-
-
-                                <li>
-                                    <a asp-action="Create" asp-controller="NewsAnnouncementCategory"> Kategori Ekle</a>
-                                </li>
-
-                            </ul>
-
-
-                        </li>
-
-
-
-                        <li class="menu">
-                            <a href="#grant" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                        <polyline points="2 17 12 22 22 17"></polyline>
-                                        <polyline points="2 12 12 17 22 12"></polyline>
-                                    </svg>
-                                    <span>Hibe & Destek</span>
-                                </div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
-                                </div>
-                            </a>
-
-                            <ul class="collapse submenu list-unstyled" id="grant" data-bs-parent="#accordionExample">
-
-                                <li>
-                                    <a asp-action="List" asp-controller="GrantSupport"> Hibe & Destek Listesi </a>
-                                </li>
-
-                                <li>
-                                    <a asp-action="Create" asp-controller="GrantSupport"> Hibe & Destek Ekle </a>
-                                </li>
-
-
-                                <li>
-                                    <a asp-action="List" asp-controller="GrantSupportCategory"> Kategori Listesi </a>
-                                </li>
-
-
-                                <li>
-                                    <a asp-action="Create" asp-controller="GrantSupportCategory"> Kategori Ekle </a>
+                                    <a asp-action="Create" asp-controller="Employee"> Personel Ekle </a>
                                 </li>
 
                             </ul>
 
                         </li>
 
-
-                        <li class="menu">
-                            <a href="#productGrowingSuggestion" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                        <polyline points="2 17 12 22 22 17"></polyline>
-                                        <polyline points="2 12 12 17 22 12"></polyline>
-                                    </svg>
-                                    <span>Yetiştirme Önerileri</span>
-                                </div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
-                                </div>
-                            </a>
-
-                            <ul class="collapse submenu list-unstyled" id="productGrowingSuggestion" data-bs-parent="#accordionExample">
-                                <li>
-                                    <a asp-action="List" asp-controller="ProductGrowingSuggestion"> Öneri Listesi </a>
-                                </li>
-                                <li>
-                                    <a asp-action="Create" asp-controller="ProductGrowingSuggestion"> Öneri Ekle </a>
-                                </li>
-                                <li>
-                                    <a asp-action="List" asp-controller="ProductGrowingSuggestionCategory"> Kategori Listesi </a>
-                                </li>
-                                <li>
-                                    <a asp-action="Create" asp-controller="ProductGrowingSuggestionCategory"> Kategori Ekle </a>
-                                </li>
-                            </ul>
-
-                        </li>
 
                     </ul>
                 </distributed-cache>

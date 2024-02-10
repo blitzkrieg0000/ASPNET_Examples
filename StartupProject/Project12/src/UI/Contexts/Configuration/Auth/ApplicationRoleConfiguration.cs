@@ -24,6 +24,30 @@ public class ApplicationRoleConfiguration : IEntityTypeConfiguration<Application
             Name = RoleDefaults.Member.Name,
             IsPersistent = true,
             Active = true
+        },
+        new ApplicationRole() {
+            Id = RoleDefaults.Manager.Id,
+            Name = RoleDefaults.Manager.Name,
+            IsPersistent = true,
+            Active = true
+        },
+        new ApplicationRole() {
+            Id = RoleDefaults.IT.Id,
+            Name = RoleDefaults.IT.Name,
+            IsPersistent = true,
+            Active = true
+        },
+        new ApplicationRole() {
+            Id = RoleDefaults.HumanResources.Id,
+            Name = RoleDefaults.HumanResources.Name,
+            IsPersistent = true,
+            Active = true
+        },
+        new ApplicationRole() {
+            Id = RoleDefaults.Employee.Id,
+            Name = RoleDefaults.Employee.Name,
+            IsPersistent = true,
+            Active = true
         });
 
         builder.ToTable("ApplicationRole");

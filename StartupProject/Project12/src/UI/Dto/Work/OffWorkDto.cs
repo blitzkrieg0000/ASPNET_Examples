@@ -1,7 +1,7 @@
 namespace UI.Dto.Work;
 
 
-public class OffWork : FixDto {
+public class OffWorkDto : FixDto {
     public Guid EmployeeId { get; set; }
     public DateTime OffStart { get; set; }
     public DateTime OffEnd { get; set; }

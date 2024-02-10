@@ -1,7 +1,7 @@
 namespace UI.Dto.Employee;
 
 
-public class Employee : FixDto {
+public class EmployeeDto : FixDto {
     public Guid EmployeeTypeId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }

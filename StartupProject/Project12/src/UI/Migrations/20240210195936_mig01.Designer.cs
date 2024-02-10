@@ -12,7 +12,7 @@ using UI.Contexts;
 namespace UI.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20240209150937_mig01")]
+    [Migration("20240210195936_mig01")]
     partial class mig01
     {
         /// <inheritdoc />
@@ -89,7 +89,7 @@ namespace UI.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9504),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(252),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -99,7 +99,7 @@ namespace UI.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9523),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(275),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -109,7 +109,7 @@ namespace UI.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 159, DateTimeKind.Utc).AddTicks(9536),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(288),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -174,7 +174,7 @@ namespace UI.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(2190),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(3094),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "burakhansamli0.0.0.0@gmail.com",
                             IsPersistent = true,
@@ -186,7 +186,7 @@ namespace UI.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(2208),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(3113),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -245,9 +245,9 @@ namespace UI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2dc03c58-3ca9-4948-a652-af50c74060f3"),
+                            Id = new Guid("b19356ba-5e39-4abf-ad63-030df5717a9a"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(8652),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(9549),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -256,9 +256,9 @@ namespace UI.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a77f3d4a-061b-458a-8d49-8dedd52e04fd"),
+                            Id = new Guid("fd4aef32-60a7-4b4b-9801-9b22a0e0a33c"),
                             Active = true,
-                            CreatedTime = new DateTime(2024, 2, 9, 15, 9, 37, 160, DateTimeKind.Utc).AddTicks(8679),
+                            CreatedTime = new DateTime(2024, 2, 10, 19, 59, 36, 70, DateTimeKind.Utc).AddTicks(9578),
                             DeletedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPersistent = true,
                             ModifiedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -342,6 +342,10 @@ namespace UI.Migrations
                         .HasColumnName("active")
                         .HasDefaultValueSql("true");
 
+                    b.Property<Guid>("ApplicationRoleId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("application_role_id");
+
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -366,6 +370,8 @@ namespace UI.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationRoleId");
 
                     b.ToTable("EmployeeType", (string)null);
                 });
@@ -394,7 +400,8 @@ namespace UI.Migrations
                         .HasColumnName("deleted_time");
 
                     b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("employee_id");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("boolean")
@@ -468,6 +475,17 @@ namespace UI.Migrations
                     b.Navigation("EmployeeType");
                 });
 
+            modelBuilder.Entity("UI.Entity.Concrete.Employee.EmployeeType", b =>
+                {
+                    b.HasOne("UI.Entities.Auth.ApplicationRole", "ApplicationRole")
+                        .WithMany("EmployeeTypes")
+                        .HasForeignKey("ApplicationRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationRole");
+                });
+
             modelBuilder.Entity("UI.Entity.Concrete.Work.OffWork", b =>
                 {
                     b.HasOne("UI.Entity.Concrete.Employee.Employee", "Employee")
@@ -482,6 +500,8 @@ namespace UI.Migrations
             modelBuilder.Entity("UI.Entities.Auth.ApplicationRole", b =>
                 {
                     b.Navigation("ApplicationUserRoles");
+
+                    b.Navigation("EmployeeTypes");
                 });
 
             modelBuilder.Entity("UI.Entities.Auth.ApplicationUser", b =>

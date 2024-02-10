@@ -15,9 +15,11 @@ public class OffWorkConfiguration : IEntityTypeConfiguration<OffWork> {
         .HasColumnName("id")
         .ValueGeneratedOnAdd();
 
+        builder.Property(x => x.EmployeeId)
+        .HasColumnName("employee_id");
+
         builder.Property(x => x.IsApproved)
         .HasColumnName("is_approved");
-
 
         builder.Property(e => e.OffStart)
             .HasColumnType("timestamp with time zone")

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using UI.Const.Auth;
 using UI.Entity.Concrete.Employee;
 
 namespace UI.Contexts.Configuration;
@@ -10,6 +11,23 @@ public class EmployeeTypeConfiguration : IEntityTypeConfiguration<EmployeeType> 
 
         builder.ToTable("EmployeeType");
 
+        builder.HasData(new EmployeeType{
+            Name = RoleDefaults.Manager.Name,
+            ApplicationRoleId = RoleDefaults.Manager.Id
+        },
+        new EmployeeType{
+            Name = RoleDefaults.IT.Name,
+            ApplicationRoleId = RoleDefaults.IT.Id
+        },
+        new EmployeeType{
+            Name = RoleDefaults.HumanResources.Name,
+            ApplicationRoleId = RoleDefaults.HumanResources.Id
+        },
+        new EmployeeType{
+            Name = RoleDefaults.Employee.Name,
+            ApplicationRoleId = RoleDefaults.Employee.Id
+        });
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
@@ -18,6 +36,10 @@ public class EmployeeTypeConfiguration : IEntityTypeConfiguration<EmployeeType> 
 
         builder.Property(x => x.Name)
         .HasColumnName("name")
+        .IsRequired();
+
+        builder.Property(x=>x.ApplicationRoleId)
+        .HasColumnName("application_role_id")
         .IsRequired();
 
         builder.Property(e => e.CreatedTime)
