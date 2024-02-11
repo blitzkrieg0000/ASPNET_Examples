@@ -1,0 +1,9 @@
+@model SelectList
+@{
+    ViewData["SelectListName"] ??= "SelectedId";
+}
+
+@if (Model != null)
+{
+    <select class="form-select" asp-items="@Model" name="@ViewData["SelectListName"]"></select>
+}

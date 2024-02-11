@@ -13,6 +13,7 @@ using Microsoft.Extensions.FileProviders;
 using Persistence.Services.Auth;
 using UI.Abstraction.Repository;
 using UI.Abstraction.Repository.Employee;
+using UI.Abstraction.Repository.EmployeeType;
 using UI.Abstraction.Repository.Role;
 using UI.Abstraction.Repository.User;
 using UI.Abstraction.Repository.UserRole;
@@ -27,6 +28,7 @@ using UI.Repositories;
 using UI.Repositories.Role;
 using UI.Repositories.User;
 using UI.Repository.Employee;
+using UI.Repository.EmployeeType;
 using UI.Repository.UserRole;
 using UI.Service.Employee;
 using UI.Service.Work;
@@ -206,6 +208,8 @@ internal class Program {
         builder.Services.AddScoped<IUserRoleCommandRepository, UserRoleCommandRepository>();
         builder.Services.AddScoped<IEmployeeQueryRepository, EmployeeQueryRepository>();
         builder.Services.AddScoped<IEmployeeCommandRepository, EmployeeCommandRepository>();
+        builder.Services.AddScoped<IEmployeeTypeQueryRepository, EmployeeTypeQueryRepository>();
+        builder.Services.AddScoped<IEmployeeTypeCommandRepository, EmployeeTypeCommandRepository>();
 
         //! Internal Services
         builder.Services.AddScoped<ICustomAuthService, CustomAuthService>();

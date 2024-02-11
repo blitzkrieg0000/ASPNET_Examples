@@ -29,7 +29,7 @@ public class EmployeeController : Controller {
     [HttpPost]
     public async Task<IActionResult> Create(EmployeeCreateDto dto) {
         await _employeeService.CreateEmployeeAsync(dto);
-        return RedirectToAction("Index", "Employee");
+        return RedirectToAction("List", "Employee");
     }
 
 
@@ -42,6 +42,6 @@ public class EmployeeController : Controller {
     [HttpPost]
     public async Task<IActionResult> Update(EmployeeUpdateDto dto) {
         await _employeeService.UpdateEmployeeAsync(dto);
-        return RedirectToAction("Index", "Employee");
+        return RedirectToAction("List", "Employee");
     }
 }
