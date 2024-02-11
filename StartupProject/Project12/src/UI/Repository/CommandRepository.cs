@@ -99,7 +99,7 @@ public class CommandRepository<T>(DefaultContext context) : ICommandRepository<T
 
 
     public async ValueTask DisposeAsync() {
-        await _context.DisposeAsync();
+        await _transaction.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 
