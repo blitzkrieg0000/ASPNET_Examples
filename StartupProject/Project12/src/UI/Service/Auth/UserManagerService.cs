@@ -64,15 +64,15 @@ public class UserManagerService : IUserManagerService {
         }
 
         var newUser = _mapper.Map<ApplicationUser>(userSignUpDto);
-        // await _userCommandRepository.BeginTransactionAsync();
+        await _userCommandRepository.BeginTransactionAsync();
 
         /*BeginTransaction*/
         userSignUpDto.Id = await _userCommandRepository.CreateAsync(newUser);
         await _roleManagerService.AssignRoleByUserAsync(newUser.Id, RoleDefaults.Member.Id);
         /*EndTransaction*/
 
-        // await _userCommandRepository.CommitAsync();
-        await _userCommandRepository.SaveAsync();
+        await _userCommandRepository.CommitAsync();
+        //await _userCommandRepository.SaveAsync();
 
         return new(ResponseType.Success, userSignUpDto, "Kullanıcı Başarıyla Oluşturuldu.");
     }

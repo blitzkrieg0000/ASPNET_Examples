@@ -5,6 +5,6 @@ public interface IUnitOfWork : IAsyncDisposable {
 
     Task BeginTransactionAsync();
 
-    Task<bool> CommitAsync(bool state = true);
+    Task<bool> CommitAsync(bool state = true, bool dispose=false);
 
 }

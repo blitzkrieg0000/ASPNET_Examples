@@ -34,14 +34,16 @@ public class EmployeeService : IEmployeeService {
 
 
     public async Task<Response> CreateEmployeeAsync(EmployeeCreateDto dto) {
+        //TODO UserRole ve EmployeeType Rollerini Eşleştir.
+        //TODO Transaction ve Disposable UserManager davranışını kontrol et.
         dto.Password = _hashService.GetHashSha3_512(dto.Password);
 
         var employeeData = _mapper.Map<E::Employee>(dto);
         var userData = _mapper.Map<UserSignUpDto>(dto);
-
+        
         var responseUser = await _userManagerService.CreateUserAsync(userData);
         employeeData.Id = responseUser.Data.Id;
-        
+
         await _employeeCommandRepository.CreateAsync(employeeData);
         await _employeeCommandRepository.SaveAsync();
 

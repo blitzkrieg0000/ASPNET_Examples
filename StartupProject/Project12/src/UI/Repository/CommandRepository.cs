@@ -78,7 +78,7 @@ public class CommandRepository<T>(DefaultContext context) : ICommandRepository<T
 
 
     //! UNIT OF WORK
-    public async Task<bool> CommitAsync(bool state=true) {
+    public async Task<bool> CommitAsync(bool state=true, bool dispose=false) {
         //TODO DBContext içerisindeki state'e göre SaveAsync'i çalıştıran eventla birlikte kullanıldığında davranışını kontrol et.
         await SaveAsync();
         if (_transaction != null) {
@@ -88,7 +88,10 @@ public class CommandRepository<T>(DefaultContext context) : ICommandRepository<T
                 await _transaction.RollbackAsync();
             }
 
-            await DisposeAsync();
+            if (dispose) {
+                await DisposeAsync();
+            }
+            
             return true;
         }
         return false;
