@@ -1,11 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UI.Abstraction.Service.Employee;
+using UI.Attribute;
+using UI.Const.Auth;
 using UI.Dto.Employee;
 using UI.Extensions;
 
 namespace UI.Controllers.Web;
 
 
+[Authorize]
+[AutoValidateAntiforgeryToken]
 public class EmployeeController : Controller {
     private readonly IEmployeeService _employeeService;
 
@@ -13,7 +18,7 @@ public class EmployeeController : Controller {
         _employeeService = employeeService;
     }
 
-
+    [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources, AuthRoleDefaults.IT)]
     public async Task<IActionResult> List() {
         var response = await _employeeService.ListEmployeeAsync();
         return this.ResponseView(response);
@@ -21,12 +26,14 @@ public class EmployeeController : Controller {
 
 
     [HttpGet]
+    [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources)]
     public IActionResult Create() {
         return View(new EmployeeCreateDto());
     }
 
 
     [HttpPost]
+    [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources)]
     public async Task<IActionResult> Create(EmployeeCreateDto dto) {
         await _employeeService.CreateEmployeeAsync(dto);
         return RedirectToAction("List", "Employee");
@@ -34,14 +41,20 @@ public class EmployeeController : Controller {
 
 
     [HttpGet]
-    public IActionResult Update() {
-        return View(new EmployeeUpdateDto());
+    [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources, AuthRoleDefaults.IT)]
+    public async Task<IActionResult> Update(string id) {
+        var response = await _employeeService.GetByIdAsync(id);
+        return this.ResponseView(response);
     }
 
 
     [HttpPost]
+    [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources, AuthRoleDefaults.IT)]
     public async Task<IActionResult> Update(EmployeeUpdateDto dto) {
-        await _employeeService.UpdateEmployeeAsync(dto);
-        return RedirectToAction("List", "Employee");
+        if (ModelState.IsValid) {
+            await _employeeService.UpdateEmployeeAsync(dto);
+            return RedirectToAction("List", "Employee");
+        }
+        return this.View(dto);
     }
 }

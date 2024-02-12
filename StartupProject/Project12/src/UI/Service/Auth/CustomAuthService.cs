@@ -67,7 +67,6 @@ public class CustomAuthService : ICustomAuthService {
         //! Tüm giriş türleri için fix işlemler
         // Claims oluştur.
         var claims = await this.CreateClaimsViaUserAsync(entity);
-
         return await signInCallback(claims, remember);
     }
     #endregion

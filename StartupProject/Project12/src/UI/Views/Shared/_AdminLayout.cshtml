@@ -306,71 +306,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <RolePermission role=@RoleDefaults.SuperUser>
-                            <li class="menu menu-heading">
-                                <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    </svg><span>SUPER USER</span></div>
-                            </li>
 
-                            <li class="menu">
-                                <a href="#userMenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
-                                    <div class="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                            <polyline points="2 17 12 22 22 17"></polyline>
-                                            <polyline points="2 12 12 17 22 12"></polyline>
-                                        </svg>
-                                        <span>Kullanıcı Yönetimi</span>
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                            <polyline points="9 18 15 12 9 6"></polyline>
-                                        </svg>
-                                    </div>
-                                </a>
-                                <ul class="collapse submenu list-unstyled" id="userMenu" data-bs-parent="#accordionExample">
-
-                                    <li>
-                                        <a asp-action="List" asp-controller="User"> Kullanıcı Listesi </a>
-                                    </li>
-
-                                    <li>
-                                        <a asp-action="Create" asp-controller="User"> Kullanıcı Ekle </a>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                            <li class="menu">
-                                <a href="#roleMenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
-                                    <div class="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                            <polyline points="2 17 12 22 22 17"></polyline>
-                                            <polyline points="2 12 12 17 22 12"></polyline>
-                                        </svg>
-                                        <span>Rol Yönetimi</span>
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                            <polyline points="9 18 15 12 9 6"></polyline>
-                                        </svg>
-                                    </div>
-                                </a>
-                                <ul class="collapse submenu list-unstyled" id="roleMenu" data-bs-parent="#accordionExample">
-
-                                    <li>
-                                        <a asp-action="List" asp-controller="Role"> Rol Listesi </a>
-                                    </li>
-
-                                    <li>
-                                        <a asp-action="Create" asp-controller="Role"> Rol Ekle </a>
-                                    </li>
-
-                                </ul>
-                            </li>
-                        </RolePermission>
 
                         <li class="menu menu-heading">
                             <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus">
@@ -379,16 +315,52 @@
                             </div>
                         </li>
 
+                        <RolePermission role=@([RoleDefaults.Manager, RoleDefaults.HumanResources, RoleDefaults.IT])>
+                            <li class="menu">
+                                <a href="#employee" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                                    <div class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                            <polyline points="2 17 12 22 22 17"></polyline>
+                                            <polyline points="2 12 12 17 22 12"></polyline>
+                                        </svg>
+                                        <span>Personel Yönetimi</span>
+                                    </div>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </div>
+                                </a>
+
+
+                                <ul class="collapse submenu list-unstyled" id="employee" data-bs-parent="#accordionExample">
+
+                                    <li>
+                                        <a asp-action="List" asp-controller="Employee"> Personel Listesi </a>
+                                    </li>
+
+                                    <RolePermission role=@([RoleDefaults.Manager, RoleDefaults.HumanResources])>
+                                        <li>
+                                            <a asp-action="Create" asp-controller="Employee"> Personel Ekle </a>
+                                        </li>
+                                    </RolePermission>
+                                </ul>
+
+                            </li>
+                        </RolePermission>
+
+
 
                         <li class="menu">
-                            <a href="#news" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                            <a href="#employee" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
                                         <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                                         <polyline points="2 17 12 22 22 17"></polyline>
                                         <polyline points="2 12 12 17 22 12"></polyline>
                                     </svg>
-                                    <span>Personel Yönetimi</span>
+                                    <span>İzin Yönetimi</span>
                                 </div>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
@@ -398,17 +370,14 @@
                             </a>
 
 
-                            <ul class="collapse submenu list-unstyled" id="news" data-bs-parent="#accordionExample">
-
+                            <ul class="collapse submenu list-unstyled" id="employee" data-bs-parent="#accordionExample">
                                 <li>
-                                    <a asp-action="List" asp-controller="Employee"> Personel Listesi </a>
+                                    <a asp-action="List" asp-controller="WorkOff"> İzin Listesi </a>
                                 </li>
 
-
                                 <li>
-                                    <a asp-action="Create" asp-controller="Employee"> Personel Ekle </a>
+                                    <a asp-action="Create" asp-controller="WorkOff"> İzin Ekle </a>
                                 </li>
-
                             </ul>
 
                         </li>
