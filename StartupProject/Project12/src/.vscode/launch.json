@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "C#: UI [Default Configuration]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/UI/UI.csproj"
+        }
+    ]
+}

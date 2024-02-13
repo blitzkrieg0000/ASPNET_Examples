@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UI.Abstraction.Service.Work;
+using UI.Attribute;
+using UI.Const.Auth;
 using UI.Dto.Work;
 using UI.Extension;
 using UI.Extensions;
@@ -18,8 +20,10 @@ public class OffWorkController : Controller {
 
 
     [HttpGet]
-    public IActionResult Approve(Guid id) {
-        return View("List");
+    [Roles(AuthRoleDefaults.Manager)]
+    public async Task<IActionResult> Approve(Guid id) {
+        var response = await _offWorkService.ApproveOffWorkAsync(id);
+        return this.ResponseRedirectToAction(response, "List");
     }
 
 
@@ -38,7 +42,9 @@ public class OffWorkController : Controller {
 
     [HttpPost]
     public async Task<IActionResult> Create(OffWorkCreateDto dto) {
-        dto.EmployeeId = Guid.Parse(User.GetCurrentUserId());
+        if (!User.HasRoleAny(RoleDefaults.Admin, RoleDefaults.Manager)) {
+            dto.EmployeeId = Guid.Parse(User.GetCurrentUserId());
+        }
         var response = await _offWorkService.CreateOffWorkAsync(dto);
         return this.ResponseRedirectToActionForValidation(response, "List", dto);
     }

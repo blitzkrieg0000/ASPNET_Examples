@@ -20,8 +20,12 @@ public class OffWorkService : IOffWorkService {
     }
 
 
-    public Task<Response> ApproveOffWorkAsync(Guid id) {
-        throw new NotImplementedException();
+    public async Task<Response> ApproveOffWorkAsync(Guid id) {
+        var entity = await _offWorkQueryRepository.GetByIdAsync(id);
+        entity.IsApproved=true;
+        await _offWorkCommandRepository.UpdateAsync(entity);
+        await _offWorkCommandRepository.SaveAsync();
+        return new(ResponseType.Success, "Başarıyla Onaylandı.");
     }
 
 

@@ -27,6 +27,15 @@
     @* <input type="hidden" name="Secret" asp-for=@TempData["Secret"]> *@
 
 
+    <div class="col-md-12" roles=@([RoleDefaults.Manager, RoleDefaults.HumanResources])>
+        <label class="form-label">Personel Seç
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.EmployeeId" class="text-danger"></span>
+        </label>
+        @await Component.InvokeAsync("EmployeeDropdown")
+    </div>
+
+
     <div class="col-md-6">
         <label class="form-label">İzin Başlangıç</label>
         <input asp-for="@Model.OffStart" class="form-control">

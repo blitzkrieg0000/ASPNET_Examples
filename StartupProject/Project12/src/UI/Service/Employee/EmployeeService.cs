@@ -49,8 +49,12 @@ public class EmployeeService : IEmployeeService {
 
         var employeeData = _mapper.Map<E::Employee>(dto);
         var userData = _mapper.Map<UserSignUpDto>(dto);
-        
+
         var responseUser = await _userManagerService.CreateUserAsync(userData);
+        if (responseUser.ResponseType != ResponseType.Success){
+            return new(ResponseType.NotAllowed, responseUser.Message);
+        }
+        
         employeeData.Id = responseUser.Data.Id;
 
         await _employeeCommandRepository.CreateAsync(employeeData);
@@ -58,10 +62,10 @@ public class EmployeeService : IEmployeeService {
 
         var employeeWithType = await _employeeQueryRepository.GetQuery()
             .AsNoTracking()
-            .Where(x=>x.Id==employeeData.Id)
-            .Include(x=>x.EmployeeType)
+            .Where(x => x.Id == employeeData.Id)
+            .Include(x => x.EmployeeType)
             .FirstOrDefaultAsync();
-        
+
         await _roleManagerService.AssignRoleByUserAsync(userData.Id, employeeWithType.EmployeeType.ApplicationRoleId);
 
         return new(ResponseType.Success);
