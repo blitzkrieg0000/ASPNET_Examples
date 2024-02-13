@@ -35,8 +35,8 @@ public class EmployeeController : Controller {
     [HttpPost]
     [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources)]
     public async Task<IActionResult> Create(EmployeeCreateDto dto) {
-        await _employeeService.CreateEmployeeAsync(dto);
-        return RedirectToAction("List", "Employee");
+        var response = await _employeeService.CreateEmployeeAsync(dto);
+        return this.ResponseRedirectToActionForValidation(response, "List", dto);
     }
 
 
@@ -52,8 +52,8 @@ public class EmployeeController : Controller {
     [Roles(AuthRoleDefaults.Manager, AuthRoleDefaults.HumanResources, AuthRoleDefaults.IT)]
     public async Task<IActionResult> Update(EmployeeUpdateDto dto) {
         if (ModelState.IsValid) {
-            await _employeeService.UpdateEmployeeAsync(dto);
-            return RedirectToAction("List", "Employee");
+            var response = await _employeeService.UpdateEmployeeAsync(dto);
+            return this.ResponseRedirectToActionForValidation(response, "List", dto);
         }
         return this.View(dto);
     }

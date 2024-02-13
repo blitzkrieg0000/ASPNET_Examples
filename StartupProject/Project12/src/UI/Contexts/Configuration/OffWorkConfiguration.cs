@@ -31,6 +31,12 @@ public class OffWorkConfiguration : IEntityTypeConfiguration<OffWork> {
             .HasColumnName("off_end")
             .HasDefaultValueSql("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC'::text)");
 
+        builder.Property(e => e.TotalDayCount)
+            .HasColumnName("total_day_count");
+
+        builder.Property(e => e.TotalWeekdayCount)
+            .HasColumnName("total_weekday_count");
+
         builder.Property(e => e.CreatedTime)
             .HasColumnType("timestamp with time zone")
             .HasColumnName("created_time")

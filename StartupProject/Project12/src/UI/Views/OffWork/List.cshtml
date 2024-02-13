@@ -1,0 +1,169 @@
+@model List<OffWorkDto>
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "İzin Listesi";
+}
+
+@section Head {
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/src/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/light/table/datatable/custom_dt_custom.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="~/cork/src/plugins/css/dark/table/datatable/custom_dt_custom.css">
+
+    <link href="~/cork/src/plugins/src/animate/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/cork/src/assets/css/dark/components/modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/components/tabs.css" rel="stylesheet" type="text/css">
+
+
+    <link href="~/cork/src/assets/css/light/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+    <link href="~/cork/src/assets/css/dark/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+}
+
+
+@* Data Table *@
+<form id="dataTableForm" method="post" autocomplete="off">
+    <div class="row layout-spacing">
+
+        <div class="col-lg-12">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-content widget-content-area">
+                    <table id="style-3" class="table style-3 dt-table-hover">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-column text-center"> İsim </th>
+                                <th>İzin Başlangıç</th>
+                                <th>İzin Bitiş</th>
+                                <th class="text-center">İzin Gün Sayısı</th>
+                                <th class="text-center">İzin İş Günü Sayısı</th>
+                                <th class="text-center">Onay</th>
+                                <th class="text-center dt-no-sorting">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center"> @item.EmployeeFullName </td>
+                                    <td class="text-center">@item.OffStart</td>
+                                    <td class="text-center">@item.OffEnd</td>
+                                    <td class="text-center">@item.TotalDayCount</td>
+                                    <td class="text-center">@item.TotalWeekdayCount</td>
+
+                                    <td class="text-center">
+                                        @if (@item.IsApproved)
+                                        {
+                                            <span class='badge badge-success'>✓</span>
+                                        }
+                                        else
+                                        {
+                                            <span class='badge badge-danger'>x</span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <ul class="table-controls">
+                                            <li>
+                                                @* Approve Button *@
+                                                <a class="col-auto px-1 px-1 m-1 btn btn-outline-primary" asp-action="Approve" asp-route-id="@item.Id" draggable="false">
+                                                    <div class="icon-container">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                        </svg><span class="icon-name"></span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Script {
+    <script src="~/cork/src/plugins/src/table/datatable/datatables.js"></script>
+
+    @* Modal *@
+    @* <script src="~/asset/js/CustomModal.js"></script> *@
+    <script>
+        // Event Listener : "show.bs.modal"
+        const actionModal = document.getElementById('actionModal');
+        actionModal.addEventListener('show.bs.modal', event => {
+            //! Modal'ı tetikleyen button'u al
+            const button = event.relatedTarget;
+
+            //! Modal'ın butonunu güncelle
+            const approveButton = actionModal.querySelector('#approveButton');
+            approveButton.removeChild(approveButton.firstChild);
+            var cloneButton = button.cloneNode(true);
+            cloneButton.setAttribute("id", "approveButton")
+            cloneButton.removeAttribute("data-bs-target");
+            cloneButton.removeAttribute("data-bs-toggle");
+            if (!cloneButton.hasAttribute("href")) {
+                cloneButton.type = "post";
+            }
+            approveButton.replaceWith(cloneButton);
+        });
+    </script>
+
+
+    @* Data Table *@
+    <script>
+        c3 = $('#style-3').DataTable({
+            "dom": "<'dt--top-section'<'row'<'col-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+                "<'table-responsive'tr>",
+        @* + "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>", *@
+            "oLanguage": {
+            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+            "sInfo": "Gösterilen sayfa _PAGE_ of _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Sayfada ara",
+            "sLengthMenu": "Sonuçlar :  _MENU_",
+        },
+            "stripeClasses": [],
+            "lengthMenu": [],
+            "pageLength": 1000
+            });
+
+        multiCheck(c3);
+
+        //Create Butonu Ekle
+        var tableHeader = document.getElementsByClassName("dt--top-section");
+        var placeAt = tableHeader[0].getElementsByClassName("row");
+
+        var newButton = document.createElement("a");
+        newButton.setAttribute("class", "btn btn-success ");
+        newButton.draggable = false;
+        newButton.setAttribute("href", "/OffWork/Create");
+        newButton.innerText = "İzin Ekle";
+
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("class", "col-6 col-sm-6 d-flex justify-content-sm-start justify-content-center");
+        newDiv.appendChild(newButton);
+        placeAt[0].insertBefore(newDiv, placeAt[0].firstChild);
+    </script>
+
+    <script>
+        ChangeBreadcrumb({
+            primaryName: "İş İzinleri",
+            primaryLink: "/OffWork/List",
+            secondaryName: ""
+        });
+    </script>
+}

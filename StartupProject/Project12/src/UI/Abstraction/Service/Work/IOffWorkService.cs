@@ -6,8 +6,10 @@ namespace UI.Abstraction.Service.Work;
 
 public interface IOffWorkService {
 
-    Task<Response<List<OffWorkDto>>> ListEmployeeAsync();
+    Task<Response<List<OffWorkDto>>> ListOffWorkRelationalAsync();
 
-    Task<Response> CreateEmployeeAsync(OffWorkCreateDto employeeDto);
+    Task<Response> CreateOffWorkAsync(OffWorkCreateDto dto);
+
+    Task<Response> ApproveOffWorkAsync(Guid id);
 
 }

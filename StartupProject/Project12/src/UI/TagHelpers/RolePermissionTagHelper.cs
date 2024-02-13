@@ -5,9 +5,10 @@ using UI.Extension;
 namespace UI.TagHelpers.HasPermission;
 
 
-[HtmlTargetElement("RolePermission")]
+[HtmlTargetElement("roles")]
+[HtmlTargetElement(Attributes = nameof(Roles))]
 public class RolePermissionTagHelper : TagHelper {
-    public Role[] Role { get; set; }
+    public Role[] Roles { get; set; }
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public RolePermissionTagHelper(IHttpContextAccessor httpContextAccessor) {
@@ -15,7 +16,7 @@ public class RolePermissionTagHelper : TagHelper {
     }
 
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {
-        if (!(bool)_httpContextAccessor.HttpContext?.User.HasRoleAny(Role)) {
+        if (!(bool)_httpContextAccessor.HttpContext?.User.HasRoleAny(Roles)) {
             output.SuppressOutput();
         }
     }
